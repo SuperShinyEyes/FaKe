@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>FB Data store</title>
+  </head>
+  <body>
+    <h1>Welcome to Fata!</h1>
+    <h4>Fata stands for "Facebook daTa store"</h4>
+    <a href="{% url 'rango:register' %}">Join!</a>
+
+    <form id="login_form" action="/rango/login/" method="post">
+      {% csrf_token %}
+      Username: <input type="text" name="username" value="" size="50">
+      <br>
+      Password: <input type="password" name="password" value="" size="50">
+      <br>
+      <input type="submit" name="submit" value="">
+    </form>
+    
+  </body>
+</html>

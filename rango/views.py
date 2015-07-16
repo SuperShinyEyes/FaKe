@@ -166,6 +166,56 @@ def add_category(request):
 '''
 Each view must return a HttpResponse object.
 '''
+
+def welcome(reqeust):
+  if request.method == 'POST':
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+
+    # Use Django's machinery to attempt to see if the username/password
+    # combination is valid - a User object is returned if it is.
+    user = authenticate(username=username, password=password)
+
+    # If we have a User object, the details are correct.
+    # If None (Python's way of representing the absence of a value), no user
+    # with matching credentials was found.
+    if user:
+      # Is the account active? It could have been disabled.
+      if user.is_active:
+        # If the account is valid and active, we can log the user in.
+        # We'll send the user back to the homepage.
+        login(request, user)
+        return HttpResponseRedirect('/rango/home')
+      else:
+        # An inactive account was used - no logging in!
+        return HttpResponse("Your Rango account is disabled.")
+    else:
+      # Bad login details were provided. So we can't log the user in.
+      print "Invalid login details: {0}, {1}".format(username, password)
+      return HttpResponse("Invalid login details supplied.")
+
+  # The request is not a HTTP POST, so display the login form.
+  # This scenario would most likely be a HTTP GET.
+  else:
+    # No context variables to pass to the template system, hence the
+    # blank dictionary object...
+    return render(request, 'rango/welcome.html', {})
+
+@login_required
+def home(request):
+  return render(request, 'rango/home.html', {})
+
+def index(request):
+  '''
+  The index page is different for logged in users and anonymouse ones.
+  '''
+  if request.user.is_authenticated():
+    return render(request, 'rango/home.html', {})
+  else:
+    #return HttpResponseRedirect('/rango/login/')
+    return render(request, 'rango/welcome.html', {})
+
+'''
 def index(request):
   popular_categories = Category.objects.order_by('-likes')[:5]
   context = {'categories':popular_categories}
@@ -199,7 +249,7 @@ def index(request):
 
   return render(request, 'rango/index.html', context)
   #return HttpResponse("Rango says hey!<br/><a href='/rango/about'>About</a>")
-
+'''
 def about(request):
   sentence = "Rango says here is the about page. Go to <a href='/rango/'>home</a>"
   context = {'msg': sentence}
