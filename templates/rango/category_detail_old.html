@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% if category %}
+      <h1>{{ category.name }}</h1>
+      <ul>
+        <li>views: {{ category.views }}</li>
+        <li>likes: {{ category.likes }}</li>
+      </ul>
+    {% else %}
+      <strong>No pages</strong>
+    {% endif %}
+
+    {% if pages %}
+      <h2>Subitems</h2>
+      <ol>
+        {% for p in pages %}
+          <li>{{p.title}}</li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+  </body>
+</html>

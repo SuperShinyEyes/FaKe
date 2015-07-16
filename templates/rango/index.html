@@ -1,0 +1,23 @@
+{% extends "rango/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+  <body>
+    <h2>#Visit: {{ visits }}</h2>
+    {% if categories %}
+    <h2>The Top 5 Categories</h2>
+      <ul>
+        {% for c in categories %}
+          <li><a href="{% url 'rango:category' c.slug %}">{{c.name}}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <strong>There are no categories yet!</strong>
+    {% endif %}
+
+    <div class="">
+    <img src="{% static 'images/rango.png' %}" alt="Rango pic" />
+    </div>
+
+  </body>
+{% endblock %}
