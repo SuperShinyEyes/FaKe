@@ -1,0 +1,20 @@
+{% extends "rango/base.html" %}
+{% block body_block %}
+    <div class="container">
+    {% if header %}
+        <h2>
+            {{ header }}
+        </h2>
+    {% endif %}
+    {% if maintext %}
+        <p>
+            {{ maintext }}
+        </p>
+    {% endif %}
+    {% if url and urltext %}
+        <a href="{{ url }}">{{ urltext }}</a>
+    {% elif url %}
+        <a href="{{ url }}"></a>
+    {% endif %}
+    </div>
+{% endblock %}

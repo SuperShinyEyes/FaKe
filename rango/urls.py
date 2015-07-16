@@ -14,4 +14,8 @@ urlpatterns = [
   url(r'^logout/$', views.user_logout, name='user_logout'),
   url(r'^home/$', views.home, name='home'),
   url(r'^welcome/$', views.welcome, name='welcome'),
+  url(r'^my_settings/$', views.my_settings, name='my_settings'),
+  url(r'^edit_user_info/$', views.edit_user_info, name='edit_user_info'),
+  #url(r'^message/$', views.message, name='message'),
+  #url(r'^my_settings/$', views.my_settings, name='my_settings'),
 ]

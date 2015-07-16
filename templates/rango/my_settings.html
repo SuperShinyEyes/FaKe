@@ -1,0 +1,29 @@
+{% extends 'rango/base.html' %}
+
+{% block body_block %}
+  <body>
+    <h1>My Settings - {{ user.first_name }}</h1>
+
+    <ul>
+      <li>First name: {{ user.first_name }}</li>
+      <li>Last name: {{ user.last_name }}</li>
+      <li>Username: {{ user.username }}</li>
+      <li>Email address: {{ user.email }}</li>
+    </ul>
+
+    <form role="form" method="post">
+      {% csrf_token %}
+      <h3 id="changepw">Change password</h3>
+      {% for field in form %}
+      <div class="form-group">
+          {{ field.errors }}
+          {{ field.label_tag }} {{ field }}
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary" id="changepw2">Change password</button>
+    </form>
+
+
+    <li><a href="{% url 'rango:edit_user_info' %}">Edit</a></li>
+  </body>
+{% endblock %}

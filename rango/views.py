@@ -1,10 +1,70 @@
-from django.shortcuts import render, get_object_or_404
+from django.core.urlresolvers import reverse
+from django.template import RequestContext
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+
+@login_required
+def my_settings(request):
+  return render(request, 'rango/my_settings.html', {})
+
+@login_required
+def edit_user_info(request):
+  user = request.user
+  context = {'user':user}
+
+  return render(request, 'rango/edit_user_info.html', {})
+
+@login_required
+def my_settings(request):
+  user = request.user
+
+  # if request is GET, show the page, else try to change password
+  if request.method == 'GET':
+    form = PasswordChangeForm(user=user)
+    context = {"form": form}
+    return render_to_response("rango/my_settings.html", context, context_instance=RequestContext(request))
+
+    # if request is POST, change the password
+  elif request.method == 'POST':
+    form = PasswordChangeForm(user=user, data=request.POST)
+    if form.is_valid():
+      # if form is valid, it means old password was correct and new passwords are same
+      try:
+        # save the new password
+        new_password = form.clean_new_password2()
+        user.set_password(new_password)
+        user.save()
+
+        # render a message to the user that password is changed
+        context = {
+        "header": "Password changed successfully",
+        "maintext": "Next time login with your new password.",
+        "url": request.build_absolute_uri(reverse('rango:home')),
+        "urltext": "Back to home page"
+        }
+        return render_to_response("rango/message.html", context, context_instance=RequestContext(request))
+
+        # deliver an error message if something went wrong
+      except:
+        context = {
+        "header": "Password change failed",
+        "maintext": "Please contact us at mpgamestore@gmail.com.",
+        "url": request.build_absolute_uri(reverse('rango:home')),
+        "urltext": "Back to home page"
+        }
+        return render_to_response("rango/message.html", context, context_instance=RequestContext(request))
+
+    else:
+      context = {"form": form}
+      return render_to_response("rango/my_settings.html", context, context_instance=RequestContext(request))
+
+
 
 @login_required
 def restricted(request):
