@@ -171,7 +171,7 @@ def register(request):
   context = {'user_form':user_form, 'profile_form': profile_form, 'registered':registered}
   return render(request, 'rango/register.html', context)
 
-
+'''
 def add_page(request, category_name_slug):
 
   try:
@@ -198,6 +198,7 @@ def add_page(request, category_name_slug):
   context_dict = {'form':form, 'category': cat, 'category_name_slug': category_name_slug}
 
   return render(request, 'rango/add_page.html', context_dict)
+'''
 
 def add_category(request):
   # A HTTP POST?
@@ -316,10 +317,12 @@ def about(request):
   return render(request, 'rango/about.html', context)
   #return HttpResponse(sentence)
 
+'''
 def page_detail(request, page_id):
   page = get_object_or_404(Page, pk=page_id)
   context = {'page':page, 'page_id':page_id}
   return render(request, 'rango/page_detail.html', context)
+'''
 
 def category(request, category_name_slug):
   context = {}
@@ -327,8 +330,8 @@ def category(request, category_name_slug):
     category = Category.objects.get(slug=category_name_slug)
     context['category_name'] = category.name
     context['category_slug'] = category_name_slug
-    pages = category.page_set.all()
-    context['pages'] = pages
+    # pages = category.page_set.all()
+    # context['pages'] = pages
     context['category'] = category
   except Category.DoesNotExist:
     pass

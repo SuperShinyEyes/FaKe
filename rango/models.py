@@ -3,34 +3,6 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-class Category(models.Model):
-  """docstring for """
-  name = models.CharField(max_length=128, unique=True)
-  views = models.IntegerField(default=0)
-  likes = models.IntegerField(default=0)
-  slug = models.SlugField(unique=True)
-
-  def save(self, *args, **kwargs):
-    self.slug = slugify(self.name)
-    super(Category, self).save(*args, **kwargs)
-
-
-  def __str__(self):
-    return self.name
-
-  class Meta:
-    verbose_name_plural = "Categories"
-    ordering = ['name']
-
-class Page(models.Model):
-  category = models.ForeignKey(Category)
-  title = models.CharField(max_length=128)
-  url = models.URLField()
-  views = models.IntegerField(default=0)
-
-  def __str__(self):
-    return self.title
-
 class UserProfile(models.Model):
   user = models.OneToOneField(User)
 
@@ -42,6 +14,7 @@ class UserProfile(models.Model):
 
 
     # Create your models here.
+
 class Member(models.Model):
   ''' For both buyers and sellers.
       Extends default User class.
@@ -90,3 +63,63 @@ class Member(models.Model):
 
     sentence = "id: %s\nname: %s\ndate joined: %s\nlast_login: %s" % (self.user.get_username(), self.user.get_full_name(), self.user.date_joined, self.user.last_login)
     return sentence
+
+
+class Category(models.Model):
+  category_name = models.CharField(max_length=100, unique=True)
+  registered_time = models.DateTimeField(default=timezone.now, editable=False)
+  edited_time = models.DateTimeField(blank=True, null=True)
+
+  def update_edited_time(self):
+    self.edited_time = timezone.now()
+
+  def __str__(self):
+    sentence = "CATEGORY: %s\nRegistered at: %s" % (self.category_name, str(self.registered_time))
+    if self.edited_time:
+      sentence += "\nLast edit at: %s" % str(self.edited_time)
+    return sentence
+
+  class Meta:
+    ordering = ('category_name',)
+
+
+class Goods(models.Model):
+  categories = models.ManyToManyField(Category)
+  sellers = models.ForeignKey(Member)
+  name = models.CharField(max_length=30, blank=False, null=False)
+  product_num = models.CharField(max_length=200)
+
+  price = models.DecimalField(max_digits=7,decimal_places=2, blank=False, null=False)
+  stock = models.IntegerField(blank=False, null=False)
+  sold_amount = models.IntegerField(blank=False, null=False)
+  expiration_date = models.DateTimeField(blank=False, null=False)
+  delivery_fee = models.DecimalField(decimal_places=2,blank=False, null=False, max_digits=6)
+  #image = models.ImageField(verbose_name=None, name=None, width_field=None, height_field=None)
+  product_info = models.CharField(max_length=4000, blank=False, null=False)
+  status = models.BooleanField(blank=False, null=False)
+  due_date = models.DateTimeField(blank=False, null=False)
+  registeration_time = models.DateTimeField(default=timezone.now, editable=False)
+  # edited_time = models.DateTimeField(blank=True, null=True)
+
+  def update_edited_time(self):
+    self.edited_time = timezone.now()
+
+  def sold_out_process(self):
+    self.status = False
+    self.expiration_date = timezone.now()
+
+  def sold(self, amount):
+    if self.stock >= amount:
+      self.stock -= amount
+      self.sold_amount += amount
+
+      if self.stock == 0:
+        self.sold_out_process()
+
+      self.update_edited_time()
+    else:
+      sentence = "We don't have enough stock!\nStock: %d\nOrder: %d" % (self.stock, amount)
+      raise ValueError(sentence)
+
+  class Meta:
+    ordering = ('price',)
