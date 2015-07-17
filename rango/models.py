@@ -2,6 +2,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.utils import timezone
+from datetime import datetime, timedelta
+print timezone.now()
 
 class UserProfile(models.Model):
   user = models.OneToOneField(User)
@@ -83,23 +85,26 @@ class Category(models.Model):
     ordering = ('category_name',)
 
 
+def get_deadline():
+  return datetime.today() + timedelta(days=30)
+
 class Goods(models.Model):
   categories = models.ManyToManyField(Category)
-  sellers = models.ForeignKey(Member)
+  seller = models.ForeignKey(Member)
   name = models.CharField(max_length=30, blank=False, null=False)
   product_num = models.CharField(max_length=200)
 
   price = models.DecimalField(max_digits=7,decimal_places=2, blank=False, null=False)
   stock = models.IntegerField(blank=False, null=False)
-  sold_amount = models.IntegerField(blank=False, null=False)
-  expiration_date = models.DateTimeField(blank=False, null=False)
-  delivery_fee = models.DecimalField(decimal_places=2,blank=False, null=False, max_digits=6)
+  sold_amount = models.IntegerField(default=0)
+  expiration_date = models.DateTimeField(null=True)
+  #delivery_fee = models.DecimalField(decimal_places=2,blank=False, null=False, max_digits=6)
   #image = models.ImageField(verbose_name=None, name=None, width_field=None, height_field=None)
   product_info = models.CharField(max_length=4000, blank=False, null=False)
   status = models.BooleanField(blank=False, null=False)
-  due_date = models.DateTimeField(blank=False, null=False)
+  due_date = models.DateTimeField(default=get_deadline)
   registeration_time = models.DateTimeField(default=timezone.now, editable=False)
-  # edited_time = models.DateTimeField(blank=True, null=True)
+  edited_time = models.DateTimeField(blank=True, null=True)
 
   def update_edited_time(self):
     self.edited_time = timezone.now()
@@ -120,6 +125,17 @@ class Goods(models.Model):
     else:
       sentence = "We don't have enough stock!\nStock: %d\nOrder: %d" % (self.stock, amount)
       raise ValueError(sentence)
+
+  def get_category_names(self):
+    cat_names = []
+    for c in self.categories.all():
+      cat_names.append(c.category_name)
+    return '/'.join(cat_names)
+
+  def __unicode__(self):
+    cat_names = self.get_category_names()
+    sentence = "%s [%s] sold by %s" % (self.name, cat_names, self.seller.user.first_name)
+    return sentence
 
   class Meta:
     ordering = ('price',)
