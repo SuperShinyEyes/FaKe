@@ -132,6 +132,9 @@ class Goods(models.Model):
       cat_names.append(c.category_name)
     return '/'.join(cat_names)
 
+  def get_fields(self):
+    return [(field.name, field.value_to_string(self)) for field in Goods._meta.fields]
+
   def __unicode__(self):
     cat_names = self.get_category_names()
     sentence = "%s [%s] sold by %s" % (self.name, cat_names, self.seller.user.first_name)
@@ -139,3 +142,21 @@ class Goods(models.Model):
 
   class Meta:
     ordering = ('price',)
+
+class Orders(models.Model):
+  pass
+'''
+class Order(models.Model):
+  member = models.ForeignKey(Member)
+  member_id = member.pk
+  product = models.ForeignKey(Goods)
+  price = product.price
+  amount = models.IntegerField(default=1)
+
+  orders = models.ForeignKey(Orders)
+
+  purchased_date = models.DateTimeField(default=timezone.now, null=False)
+
+  def get_total_price(self):
+    return self.price * self.amount
+'''

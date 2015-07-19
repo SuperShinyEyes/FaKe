@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.contrib.auth.forms import PasswordChangeForm
@@ -8,6 +9,42 @@ from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+
+@login_required
+def product(request, product_id):
+  p = get_object_or_404(Goods, pk=product_id)
+  context = {'product':p}
+  return render(request, 'rango/product.html', context)
+
+@login_required
+def listing_ajax(request):
+  product_list = Goods.objects.all()
+  paginator = Paginator(product_list, 3)
+
+  page = 1
+  if request.is_ajax():
+    query = request.GET.get('page')
+    if query is not None:
+      page = query
+
+  try:
+    products = paginator.page(page)
+  except (EmptyPage, InvalidPage):
+    products = paginator.page(paginator.num_pages)
+  return render(request, 'rango/list_ajax.html', {'products':products})
+
+@login_required
+def listing(request, page):
+  product_list = Goods.objects.all()
+  paginator = Paginator(product_list, 3)
+
+  try:
+    products = paginator.page(page)
+  except PageNotAnInteger:
+    products = paginator.page(1)
+  except EmptyPage:
+    products = paginator.page(paginator.num_pages)
+  return render(request, 'rango/list.html', {'products':products})
 
 @login_required
 def my_settings(request):
@@ -126,10 +163,11 @@ def register(request):
     # Attempt to grab information from the raw form information.
     # Note that we make use of both UserForm and UserProfileForm.
     user_form = UserForm(data=request.POST)
-    profile_form = UserProfileForm(data=request.POST)
+    #profile_form = UserProfileForm(data=request.POST)
+    member_form = MemberForm(data=request.POST)
 
     # If the two forms are valid...
-    if user_form.is_valid() and profile_form.is_valid():
+    if user_form.is_valid() and member_form.is_valid():
       # Save the user's form data to the database.
       user = user_form.save()
 
@@ -141,7 +179,7 @@ def register(request):
       # Now sort out the UserProfile instance.
       # Since we need to set the user attribute ourselves, we set commit=False.
       # This delays saving the model until we're ready to avoid integrity problems.
-      profile = profile_form.save(commit=False)
+      profile = member_form.save(commit=False)
       profile.user = user
 
       # Did the user provide a profile picture?
@@ -159,17 +197,17 @@ def register(request):
     # Print problems to the terminal.
     # They'll also be shown to the user.
     else:
-        print user_form.errors, profile_form.errors
+        print user_form.errors, member_form.errors
 
   # Not a HTTP POST, so we render our form using two ModelForm instances.
   # These forms will be blank, ready for user input.
   else:
     user_form = UserForm()
-    profile_form = UserProfileForm()
+    member_form = MemberForm()
 
   # Render the template depending on the context.
-  context = {'user_form':user_form, 'profile_form': profile_form, 'registered':registered}
-  return render(request, 'rango/register.html', context)
+  context = {'user_form':user_form, 'member_form': member_form, 'registered':registered}
+  return render(request, 'rango/join.html', context)
 
 '''
 def add_page(request, category_name_slug):
@@ -274,7 +312,7 @@ def index(request):
     return render(request, 'rango/home.html', {})
   else:
     #return HttpResponseRedirect('/rango/login/')
-    return render(request, 'rango/welcome.html', {})
+    return render(request, 'rango/login.html', {})
 
 '''
 def index(request):

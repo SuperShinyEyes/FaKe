@@ -1,0 +1,33 @@
+{% extends 'rango/base.html' %}
+
+{% block body_block %}
+<div class="pagination">
+  <span class="step-links">
+    {% if products.has_previous %}
+    <a id="prev" href="?{{ urlquerystring_previous_page }}">previous</a>
+    {% else %}
+    <span style="visibility:hidden;">previous</span>
+    {% endif %}
+
+    <span class="current">
+      Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+    </span>
+
+    {% if object_list.has_next %}
+    <a id="next" href="?{{ urlquerystring_next_page }}">next</a>
+    {% else %}
+    <span style="visibility:hidden;">next</span>
+    {% endif %}
+  </span>
+</div>
+
+<form class="" id="action-selecter" action="{{ request.path }}" method="POST">
+
+  <div id="ajax_table_result">
+    <table class="w600" cellspacing="5">
+      <thead>
+        {% table_header headers %}
+      </thead>
+      <tbody>
+        ....
+{% endblock %}

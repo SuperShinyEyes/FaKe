@@ -1,0 +1,24 @@
+{% extends 'rango/base.html'%}
+
+{% block body_block %}
+
+  {% for p in products %}
+    <a href="{% url 'rango:product' p.id %}">{{ p.name }}</a><br>
+  {% endfor %}
+
+  <div class="pagination">
+    <span class="step-links">
+      {% if products.has_previous %}
+      <a href="{% url 'rango:listing' products.previous_page_number %}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ products.number }} of {{ products.paginator.num_pages }}.
+      </span>
+
+      {% if products.has_next %}
+      <a href="{% url 'rango:listing' products.next_page_number %}">next</a>
+      {% endif %}
+    </span>
+  </div>
+{% endblock %}

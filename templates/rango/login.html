@@ -1,20 +1,29 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Rango</title>
-  </head>
-  <body>
-    <h1>Log in to Rango</h1>
+{% extends 'rango/base_pre_login.html' %}
 
-    <form id="login_form" action="/rango/login/" method="post">
-      {% csrf_token %}
-      Username: <input type="text" name="username" value="" size="50">
-      <br>
-      Password: <input type="password" name="password" value="" size="50">
-      <br>
-      <input type="submit" name="submit" value="">
+{% block body%}
+<div class="container">
 
-    </form>
-  </body>
-</html>
+  <form class="form-signin" id="login_form" action="/rango/login/" method="post">
+    {% csrf_token %}
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" class="form-control" placeholder="Password" required>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+  <!-- <form class="form-signin" action="index.html" method="GET">
+    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Register">
+  </form> -->
+  <div class="form-signin">
+    Are you new? <a href="{% url 'rango:register' %}">Join</a> today!
+  </div>
+
+</div> <!-- /container -->
+
+{% endblock %}
