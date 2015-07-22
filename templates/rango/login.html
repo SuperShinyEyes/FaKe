@@ -3,6 +3,9 @@
 {% block body%}
 <div class="container">
 
+
+
+
   <form class="form-signin" id="login_form" action="/rango/login/" method="post">
     {% csrf_token %}
     <h2 class="form-signin-heading">Please sign in</h2>
@@ -23,7 +26,9 @@
   <div class="form-signin">
     Are you new? <a href="{% url 'rango:register' %}">Join</a> today!
   </div>
+</div>
 
-</div> <!-- /container -->
+
+
 
 {% endblock %}

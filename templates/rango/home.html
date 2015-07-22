@@ -1,9 +1,133 @@
-{% extends 'rango/base.html' %}
+{% extends 'rango/base_post_login.html' %}
 
 {% block body_block %}
   <body>
     <h2>Home!</h2>
 
+    <table class="table table-condensed">
+   <caption>Condensed Table Layout</caption>
+   <thead>
+      <tr>
+         <th>Name</th>
+         <th>City</th>
+         <th>Pincode</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>Tanmay</td>
+         <td>Bangalore</td>
+         <td>560001</td>
+      </tr>
+      <tr>
+         <td>Sachin</td>
+         <td>Mumbai</td>
+         <td>400003</td>
+      </tr>
+      <tr>
+         <td>Uma</td>
+         <td>Pune</td>
+         <td>411027</td>
+      </tr>
+   </tbody>
+</table>
 
+<table class="table table-hover">
+  <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
+   <caption>Hover Table Layout</caption>
+   <thead>
+      <tr>
+         <th>Name</th>
+         <th>City</th>
+         <th>Pincode</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>Tanmay</td>
+         <td>Bangalore</td>
+         <td>560001</td>
+      </tr>
+      <tr class="warning">
+         <td>Sachin</td>
+         <td>Mumbai</td>
+         <td>400003</td>
+      </tr>
+      <tr class="danger">
+         <td>Uma</td>
+         <td>Pune</td>
+         <td>411027</td>
+      </tr>
+   </tbody>
+</table>
+
+
+<table class="table">
+   <caption>Contextual Table Layout</caption>
+   <thead>
+      <tr>
+         <th>Product</th>
+         <th>Payment Date</th>
+         <th>Status</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr class="active">
+         <td>Product1</td>
+         <td>23/11/2013</td>
+         <td>Pending</td>
+      </tr>
+      <tr class="success">
+         <td>Product2</td>
+         <td>10/11/2013</td>
+         <td>Delivered</td>
+      </tr>
+      <tr  class="warning">
+         <td>Product3</td>
+         <td>20/10/2013</td>
+         <td>In Call to confirm</td>
+      </tr>
+      <tr  class="danger">
+         <td>Product4</td>
+         <td>20/10/2013</td>
+         <td>Declined</td>
+      </tr>
+   </tbody>
+</table>
+
+<div class="table-responsive">
+   <table class="table">
+      <caption>Responsive Table Layout</caption>
+      <thead>
+         <tr>
+            <th>Product</th>
+            <th>Payment Date</th>
+            <th>Status</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td>Product1</td>
+            <td>23/11/2013</td>
+            <td>Pending</td>
+         </tr>
+         <tr>
+            <td>Product2</td>
+            <td>10/11/2013</td>
+            <td>Delivered</td>
+         </tr>
+         <tr>
+            <td>Product3</td>
+            <td>20/10/2013</td>
+            <td>In Call to confirm</td>
+         </tr>
+         <tr>
+            <td>Product4</td>
+            <td>20/10/2013</td>
+            <td>Declined</td>
+         </tr>
+      </tbody>
+   </table>
+</div>
   </body>
 {% endblock %}
