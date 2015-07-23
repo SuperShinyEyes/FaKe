@@ -62,6 +62,7 @@
                   <li><a href="{% url 'rango:my_settings'%}">My settings</a></li>
 
                   {% if perms.rango.can_order %}
+                  <li><a href="{% url 'rango:my_cart' %}">My Cart</a></li>
                   <li><a href="{% url 'rango:my_orders' %}">My Order</a></li>
                   {% elif perms.rango.can_sell %}
                   <li><a href="#">My products</a></li>

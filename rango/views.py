@@ -15,12 +15,27 @@ from django.contrib.contenttypes.models import ContentType
 def is_seller(user_cls):
   return user_cls == '1'
 
+def add_product_to_cart(product, cart):
+  if product not in cart.products.all():
+    cart.products.add(product)
+    cart.save()
+
+
 @login_required
 def product(request, product_id):
   p = get_object_or_404(Goods, pk=product_id)
+  user = request.user
+  print 'user found'
   if request.method == 'GET':
     p.views += 1
     p.save()
+  elif request.method == 'POST' and user.user_permissions.filter(codename='can_order').exists():
+
+    cart = Cart.objects.get_or_create(user=user)[0]
+    print 'cart found'
+    add_product_to_cart(p, cart)
+    return HttpResponseRedirect(reverse('rango:my_cart'))
+
   context = {'product':p}
   return render(request, 'rango/product.html', context)
 
@@ -207,6 +222,20 @@ def update_user_groups_permission(user, member):
 
 def is_buyer(user):
   return user.groups.filter(name='buyer').exists()
+
+@login_required
+@user_passes_test(is_buyer)
+def my_cart(request):
+  user = request.user
+  cart = Cart.objects.get(user=user)
+  products = cart.products.all()
+
+  sum = 0
+  for p in products:
+    sum += p.price
+
+  context = {'products':products, 'sum':sum}
+  return render(request, 'rango/my_cart.html', context)
 
 @login_required
 @user_passes_test(is_buyer)

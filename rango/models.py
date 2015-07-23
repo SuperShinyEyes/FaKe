@@ -108,6 +108,7 @@ class Goods(models.Model):
   due_date = models.DateTimeField(default=get_deadline)
   registeration_time = models.DateTimeField(default=timezone.now, editable=False)
   edited_time = models.DateTimeField(blank=True, null=True)
+  #cart = models.ForeignKey(Cart, null=True)
 
   def update_edited_time(self):
     self.edited_time = timezone.now()
@@ -149,15 +150,21 @@ class Goods(models.Model):
     )
     ordering = ('price',)
 
+class Donkey(models.Model):
+  pass
+
+class Cart(models.Model):
+  user = models.OneToOneField(User)
+  products = models.ManyToManyField(Goods)
+
 class Orders(models.Model):
   pass
 
 class Order(models.Model):
-  member = models.ForeignKey(Member)
-  product = models.ForeignKey(Goods)
+  member = models.ForeignKey(Member, null=True)
+  product = models.ForeignKey(Goods, null=True)
   amount = models.IntegerField(default=1)
-  orders = models.ForeignKey(Orders)
-
+  orders = models.ForeignKey(Orders, null=True)
   purchased_date = models.DateTimeField(default=timezone.now, null=False)
 
   def get_total_price(self):

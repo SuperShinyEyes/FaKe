@@ -9,4 +9,11 @@
     {% endif %}
   {% endfor %}
 
+{% if perms.rango.can_order %}
+<form class="" method="post">
+  {% csrf_token %}
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Add to Cart</button>
+</form>
+{% endif %}
+
 {% endblock %}
