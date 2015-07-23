@@ -45,26 +45,30 @@
           </div>
 
           <div id="navbar" class="navbar-collapse collapse">
-
+            {% block navbar_store_active %}
             <ul class="nav navbar-nav">
-
-              <li class="active"><a href="{% url 'rango:listing' 1 %}">Store</a></li>
+              <li><a href="{% url 'rango:listing' 1 %}">Store</a></li>
               <li><a href="{% url 'rango:add_category' %}">Add a New Category</a></li>
               <li><a href="{% url 'rango:about' %}">About</a></li>
             </ul>
-
+            {% endblock %}
             <ul class="nav navbar-nav navbar-right">
               <!-- <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li> -->
               <!-- <li><a href="../navbar-static-top/">Static top</a></li> -->
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username}} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
+                  <!-- <li><a href="#">Action</a></li> -->
                   <li><a href="{% url 'rango:my_settings'%}">My settings</a></li>
-                  <li><a href="#">Something else here</a></li>
+
+                  {% if perms.rango.can_order %}
+                  <li><a href="{% url 'rango:my_orders' %}">My Order</a></li>
+                  {% elif perms.rango.can_sell %}
+                  <li><a href="#">My products</a></li>
+                  {% endif %}
+
                   <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
+                  <li class="dropdown-header">See you soon! ヽ(･∀･)ﾉ</li>
                   <li><a href="{% url 'rango:user_logout' %}">Logout</a></li>
                 </ul>
               </li>

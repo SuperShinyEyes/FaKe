@@ -1,5 +1,13 @@
 {% extends 'rango/base_post_login.html' %}
 
+{% block navbar_store_active %}
+<ul class="nav navbar-nav">
+  <li class="active"><a href="{% url 'rango:listing' 1 %}">Store</a></li>
+  <li><a href="{% url 'rango:add_category' %}">Add a New Category</a></li>
+  <li><a href="{% url 'rango:about' %}">About</a></li>
+</ul>
+{% endblock %}
+
 {% block body_block %}
 
 <table class="table table-hover">
@@ -11,7 +19,7 @@
         <th>Name</th>
         <th>Price</th>
         <th>Stock</th>
-        <th>Registered</th>
+        <th>On sale</th>
         <th>Due Date</th>
       </tr>
    </thead>
@@ -31,13 +39,13 @@
         <td><a href="{% url 'rango:product' p.id %}">{{ p.name }}</a></td>
         <td><a href="{% url 'rango:product' p.id %}">{{ p.price }}</a></td>
         <td><a href="{% url 'rango:product' p.id %}">{{ p.stock }}</a></td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.registration_time }}</a></td>
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.status }}</a></td>
         <td><a href="{% url 'rango:product' p.id %}">{{ p.due_date }}</a></td>
 
      </tr>
 
      {% endfor %}
-      
+
    </tbody>
 </table>
 

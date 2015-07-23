@@ -1,6 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.utils import timezone
 from datetime import datetime, timedelta
 print timezone.now()
@@ -25,6 +25,7 @@ class Member(models.Model):
         first_name(max_length=30)   - optional
         last_name(max_length=30)    - optional
         email                       - optional
+        groups                      - optional
         password:
           - A hash & metadata of the pw. (Django doesn't store the raw pw)
         date_joined
@@ -37,6 +38,7 @@ class Member(models.Model):
       For more, read: https://docs.djangoproject.com/en/1.8/ref/contrib/auth/
       '''
   user = models.OneToOneField(User)
+
   ## For a restricted set of choices, we use choices parameter.
   SELLER = '1'
   BUYER = '2'
@@ -97,6 +99,7 @@ class Goods(models.Model):
   price = models.DecimalField(max_digits=7,decimal_places=2, blank=False, null=False)
   stock = models.IntegerField(blank=False, null=False)
   sold_amount = models.IntegerField(default=0)
+  views = models.IntegerField(default=0)
   expiration_date = models.DateTimeField(null=True)
   #delivery_fee = models.DecimalField(decimal_places=2,blank=False, null=False, max_digits=6)
   #image = models.ImageField(verbose_name=None, name=None, width_field=None, height_field=None)
@@ -141,22 +144,26 @@ class Goods(models.Model):
     return sentence
 
   class Meta:
+    permissions = (
+      ('can_sell', 'Can sell products. Thus he is a seller'),
+    )
     ordering = ('price',)
 
 class Orders(models.Model):
   pass
-'''
+
 class Order(models.Model):
   member = models.ForeignKey(Member)
-  member_id = member.pk
   product = models.ForeignKey(Goods)
-  price = product.price
   amount = models.IntegerField(default=1)
-
   orders = models.ForeignKey(Orders)
 
   purchased_date = models.DateTimeField(default=timezone.now, null=False)
 
   def get_total_price(self):
-    return self.price * self.amount
-'''
+    return product.price * self.amount
+
+  class Meta:
+    permissions = (
+      ('can_order', 'Can make and view orders'),
+    )

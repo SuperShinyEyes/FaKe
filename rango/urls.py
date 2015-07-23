@@ -17,7 +17,9 @@ urlpatterns = [
   url(r'^my_settings/$', views.my_settings, name='my_settings'),
   url(r'^edit_user_info/$', views.edit_user_info, name='edit_user_info'),
   url(r'^listing/(?P<page>[0-9]+)/$', views.listing, name='listing'),
+  url(r'^my_orders/$', views.my_orders, name='my_orders'),
   url(r'^product/(?P<product_id>[0-9]+)/$', views.product, name='product'),
+  #url(r'^goto/$', views.track_url, name='goto'),
   #url(r'^message/$', views.message, name='message'),
   #url(r'^my_settings/$', views.my_settings, name='my_settings'),
 ]

@@ -7,12 +7,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from .models import *
 from .forms import *
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import datetime
+from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
+
+def is_seller(user_cls):
+  return user_cls == '1'
 
 @login_required
 def product(request, product_id):
   p = get_object_or_404(Goods, pk=product_id)
+  if request.method == 'GET':
+    p.views += 1
+    p.save()
   context = {'product':p}
   return render(request, 'rango/product.html', context)
 
@@ -46,9 +54,11 @@ def listing(request, page):
     products = paginator.page(paginator.num_pages)
   return render(request, 'rango/list.html', {'products':products})
 
+'''
 @login_required
 def my_settings(request):
   return render(request, 'rango/my_settings.html', {})
+'''
 
 @login_required
 def edit_user_info(request):
@@ -152,6 +162,57 @@ def user_login(request):
     # blank dictionary object...
     return render(request, 'rango/login.html', {})
 
+def get_group_name(user_cls):
+  groups = {'1':'seller', '2':'buyer'}
+  return groups[user_cls]
+
+def add_user_group(user, group):
+  '''
+  This is for authorization at views.
+  e.g., a buyer is not allowed to access 'My_products' views.
+  '''
+  if user not in group.user_set.all():
+    group.user_set.add(user)
+    group.save()
+  return True
+
+def add_user_permission(user):
+  '''
+  This is for authentication at HTML level.
+  e.g., buyer and seller should have different HTML interfaces.
+  http://stackoverflow.com/a/9479717/3067013
+  '''
+  if user.groups.filter(name='buyer').exists():
+    codename = 'can_order'
+  else:
+    codename = 'can_sell'
+  permission = Permission.objects.get(codename=codename)
+  user.user_permissions.add(permission)
+  user.save()
+
+
+def update_user_groups_permission(user, member):
+  group_name = get_group_name(member.user_cls)
+  try:
+    group = Group.objects.get_or_create(name=group_name)[0]
+  except AttributeError as e:
+    print ">>>>> ERROR in update_user_groups"
+    print e
+    user.delete()
+    return False
+  else:
+    add_user_group(user, group)
+    add_user_permission(user)
+    return True
+
+def is_buyer(user):
+  return user.groups.filter(name='buyer').exists()
+
+@login_required
+@user_passes_test(is_buyer)
+def my_orders(request):
+  return HttpResponse("content=b'', *args, **kwargs")
+
 def register(request):
 
   # A boolean value for telling the template whether the registration was successful.
@@ -189,6 +250,9 @@ def register(request):
 
       # Now we save the UserProfile model instance.
       profile.save()
+
+      # Added by Seyoung. Updates user group
+      update_user_groups_permission(user, profile)
 
       # Update our variable to tell the template registration was successful.
       registered = True
@@ -303,6 +367,8 @@ def welcome(reqeust):
 @login_required
 def home(request):
   return render(request, 'rango/home.html', {})
+
+
 
 def index(request):
   '''
