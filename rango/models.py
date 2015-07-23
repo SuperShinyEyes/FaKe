@@ -157,18 +157,26 @@ class Cart(models.Model):
   user = models.OneToOneField(User)
   products = models.ManyToManyField(Goods)
 
-class Orders(models.Model):
-  pass
-
 class Order(models.Model):
-  member = models.ForeignKey(Member, null=True)
-  product = models.ForeignKey(Goods, null=True)
-  amount = models.IntegerField(default=1)
-  orders = models.ForeignKey(Orders, null=True)
+  '''
+  custome id: timezone.now().strftime("%Y%B%d")
+  '''
+  id = models.charField(max_length=20, primary_key=True)
+  user = models.OneToOneField(User)
+  products = models.ManyToManyField(Goods)
+  # amount = models.IntegerField(default=1)
+  # orders = models.ForeignKey(Orders, null=True)
   purchased_date = models.DateTimeField(default=timezone.now, null=False)
+  is_delivered = models.BooleanField(default=False)
 
   def get_total_price(self):
-    return product.price * self.amount
+    sum = 0
+    for p in self.products.all():
+      sum += p.price
+    return sum
+
+  def get_is_delivered(self):
+    return self.is_delivered
 
   class Meta:
     permissions = (
