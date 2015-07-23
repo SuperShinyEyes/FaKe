@@ -184,3 +184,13 @@ class Order(models.Model):
     permissions = (
       ('can_order', 'Can make and view orders'),
     )
+
+class Sales(models.Model):
+  user = models.OneToOneField(User)
+  products = models.ManyToManyField(Goods)
+
+  def get_revenue(self):
+    revenue = 0
+    for p in products.all():
+      revenue += p.price * (p.sold_amount)
+    return revenue
