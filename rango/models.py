@@ -159,7 +159,7 @@ class Cart(models.Model):
 
 class Order(models.Model):
   '''
-  custome id: timezone.now().strftime("%Y%B%d")
+  custome id: timezone.now().strftime("%Y%B%d") + username
   '''
   id = models.charField(max_length=20, primary_key=True)
   user = models.OneToOneField(User)
@@ -168,6 +168,8 @@ class Order(models.Model):
   # orders = models.ForeignKey(Orders, null=True)
   purchased_date = models.DateTimeField(default=timezone.now, null=False)
   is_delivered = models.BooleanField(default=False)
+  # Run Cron to handle it!!!
+  is_closed = models.BooleanField(default=False)
 
   def get_total_price(self):
     sum = 0
