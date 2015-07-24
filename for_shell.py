@@ -28,4 +28,8 @@ ted = User.objects.get(username='ted')
 ted.product_set.all()
 
 for p in Product.objects.all():
-  print p.seller
+  print p.order_set.all()
+product = Product.objects.all()[0]
+buyers = [order.user for order in product.order_set.all()]
+
+product = Product.objects.get(product_num=2)

@@ -16,14 +16,14 @@
    <tbody>
     {% for order in orders %}
 
-    {% if order.get_is_paid %}<tr class='success'>
+    {% if order.is_paid %}<tr class='success'>
     {% else %}<tr>{% endif %}
 
         <td><a href="{% url 'rango:order_detail' order.id %}">{{ order.id }}</a></td>
         <td><a href="{% url 'rango:order_detail' order.id %}">{{ order.get_product_names }}</a></td>
-        <td><a href="{% url 'rango:order_detail' order.id %}">{{ order.get_is_paid }}
+        <td><a href="{% url 'rango:order_detail' order.id %}">{{ order.is_paid }}
 
-        {% if order.get_is_paid %}
+        {% if order.is_paid %}
         ( {{ order.get_paid_date }} )
         {% endif %}
 

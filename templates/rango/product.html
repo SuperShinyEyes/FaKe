@@ -2,18 +2,61 @@
 
 {% block body_block %}
 
-
+<table class="table">
+  <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
+  <caption>Product Detail</caption>
   {% for name, value in product.get_fields %}
     {% if value %}
-      {{ name }} => {{ value }}<br>
+    {% if name == "status" and value %}
+    <tr class='success'>
+    {% elif name == "status" and not value %}
+    <tr class='danger'>
+    {% else %}
+    <tr>
+    {% endif%}
+      <th>{{ name }}</th>
+      <td>{{ value }}</td>
+    </tr>
+
     {% endif %}
   {% endfor %}
 
-{% if perms.rango.can_order %}
+</table>
+
+{% if perms.rango.can_order and not bought %}
 <form class="" method="post">
   {% csrf_token %}
   <button class="btn btn-lg btn-primary btn-block" type="submit">Add to Cart</button>
 </form>
+{% elif perms.rango.can_order %}
+<button class="btn btn-lg btn-primary btn-block" type="reset">Already bought!</button>
+{% elif perms.rango.can_sell %}
+<button class="btn btn-lg btn-primary btn-block" type="reset">Edit</button>
+
+<table class="table">
+  <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
+  <caption>Buyers</caption>
+  <thead>
+     <tr>
+       <th>ID</th>
+       <th>Name</th>
+       <th>e-mail</th>
+       <th>Purchase Date</th>
+     </tr>
+  </thead>
+  <tbody>
+   {% for buyer, date in buyers_data %}
+    <tr>
+      <td>{{buyer.get_username}}</td>
+      <td>{{buyer.get_full_name}}</td>
+      <td>{{buyer.email}}</td>
+      <td>{{date}}</td>
+    </tr>
+
+    {% endfor %}
+
+  </tbody>
+</table>
 {% endif %}
 
 {% endblock %}

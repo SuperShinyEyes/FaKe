@@ -65,7 +65,7 @@
                   <li><a href="{% url 'rango:my_cart' %}">My Cart</a></li>
                   <li><a href="{% url 'rango:my_orders' %}">My Order</a></li>
                   {% elif perms.rango.can_sell %}
-                  <li><a href="#">My products</a></li>
+                  <li><a href="{% url 'rango:my_products' %}">My products</a></li>
                   {% endif %}
 
                   <li role="separator" class="divider"></li>

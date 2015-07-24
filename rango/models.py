@@ -71,14 +71,14 @@ class UserProfile(models.Model):
 
 class Category(models.Model):
   category_name = models.CharField(max_length=100, unique=True)
-  registered_time = models.DateTimeField(default=timezone.now, editable=False)
+  registeration_time = models.DateTimeField(default=timezone.now, editable=False)
   edited_time = models.DateTimeField(blank=True, null=True)
 
   def update_edited_time(self):
     self.edited_time = timezone.now()
 
   def __str__(self):
-    sentence = "CATEGORY: %s\nRegistered at: %s" % (self.category_name, str(self.registered_time))
+    sentence = "CATEGORY: %s\nRegistered at: %s" % (self.category_name, str(self.registeration_time))
     if self.edited_time:
       sentence += "\nLast edit at: %s" % str(self.edited_time)
     return sentence
@@ -89,6 +89,10 @@ class Category(models.Model):
 
 def get_deadline():
   return datetime.today() + timedelta(days=30)
+
+def get_date(datetime):
+  return datetime.strftime('%Y.%B.%d')
+
 
 class Product(models.Model):
   categories = models.ManyToManyField(Category)
@@ -110,6 +114,9 @@ class Product(models.Model):
   edited_time = models.DateTimeField(blank=True, null=True)
   #cart = models.ForeignKey(Cart, null=True)
 
+  def get_original_stock(self):
+    return self.stock + self.sold_amount
+
   def update_edited_time(self):
     self.edited_time = timezone.now()
 
@@ -130,11 +137,22 @@ class Product(models.Model):
       sentence = "We don't have enough stock!\nStock: %d\nOrder: %d" % (self.stock, amount)
       # raise ValueError(sentence)
 
+  def get_registration_date(self):
+    return get_date(self.registeration_time)
+
+  def get_due_date(self):
+    return get_date(self.due_date)
+
+  def get_revenue(self):
+    pass
+
   def get_category_names(self):
-    cat_names = []
-    for c in self.categories.all():
-      cat_names.append(c.category_name)
-    return '/'.join(cat_names)
+    names = [c.category_name for c in self.categories.all()]
+    return '/'.join(names)
+    # cat_names = []
+    # for c in self.categories.all():
+    #   cat_names.append(c.category_name)
+    # return '/'.join(cat_names)
 
   def get_fields(self):
     return [(field.name, field.value_to_string(self)) for field in Product._meta.fields]
@@ -173,12 +191,6 @@ class Order(models.Model):
 
   def get_total_price(self):
     return sum([p.price for p in self.products.all()])
-
-  def get_is_delivered(self):
-    return self.is_delivered
-
-  def get_is_paid(self):
-    return self.is_paid
 
   def get_product_names(self):
     names = [p.name for p in self.products.all()]

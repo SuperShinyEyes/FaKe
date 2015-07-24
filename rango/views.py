@@ -12,31 +12,55 @@ from datetime import datetime
 from django.contrib.auth.models import Group, Permission
 from django.contrib import messages
 
-def is_seller(user_cls):
-  return user_cls == '1'
+def is_seller(user):
+  return user.groups.filter(name='seller').exists()
+
+def is_buyer(user):
+  return user.groups.filter(name='buyer').exists()
 
 def add_product_to_cart(product, cart):
   if product not in cart.products.all():
     cart.products.add(product)
     cart.save()
 
+def get_product_buyers_with_paid_date(product):
+  return [(order.user, order.paid_date) for order in product.order_set.all()]
+
+def is_product_in_order(order, product):
+  return product in order.products.all()
+
+def already_bought(user, product):
+  orders = user.order_set.all()
+  for o in orders:
+    if is_product_in_order(o, product):
+      return True
+  return False
 
 @login_required
 def product(request, product_id):
-  p = get_object_or_404(Product, pk=product_id)
+  product = get_object_or_404(Product, pk=product_id)
   user = request.user
   print 'user found'
   if request.method == 'GET':
-    p.views += 1
-    p.save()
+    product.views += 1
+    product.save()
   elif request.method == 'POST' and user.user_permissions.filter(codename='can_order').exists():
 
     cart = Cart.objects.get_or_create(user=user)[0]
     print 'cart found'
-    add_product_to_cart(p, cart)
+    add_product_to_cart(product, cart)
     return HttpResponseRedirect(reverse('rango:my_cart'))
 
-  context = {'product':p}
+  context = {'product':product}
+  if already_bought(user, product):
+    context['bought'] = True
+
+  if is_seller(user):
+    print "Yes he is a seller"
+    buyers_data = get_product_buyers_with_paid_date(product)
+    print buyers_data
+    context['buyers_data'] = buyers_data
+
   return render(request, 'rango/product.html', context)
 
 @login_required
@@ -221,9 +245,6 @@ def update_user_groups_permission(user, member):
     add_user_permission(user)
     return True
 
-def is_buyer(user):
-  return user.groups.filter(name='buyer').exists()
-
 def make_order(user, product_ids):
   '''
   example id: u'2015July24-004731-sam'
@@ -246,6 +267,14 @@ def empty_cart(product_ids, cart):
   for id in product_ids:
     product = Product.objects.get(pk=id)
     cart.products.remove(product)
+
+@login_required
+@user_passes_test(is_seller)
+def my_products(request):
+  user = request.user
+  products = user.product_set.all()
+  context = {'products':products}
+  return render(request, 'rango/my_products.html', context)
 
 
 @login_required
@@ -286,7 +315,7 @@ def order_detail(request, order_id):
     return HttpResponseRedirect('/rango/my_orders')
 
   total_price = order.get_total_price()
-  context = {'products':order.products.all(), 'sum':total_price, 'is_paid':order.get_is_paid()}
+  context = {'products':order.products.all(), 'sum':total_price, 'is_paid':order.is_paid}
   return render(request, 'rango/order_detail.html', context)
 
 

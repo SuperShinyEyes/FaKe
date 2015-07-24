@@ -87,6 +87,7 @@ def populate():
   print sellers
 
   add_product(cs, sellers[0], name='World', product_num='1234', price=10000, stock=10, product_info="Everything", status=True, )
+  add_product(cs, sellers[0], name='Seoul', product_num='10', price=400, stock=1, product_info="#Seoul", status=True, )
   add_product((cs[0],cs[2],cs[6],cs[7]), sellers[1], name='Viral music which European men likes', product_num='10', price=200, stock=10, product_info="You will see what music men in certain continent likes", status=True, )
   add_product([cs[7]], sellers[2], name='Music', product_num='9', price=10, stock=10, product_info="Everything about music", status=True, )
   add_product((cs[1],cs[3],cs[5]), sellers[3], name='Asia, Film and women', product_num='3', price=500, stock=10, product_info="Dynamics about Asian Film and women", status=True, )

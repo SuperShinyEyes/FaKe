@@ -22,6 +22,7 @@ urlpatterns = [
   url(r'^my_orders/(?P<order_id>[\w\-]+)/$', views.order_detail, name='order_detail'),
   url(r'^product/(?P<product_id>[0-9]+)/$', views.product, name='product'),
   url(r'^my_cart/$', views.my_cart, name='my_cart'),
+  url(r'^my_products/$', views.my_products, name='my_products'),
 
   #url(r'^goto/$', views.track_url, name='goto'),
   #url(r'^message/$', views.message, name='message'),

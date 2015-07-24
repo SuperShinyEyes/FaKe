@@ -1,0 +1,40 @@
+{% extends 'rango/base_post_login.html' %}
+
+{% block body_block %}
+
+<table class="table table-hover">
+  <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
+   <caption>Product list</caption>
+   <thead>
+      <tr>
+        <th>Pr No.</th>
+        <th>Categories</th>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Registered date</th>
+        <th>Closing date</th>
+        <th>Stock</th>
+      </tr>
+   </thead>
+   <tbody>
+    {% for product in products %}
+
+    {% if not product.status %}<tr class='danger'>
+    {% else %}<tr>{% endif %}
+
+        <td><a href="{% url 'rango:product' product.pk %}">{{ product.product_num }}</a></td>
+        <td><a href="{% url 'rango:product' product.pk %}">{{ product.get_category_names }}</a></td>
+        <td><a href="{% url 'rango:product' product.pk %}">{{ product.name }}</a></td>
+        <td><a href="{% url 'rango:product' product.pk %}">{{ product.price }}</a></td>
+        <td><a href="{% url 'rango:product' product.pk %}">{{ product.get_registration_date }}</a></td>
+        <td><a href="{% url 'rango:product' product.pk %}">{{ product.get_due_date }}</a></td>
+        <td><a href="{% url 'rango:product' product.pk %}">{{ product.stock }}/{{ product.get_original_stock }}</a></td>
+        <td><a href="{% url 'rango:product' product.pk %}">{{ product. }}</a></td>
+        <td><a href="{% url 'rango:product' product.pk %}">{{ product. }}</a></td>
+
+
+    </tr>
+     {% endfor %}
+</table>
+
+{% endblock %}
