@@ -7,26 +7,31 @@
    <caption>Order list</caption>
    <thead>
       <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Due Date</th>
+        <th>Order id</th>
+        <th>Products</th>
+        <th>Paid</th>
+        <th>Delivered</th>
       </tr>
    </thead>
    <tbody>
-    {% for p in products %}
-    <tr>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.name }}</a></td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.price }}</a></td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.due_date }}</a></td>
+    {% for order in orders %}
+
+    {% if order.get_is_paid %}<tr class='success'>
+    {% else %}<tr>{% endif %}
+
+        <td><a href="{% url 'rango:order_detail' order.id %}">{{ order.id }}</a></td>
+        <td><a href="{% url 'rango:order_detail' order.id %}">{{ order.get_product_names }}</a></td>
+        <td><a href="{% url 'rango:order_detail' order.id %}">{{ order.get_is_paid }}
+
+        {% if order.get_is_paid %}
+        ( {{ order.get_paid_date }} )
+        {% endif %}
+
+        </a></td>
+        <td><a href="{% url 'rango:order_detail' order.id %}">{{ order.is_delivered }}</a></td>
 
     </tr>
      {% endfor %}
-    <tr>
-      <td>Sum</td>
-      <td>{{ sum }}</td>
-      <td></td>
-    </tr>
-   </tbody>
 </table>
 
 {% endblock %}

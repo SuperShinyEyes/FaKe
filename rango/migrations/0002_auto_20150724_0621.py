@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('rango', '0018_auto_20150723_0824'),
+        ('rango', '0001_initial'),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='cart',
-            old_name='product',
-            new_name='goods',
+            model_name='order',
+            old_name='purchased_date',
+            new_name='paid_date',
         ),
     ]

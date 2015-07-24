@@ -10,7 +10,7 @@ from .forms import *
 from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import datetime
 from django.contrib.auth.models import Group, Permission
-from django.contrib.contenttypes.models import ContentType
+from django.contrib import messages
 
 def is_seller(user_cls):
   return user_cls == '1'
@@ -23,7 +23,7 @@ def add_product_to_cart(product, cart):
 
 @login_required
 def product(request, product_id):
-  p = get_object_or_404(Goods, pk=product_id)
+  p = get_object_or_404(Product, pk=product_id)
   user = request.user
   print 'user found'
   if request.method == 'GET':
@@ -41,7 +41,7 @@ def product(request, product_id):
 
 @login_required
 def listing_ajax(request):
-  product_list = Goods.objects.all()
+  product_list = Product.objects.all()
   paginator = Paginator(product_list, 3)
 
   page = 1
@@ -58,7 +58,7 @@ def listing_ajax(request):
 
 @login_required
 def listing(request, page):
-  product_list = Goods.objects.all()
+  product_list = Product.objects.all()
   paginator = Paginator(product_list, 3)
 
   try:
@@ -145,6 +145,7 @@ def user_login(request):
     # We use request.POST.get('<variable>') as opposed to request.POST['<variable>'],
     # because the request.POST.get('<variable>') returns None, if the value does not exist,
     # while the request.POST['<variable>'] will raise key error exception
+    print ">>>> Value:", request.POST
     username = request.POST.get('username')
     password = request.POST.get('password')
 
@@ -223,24 +224,80 @@ def update_user_groups_permission(user, member):
 def is_buyer(user):
   return user.groups.filter(name='buyer').exists()
 
+def make_order(user, product_ids):
+  '''
+  example id: u'2015July24-004731-sam'
+  '''
+  now = timezone.now()
+  id = now.strftime("%Y%B%d") + '-' + now.strftime("%H%M%S") + '-' + user.username
+  order = Order(id=id, user=user)
+  order.save()
+  print product_ids
+  for p_id in product_ids:
+    product = Product.objects.get(pk=p_id)
+    order.products.add(product)
+  order.save()
+  return id
+
+def get_total_price(products):
+  return sum([p.price for p in products])
+
+def empty_cart(product_ids, cart):
+  for id in product_ids:
+    product = Product.objects.get(pk=id)
+    cart.products.remove(product)
+
+
 @login_required
 @user_passes_test(is_buyer)
 def my_cart(request):
   user = request.user
   cart = Cart.objects.get(user=user)
-  products = cart.products.all()
+  if request.method == 'POST':
+    product_ids = request.POST.getlist('product_id')
+    empty_cart(product_ids, cart)
+    # print ">>>> key: ", request.POST
+    # print ">>>> simple get: ", request.POST.get('product')
+    # print ">>>> getlist([]): ", request.POST.getlist('product[]')
+    # print ">>>> getlist(): ", request.POST.getlist('product')
+    # for p in products:
+    #   print p
+    id = make_order(user, product_ids)
+    print id
+    messages.add_message(request, messages.INFO, id)
+    return HttpResponseRedirect('/rango/my_orders/' + id)
 
-  sum = 0
-  for p in products:
-    sum += p.price
+  else:
+    products = cart.products.all()
+    sum = get_total_price(products)
+    context = {'products':products, 'sum':sum}
+    return render(request, 'rango/my_cart.html', context)
 
-  context = {'products':products, 'sum':sum}
-  return render(request, 'rango/my_cart.html', context)
+
+
+@login_required
+@user_passes_test(is_buyer)
+def order_detail(request, order_id):
+  order = get_object_or_404(Order, id=order_id)
+
+  if request.method == 'POST':
+    order.pay()
+    order.save()
+    return HttpResponseRedirect('/rango/my_orders')
+
+  total_price = order.get_total_price()
+  context = {'products':order.products.all(), 'sum':total_price, 'is_paid':order.get_is_paid()}
+  return render(request, 'rango/order_detail.html', context)
+
 
 @login_required
 @user_passes_test(is_buyer)
 def my_orders(request):
-  return HttpResponse("content=b'', *args, **kwargs")
+  user = request.user
+  orders = user.order_set.all()
+  print ">>>>> DEBUGGING:", user.username, orders
+  context = {'orders':orders}
+  return render(request, 'rango/my_orders.html', context)
 
 def register(request):
 
@@ -254,10 +311,10 @@ def register(request):
     # Note that we make use of both UserForm and UserProfileForm.
     user_form = UserForm(data=request.POST)
     #profile_form = UserProfileForm(data=request.POST)
-    member_form = MemberForm(data=request.POST)
+    userprofile_form = UserProfileForm(data=request.POST)
 
     # If the two forms are valid...
-    if user_form.is_valid() and member_form.is_valid():
+    if user_form.is_valid() and userprofile_form.is_valid():
       # Save the user's form data to the database.
       user = user_form.save()
 
@@ -269,7 +326,7 @@ def register(request):
       # Now sort out the UserProfile instance.
       # Since we need to set the user attribute ourselves, we set commit=False.
       # This delays saving the model until we're ready to avoid integrity problems.
-      profile = member_form.save(commit=False)
+      profile = userprofile_form.save(commit=False)
       profile.user = user
 
       # Did the user provide a profile picture?
@@ -290,16 +347,16 @@ def register(request):
     # Print problems to the terminal.
     # They'll also be shown to the user.
     else:
-        print user_form.errors, member_form.errors
+        print user_form.errors, userprofile_form.errors
 
   # Not a HTTP POST, so we render our form using two ModelForm instances.
   # These forms will be blank, ready for user input.
   else:
     user_form = UserForm()
-    member_form = MemberForm()
+    userprofile_form = UserProfileForm()
 
   # Render the template depending on the context.
-  context = {'user_form':user_form, 'member_form': member_form, 'registered':registered}
+  context = {'user_form':user_form, 'userprofile_form': userprofile_form, 'registered':registered}
   return render(request, 'rango/join.html', context)
 
 '''

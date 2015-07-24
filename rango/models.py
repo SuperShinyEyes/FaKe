@@ -5,7 +5,7 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 print timezone.now()
 
-class UserProfile(models.Model):
+class OldProfile(models.Model):
   user = models.OneToOneField(User)
 
   website=models.URLField(blank=True)
@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 
     # Create your models here.
 
-class Member(models.Model):
+class UserProfile(models.Model):
   ''' For both buyers and sellers.
       Extends default User class.
       The User() has following Fields:
@@ -90,9 +90,9 @@ class Category(models.Model):
 def get_deadline():
   return datetime.today() + timedelta(days=30)
 
-class Goods(models.Model):
+class Product(models.Model):
   categories = models.ManyToManyField(Category)
-  seller = models.ForeignKey(Member)
+  seller = models.ForeignKey(User)
   name = models.CharField(max_length=30, blank=False, null=False)
   product_num = models.CharField(max_length=200)
 
@@ -117,7 +117,7 @@ class Goods(models.Model):
     self.status = False
     self.expiration_date = timezone.now()
 
-  def sold(self, amount):
+  def sold(self, amount=1):
     if self.stock >= amount:
       self.stock -= amount
       self.sold_amount += amount
@@ -128,7 +128,7 @@ class Goods(models.Model):
       self.update_edited_time()
     else:
       sentence = "We don't have enough stock!\nStock: %d\nOrder: %d" % (self.stock, amount)
-      raise ValueError(sentence)
+      # raise ValueError(sentence)
 
   def get_category_names(self):
     cat_names = []
@@ -137,11 +137,11 @@ class Goods(models.Model):
     return '/'.join(cat_names)
 
   def get_fields(self):
-    return [(field.name, field.value_to_string(self)) for field in Goods._meta.fields]
+    return [(field.name, field.value_to_string(self)) for field in Product._meta.fields]
 
   def __unicode__(self):
     cat_names = self.get_category_names()
-    sentence = "%s [%s] sold by %s" % (self.name, cat_names, self.seller.user.first_name)
+    sentence = "%s [%s] sold by %s" % (self.name, cat_names, self.seller.username)
     return sentence
 
   class Meta:
@@ -155,30 +155,49 @@ class Donkey(models.Model):
 
 class Cart(models.Model):
   user = models.OneToOneField(User)
-  products = models.ManyToManyField(Goods)
+  products = models.ManyToManyField(Product)
 
 class Order(models.Model):
   '''
   custome id: timezone.now().strftime("%Y%B%d") + username
   '''
-  id = models.charField(max_length=20, primary_key=True)
-  user = models.OneToOneField(User)
-  products = models.ManyToManyField(Goods)
-  # amount = models.IntegerField(default=1)
-  # orders = models.ForeignKey(Orders, null=True)
-  purchased_date = models.DateTimeField(default=timezone.now, null=False)
+  id = models.CharField(max_length=20, primary_key=True)
+  user = models.ForeignKey(User)
+
+  products = models.ManyToManyField(Product)
+  paid_date = models.DateTimeField(null=True)
   is_delivered = models.BooleanField(default=False)
+  is_paid = models.BooleanField(default=False)
   # Run Cron to handle it!!!
   is_closed = models.BooleanField(default=False)
 
   def get_total_price(self):
-    sum = 0
-    for p in self.products.all():
-      sum += p.price
-    return sum
+    return sum([p.price for p in self.products.all()])
 
   def get_is_delivered(self):
     return self.is_delivered
+
+  def get_is_paid(self):
+    return self.is_paid
+
+  def get_product_names(self):
+    names = [p.name for p in self.products.all()]
+    return ', '.join(names)
+
+  def get_paid_date(self):
+    return self.paid_date.strftime("%Y.%B.%d.")
+
+  def pay(self):
+    self.is_paid = True
+    self.is_delivered = True
+    self.paid_date = timezone.now()
+    for p in self.products.all():
+      p.sold()
+      p.save()
+
+  def __unicode__(self):
+    sentence = "%s --- by --- %s" % (self.id, self.user.username)
+    return sentence
 
   class Meta:
     permissions = (
@@ -187,7 +206,7 @@ class Order(models.Model):
 
 class Sales(models.Model):
   user = models.OneToOneField(User)
-  products = models.ManyToManyField(Goods)
+  products = models.ManyToManyField(Product)
 
   def get_revenue(self):
     revenue = 0
