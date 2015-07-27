@@ -12,6 +12,8 @@ from datetime import datetime
 from django.contrib.auth.models import Group, Permission
 from django.contrib import messages
 
+
+
 def is_seller(user):
   return user.groups.filter(name='seller').exists()
 
@@ -21,6 +23,11 @@ def is_buyer(user):
 def add_product_to_cart(product, cart):
   if product not in cart.products.all():
     cart.products.add(product)
+    '''
+    In most situations, an object from DB should be saved after any
+    creation/modification. It's cumbersome to figure out every case so I
+    prefer to call save() in every case.
+    '''
     cart.save()
 
 def get_product_buyers_with_paid_date(product):
@@ -30,36 +37,51 @@ def is_product_in_order(order, product):
   return product in order.products.all()
 
 def already_bought(user, product):
+  '''
+  True, if the user has already bought the product.
+  '''
   orders = user.order_set.all()
   for o in orders:
     if is_product_in_order(o, product):
       return True
   return False
 
+def is_product_seller(user, product):
+  return user == product.seller
+
 @login_required
 def product(request, product_id):
   product = get_object_or_404(Product, pk=product_id)
   user = request.user
   print 'user found'
-  if request.method == 'GET':
-    product.views += 1
-    product.save()
-  elif request.method == 'POST' and user.user_permissions.filter(codename='can_order').exists():
 
+  ## Only buyers can make an order for the product.
+  # if request.method == 'POST' and user.user_permissions.filter(codename='can_order').exists():
+  if request.method == 'POST' and is_buyer(user):
+    ## get_or_create() returns a length-2 tuple: (object, created)
+    ## "created" is a boolean whether it is created or not.
+    ## https://docs.djangoproject.com/en/1.8/ref/models/querysets/#get-or-create
     cart = Cart.objects.get_or_create(user=user)[0]
     print 'cart found'
     add_product_to_cart(product, cart)
     return HttpResponseRedirect(reverse('rango:my_cart'))
 
   context = {'product':product}
+  ## If user has already the product, he cannot make another order
+  ## product.html will show "Already bought!" sign
   if already_bought(user, product):
     context['bought'] = True
 
-  if is_seller(user):
+  elif is_product_seller(user, product):
     print "Yes he is a seller"
     buyers_data = get_product_buyers_with_paid_date(product)
     print buyers_data
     context['buyers_data'] = buyers_data
+    context['is_product_seller'] = True
+
+  elif request.method == 'GET':
+    product.views += 1
+    product.save()
 
   return render(request, 'rango/product.html', context)
 
@@ -80,9 +102,51 @@ def listing_ajax(request):
     products = paginator.page(paginator.num_pages)
   return render(request, 'rango/list_ajax.html', {'products':products})
 
+
+def search(product_name, category_name):
+  '''
+  https://docs.djangoproject.com/en/1.8/ref/models/querysets/#icontains
+  '''
+  if product_name:
+    product_list = Product.objects.filter(name__icontains=product_name)
+  else:
+    product_list = Product.objects.all()
+
+  if category_name:
+    category = get_object_or_404(Category, name=category_name)
+    product_list = [p for p in product_list if category in p.categories.all()]
+
+  return product_list
+
+def get_category_value_for_search(request):
+  category = request.GET.get('category', False)
+  if category == 'all':
+    category = False
+  return category
+
 @login_required
-def listing(request, page):
-  product_list = Product.objects.all()
+def store(request, page):
+  ## Using request.GET['query'] will raise error:
+  ## MultiValueDictKeyError at /rango/store/1/
+  ## Read:
+  ## http://stackoverflow.com/a/5895670/3067013
+  product_name = request.GET.get('product_name', False)
+  category = get_category_value_for_search(request)
+  print ">>>>", get_category_value_for_search(request)
+
+
+  ## For multiple <select>
+  context = {'categories':Category.objects.all()}
+
+  if product_name or category:
+    print "Search is happening!"
+    product_list = search(product_name, category)
+    context['name_queried'] = True
+    print product_name
+
+  else:
+    product_list = Product.objects.all()
+
   paginator = Paginator(product_list, 3)
 
   try:
@@ -91,20 +155,10 @@ def listing(request, page):
     products = paginator.page(1)
   except EmptyPage:
     products = paginator.page(paginator.num_pages)
-  return render(request, 'rango/list.html', {'products':products})
 
-'''
-@login_required
-def my_settings(request):
-  return render(request, 'rango/my_settings.html', {})
-'''
+  context['products'] = products
+  return render(request, 'rango/store.html', context)
 
-@login_required
-def edit_user_info(request):
-  user = request.user
-  context = {'user':user}
-
-  return render(request, 'rango/edit_user_info.html', {})
 
 @login_required
 def my_settings(request):
@@ -150,11 +204,6 @@ def my_settings(request):
       context = {"form": form}
       return render_to_response("rango/my_settings.html", context, context_instance=RequestContext(request))
 
-
-
-@login_required
-def restricted(request):
-  return HttpResponse("Since you're logged in, you can see this!")
 
 @login_required
 def user_logout(request):
@@ -208,8 +257,9 @@ def get_group_name(user_cls):
 
 def add_user_group(user, group):
   '''
-  This is for authorization at views.
+  Group is for authorization at views.
   e.g., a buyer is not allowed to access 'My_products' views.
+  This function will be called for prepopulating prototyping DB.
   '''
   if user not in group.user_set.all():
     group.user_set.add(user)

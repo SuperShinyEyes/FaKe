@@ -29,7 +29,15 @@ ted.product_set.all()
 
 for p in Product.objects.all():
   print p.order_set.all()
+
 product = Product.objects.all()[0]
 buyers = [order.user for order in product.order_set.all()]
 
 product = Product.objects.get(product_num=2)
+buyers = [order.user for order in product.order_set.all()]
+for u in buyers:
+  print u.get_username(), u.email
+
+
+c = Category.objects.get(name='Music')
+ [p for p in women if c in p.categories.all()]

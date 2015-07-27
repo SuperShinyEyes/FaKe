@@ -1,0 +1,69 @@
+{% extends 'rango/base_post_login.html' %}
+
+{% block navbar_store_active %}
+<ul class="nav navbar-nav">
+  <li class="active"><a href="{% url 'rango:store' 1 %}">Store</a></li>
+  <li><a href="{% url 'rango:add_category' %}">Add a New Category</a></li>
+  <li><a href="{% url 'rango:about' %}">About</a></li>
+</ul>
+{% endblock %}
+
+{% block body_block %}
+
+<table class="table table-hover">
+  <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
+   <caption>Product list</caption>
+   <thead>
+      <tr>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>On sale</th>
+        <th>Due Date</th>
+      </tr>
+   </thead>
+   <tbody>
+    {% for p in products %}
+    {% if p.status == False %}
+     <tr class="danger">
+    {% else %}
+    <tr>
+    {% endif%}
+       <td>
+         {% for c in p.categories.all %}
+         <a href="{% url 'rango:product' p.id %}">{{ c.category_name }}</a> /
+         {% endfor %}
+       </td>
+
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.name }}</a></td>
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.price }}</a></td>
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.stock }}</a></td>
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.status }}</a></td>
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.due_date }}</a></td>
+
+     </tr>
+
+     {% endfor %}
+
+   </tbody>
+</table>
+
+
+
+  <div class="pagination">
+    <span class="step-links">
+      {% if products.has_previous %}
+      <a href="{% url 'rango:store' products.previous_page_number %}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ products.number }} of {{ products.paginator.num_pages }}.
+      </span>
+
+      {% if products.has_next %}
+      <a href="{% url 'rango:store' products.next_page_number %}">next</a>
+      {% endif %}
+    </span>
+  </div>
+{% endblock %}

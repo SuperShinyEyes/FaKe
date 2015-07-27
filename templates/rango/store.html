@@ -2,13 +2,30 @@
 
 {% block navbar_store_active %}
 <ul class="nav navbar-nav">
-  <li class="active"><a href="{% url 'rango:listing' 1 %}">Store</a></li>
+  <li class="active"><a href="{% url 'rango:store' 1 %}">Store</a></li>
   <li><a href="{% url 'rango:add_category' %}">Add a New Category</a></li>
   <li><a href="{% url 'rango:about' %}">About</a></li>
 </ul>
 {% endblock %}
 
 {% block body_block %}
+
+<form method="get">
+  <span>Category:</span>
+
+  <select name="category">
+    <option value='all'>All</option>
+    {% for cat in categories %}
+    <option value='{{cat.name}}'>{{cat.name}}</option>
+    {% endfor %}
+  </select>
+
+  <span>| Product:</span>
+  <input type="text" name="product_name">
+  <button type="submit">Search!</button>
+  <!-- <input type="submit" name="search" value="Search!"> -->
+</form>
+
 
 <table class="table table-hover">
   <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
@@ -32,7 +49,7 @@
     {% endif%}
        <td>
          {% for c in p.categories.all %}
-         <a href="{% url 'rango:product' p.id %}">{{ c.category_name }}</a> /
+         <a href="{% url 'rango:product' p.id %}">{{ c.name }}</a> /
          {% endfor %}
        </td>
 
@@ -54,7 +71,7 @@
   <div class="pagination">
     <span class="step-links">
       {% if products.has_previous %}
-      <a href="{% url 'rango:listing' products.previous_page_number %}">previous</a>
+      <a href="{% url 'rango:store' products.previous_page_number %}">previous</a>
       {% endif %}
 
       <span class="current">
@@ -62,7 +79,7 @@
       </span>
 
       {% if products.has_next %}
-      <a href="{% url 'rango:listing' products.next_page_number %}">next</a>
+      <a href="{% url 'rango:store' products.next_page_number %}">next</a>
       {% endif %}
     </span>
   </div>

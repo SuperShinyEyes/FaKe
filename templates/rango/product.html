@@ -22,7 +22,6 @@
   {% endfor %}
 
 </table>
-
 {% if perms.rango.can_order and not bought %}
 <form class="" method="post">
   {% csrf_token %}
@@ -30,7 +29,7 @@
 </form>
 {% elif perms.rango.can_order %}
 <button class="btn btn-lg btn-primary btn-block" type="reset">Already bought!</button>
-{% elif perms.rango.can_sell %}
+{% elif is_product_seller %}
 <button class="btn btn-lg btn-primary btn-block" type="reset">Edit</button>
 
 <table class="table">

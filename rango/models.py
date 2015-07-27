@@ -5,6 +5,14 @@ from django.utils import timezone
 from datetime import datetime, timedelta
 print timezone.now()
 
+'''
+Some methods may seem to repeat the same task.
+This is due to the limit of Django Template Language(DTL) in HTML.
+DTL cannot call a method with an argument.
+It can only run a method without any argument and it should be called
+as: some_object.some_method    ===> Without any parenthesis
+'''
+
 class OldProfile(models.Model):
   user = models.OneToOneField(User)
 
@@ -70,7 +78,7 @@ class UserProfile(models.Model):
 
 
 class Category(models.Model):
-  category_name = models.CharField(max_length=100, unique=True)
+  name = models.CharField(max_length=100, unique=True)
   registeration_time = models.DateTimeField(default=timezone.now, editable=False)
   edited_time = models.DateTimeField(blank=True, null=True)
 
@@ -84,7 +92,7 @@ class Category(models.Model):
     return sentence
 
   class Meta:
-    ordering = ('category_name',)
+    ordering = ('name',)
 
 
 def get_deadline():
