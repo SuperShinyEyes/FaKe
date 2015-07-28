@@ -244,6 +244,7 @@ class Comment(models.Model):
   content = models.TextField()
   created_time = models.DateTimeField(default=timezone.now, editable=False)
   edited_time = models.DateTimeField(blank=True, null=True)
+  is_active = models.BooleanField(default=True)
 
   def __str__(self):
     return self.content[:60]
@@ -259,6 +260,7 @@ class Reply(models.Model):
   content = models.TextField()
   created_time = models.DateTimeField(default=timezone.now, editable=False)
   edited_time = models.DateTimeField(blank=True, null=True)
+  is_active = models.BooleanField(default=True)
 
   def __str__(self):
     return self.content[:60]

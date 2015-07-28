@@ -71,10 +71,12 @@ def post_reply(user, comment_pk, content):
   reply = Reply(comment=comment, product=product, user=user, content=content)
   reply.save()
 
+
 @login_required
 def product(request, product_id):
   product = get_object_or_404(Product, pk=product_id)
   user = request.user
+  redirect_url = '/rango/product/' + str(product_id)
   context = {}
   # context.update(csrf(request))
 
@@ -82,7 +84,7 @@ def product(request, product_id):
     print "Post comment!"
     content = request.POST.get('comment', False)
     product.comment_set.create(user=user, content=content)
-    return HttpResponseRedirect('/rango/product/' + str(product.pk))
+    return HttpResponseRedirect(redirect_url)
     # comment = Comment(product=product, user=user, content=content)
 
   elif request.POST.get('post_reply', False) != False:
@@ -90,7 +92,29 @@ def product(request, product_id):
     comment_pk = request.POST.get('post_reply', False)
     content = request.POST.get('content', "No data")
     post_reply(user, comment_pk, content)
-    return HttpResponseRedirect('/rango/product/' + str(product.pk))
+    return HttpResponseRedirect(redirect_url)
+
+  elif request.POST.get('delete_reply', False) != False:
+    print "Delete reply!"
+    reply_pk = request.POST.get('delete_reply', False)
+    reply = Reply.objects.get(pk=reply_pk)
+    reply.is_active = False
+    reply.save()
+    print ">>>>>>Redirect: ", redirect_url
+    return HttpResponseRedirect(redirect_url)
+
+  elif request.POST.get('delete_comment', False) != False:
+    print "Delete comment!"
+    comment_pk = request.POST.get('delete_comment', False)
+    comment = Comment.objects.get(pk=comment_pk)
+    comment.is_active = False
+    comment.save()
+    sub_replies = comment.reply_set.all()
+    for r in sub_replies:
+      r.is_active = False
+      r.save()
+    print ">>>>>>Redirect: ", redirect_url
+    return HttpResponseRedirect(redirect_url)
 
   ## Only buyers can make an order for the product.
   # if request.method == 'POST' and user.user_permissions.filter(codename='can_order').exists():
@@ -104,11 +128,9 @@ def product(request, product_id):
     return HttpResponseRedirect(reverse('rango:my_cart'))
 
   context['product'] = product
-  context['num_comment'] = product.comment_set.count()
-  # comments = product.comment_set.all()
-  # comment_id = [c.pk for c in comments]
-  context['comments'] = product.comment_set.all()
-  # context = {'product':product, 'comments': product.comment_set.all()}
+  context['num_comment'] = product.comment_set.filter(is_active=True).count()
+  context['comments'] = product.comment_set.filter(is_active=True)
+
   ## If user has already the product, he cannot make another order
   ## product.html will show "Already bought!" sign
   if already_bought(user, product):

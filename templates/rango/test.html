@@ -1,8 +1,19 @@
 {% extends 'rango/base_post_login.html' %}
 
-{% block body_block %}
-<h1>{{ a.0 }}</h1>
-<h2>{{ product.name }}</h2>
-<h1>{{ user.order_set.all.0}}</h1>
+{% block head %}
+<link rel="stylesheet" href="/static/comment2.css">
+<script src="/static/scripts/jquery-1.11.3.min.js"></script>
+<script src="/static/scripts/jquery.confirm-master/jquery.confirm.js"></script>
+<script src="/static/scripts/reply.js"></script>
+{% endblock %}
 
+{% block body_block %}
+<a href="home" class="confirm">Go to home</a>
+
+<script type="text/javascript">
+$('.confirm').bind('click', function() {
+  if(!confirm('are you sure') )
+      return false;
+});
+</script>
 {% endblock %}

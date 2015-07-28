@@ -1,3 +1,22 @@
+
+// $(".confirm-delete").confirm();
+
+// $(".confirm-delete").confirm({
+//
+//     title:"Delete confirmation",
+//     text: "This is very dangerous, you shouldn't do it! Are you really really sure?",
+//     confirm: function(button) {
+//         button.fadeOut(2000).fadeIn(2000);
+//         alert("You just confirmed.");
+//     },
+//     cancel: function(button) {
+//         button.fadeOut(2000).fadeIn(2000);
+//         alert("You aborted the operation.");
+//     },
+//     confirmButton: "Yes I am",
+//     cancelButton: "No"
+// });
+
 function ajax_get_update(item)
 {
   $.get(url, function(results){
@@ -14,7 +33,6 @@ function ajax_get_update(item)
 $(document).on('click', '.reply', function(e) {
   console.log("Debuggin...");
     e.preventDefault();
-    if()
     // url = ($( '.comment-reply-link' )[0].href);
     url = $(this).find("a").attr('href');
     // url = "http://127.0.0.1:8000/rango/reply_form"

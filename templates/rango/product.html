@@ -3,6 +3,7 @@
 {% block head %}
 <link rel="stylesheet" href="/static/comment2.css">
 <script src="/static/scripts/jquery-1.11.3.min.js"></script>
+<script src="/static/scripts/jquery.confirm-master/jquery.confirm.js"></script>
 <script src="/static/scripts/reply.js"></script>
 {% endblock %}
 
@@ -73,7 +74,8 @@
   <button type="submit" name="post_comment" value="True">Comment</button>
 </form>
 
-
+<!-- The comment system is borrowed from
+"http://tutorialzine.com/2015/06/12-time-saving-bootstrap-examples/#comment-483020"  -->
 <div id="comments" class="leftPostCol hide600">
 
   <h4><b>{{ num_comment }}</b> Comments</h4>
@@ -86,22 +88,42 @@
         <div class="comment-author vcard">
           <img alt='' src='http://0.gravatar.com/avatar/427afc0d1d26e3cecd56a905f3c1394e?s=80&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D80&amp;r=G' class='avatar avatar-80 photo' height='80' width='80' /><cite class="fn">{{comment.user}}</cite> <span class="says">says:</span></div>
 
-          <div class="comment-meta commentmetadata">{{comment.created_time}}</div>
+          <div class="comment-meta commentmetadata">{{comment.created_time}}
+            {% if user.pk == comment.user.pk %}
+            <form method="post">
+              {% csrf_token %}
+              <button class="submit confirm-delete" type="submit" name="delete_comment" value="{{ comment.pk }}">delete</button>
+              <!-- <a class="confirm-delete" href="#">delete</a> -->
+            </form>
+          {% endif %}
+          </div>
 
       <p>{{comment.content}}</p>
       {% for reply in comment.reply_set.all %}
+      {% if reply.is_active %}
       <ol class="children">
         <li class="comment odd alt depth-2" id="comment-483020">
           <div id="div-comment-483020" class="comment-body">
             <div class="comment-author vcard">
               <img alt='' src='http://0.gravatar.com/avatar/4f1273ab4abf70d2e84ffe3511630721?s=80&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D80&amp;r=G' class='avatar avatar-80 photo' height='80' width='80' />			<cite class="fn">{{ reply.user }}</cite> <span class="says">says:</span></div>
 
-              <div class="comment-meta commentmetadata"><a href="http://tutorialzine.com/2015/06/12-time-saving-bootstrap-examples/#comment-483020">
-                {{reply.created_time}}</a>		</div>
+              <div class="comment-meta commentmetadata">
+                {{reply.created_time}}
+
+                {% if user.pk == reply.user.pk %}
+                <form method="post">
+                  {% csrf_token %}
+                  <button class="submit confirm-delete" type="submit" name="delete_reply" value="{{ reply.pk }}">delete</button>
+                  <!-- <a class="confirm-delete" href="#">delete</a> -->
+                </form>
+              {% endif %}
+            </div>
+
 
           <p>{{ reply.content }}</p>
           </li><!-- #comment-## -->
           </ol><!-- .children -->
+          {% endif %}
           {% endfor%}
 
           <div class="reply-area">
@@ -117,7 +139,12 @@
 
 
 </div>
-
+  <script type="text/javascript">
+  $('.confirm-delete').bind('click', function() {
+    if(!confirm('Are you sure?') )
+        return false;
+  });
+  </script>
   </body>
 </html>
 
