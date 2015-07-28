@@ -17,7 +17,7 @@ urlpatterns = [
   url(r'^home/$', views.home, name='home'),
   url(r'^welcome/$', views.welcome, name='welcome'),
   url(r'^my_settings/$', views.my_settings, name='my_settings'),
-
+  url(r'^register_new_product/$', views.register_new_product, name='register_new_product'),
 
   url(r'^store/(?P<page>[0-9]+)/$', views.store, name='store'),
 

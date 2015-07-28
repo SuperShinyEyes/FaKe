@@ -51,7 +51,9 @@
             {% block navbar_store_active %}
             <ul class="nav navbar-nav">
               <li><a href="{% url 'rango:store' 1 %}">Store</a></li>
-              <li><a href="{% url 'rango:add_category' %}">Add a New Category</a></li>
+              {% if perms.rango.can_sell %}
+              <li><a href="{% url 'rango:register_new_product' %}">Register new product</a></li>
+              {% endif %}
               <li><a href="{% url 'rango:about' %}">About</a></li>
             </ul>
             {% endblock %}

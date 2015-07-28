@@ -116,7 +116,7 @@ class Product(models.Model):
   #delivery_fee = models.DecimalField(decimal_places=2,blank=False, null=False, max_digits=6)
   #image = models.ImageField(verbose_name=None, name=None, width_field=None, height_field=None)
   product_info = models.CharField(max_length=4000, blank=False, null=False)
-  status = models.BooleanField(blank=False, null=False)
+  status = models.BooleanField(default=True)
   due_date = models.DateTimeField(default=get_deadline)
   registeration_time = models.DateTimeField(default=timezone.now, editable=False)
   edited_time = models.DateTimeField(blank=True, null=True)

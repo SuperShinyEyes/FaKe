@@ -1,84 +1,9 @@
 {% extends 'rango/base_post_login.html' %}
 
 {% block head %}
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript">
-
-  function ajax_get_update()
-    {
-      $.ajax({
-        cache: false,
-        type: "GET",
-      });
-       $.get(url, function(results){
-          //get the parts of the result you want to update. Just select the needed parts of the response
-          var table = $("table", results);
-          var page = $(".pagination", results);
-          // console.log(results);
-          //update the ajax_table_result with the return value
-          $('table').html(table);
-          // console.log("========================");
-          // console.log(table);
-          // console.log("========================");
-          $('.pagination').html(page);
-          // console.log(page);
-        }, "html");
-    }
-
-// $(document).ready(function() {
-//    $('#page_turner').click( function() {
-//          $.get( $(this).attr('href'), function(msg) {
-//               // alert( "Data Saved: " + msg );
-//                var table = $("table", msg);
-//                var page = $(".pagination", msg);
-//                console.log(table);
-//               $('table').html(table);
-//               $('.pagination').html(page);
-//               // $("#store_category").load("")
-//          });
-//          return false; // don't follow the link!
-//    });
-// });
-
-//bind the corresponding links in your document to the ajax get function
-$( document ).ready( function() {
-
-    // $( '#previous_page' ).click( function(e) {
-    $( '#previous_page' ).on('click', '#previous_page', function(e) {
-      console.log("Debuggin...");
-        e.preventDefault();
-        url = ($( '#previous_page' )[0].href);
-        ajax_get_update();
-    });
-    $( '#next_page' ).click( function(e) {
-      console.log("Debuggin...");
-        e.preventDefault();
-        url = ($( '#next_page' )[0].href);
-        ajax_get_update();
-    });
-});
-
-//since the links are reloaded we have to bind the links again
-//to the actions
-$( document ).ajaxStop( function() {
-  console.log("Stop...");
-  // $( '#previous_page' ).click( function(e) {
-  $( '#previous_page' ).on('click', '#previous_page', function(e) {
-        e.preventDefault();
-        url = ($( '#previous_page' )[0].href);
-        ajax_get_update();
-    });
-    $( '#next_page' ).click( function(e) {
-        e.preventDefault();
-        url = ($( '#next_page'   )[0].href);
-        ajax_get_update();
-    });
-});
-// $.ajaxStart(function() {
-//   // console.log("Start...");
-//   alert("Start");
-// });
-</script>
+<script src="/static/scripts/jquery-1.11.3.min.js"></script>
+<!-- <script src="/static/scripts/pagination.js"></script> -->
+<link rel="stylesheet" href="/static/scripts/link_button.css">
 
 {% endblock %}
 
@@ -117,7 +42,11 @@ $( document ).ajaxStop( function() {
       <tr>
         <th>Category</th>
         <th>Name</th>
-        <th>Price</th>
+        <th>
+          <form class="" method="GET">
+          <button id="black" class="submit" type="submit" name="price_order_by" value="{{ price_order_by }}">Price</button>
+          </form>
+          </th>
         <th>Stock</th>
         <th>On sale</th>
         <th>Due Date</th>

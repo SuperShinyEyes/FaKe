@@ -53,3 +53,16 @@ reply.save()
 
 for c in Comment.objects.all():
   print c.pk
+
+from django.db.models import Count
+sam = User.objects.get(username='sam')
+p3 = Product.objects.get(pk=3)
+p3.comment_set.filter(is_active=True).count()
+Comment.objects.filter(is_active=True).count()
+pubs = Publisher.objects.annotate(num_books=Count('book'))
+
+Product.objects.get(name='test').categoreis.all()
+
+desc = Product.objects.order_by('-price')
+for p in desc:
+  print p.price

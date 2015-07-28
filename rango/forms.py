@@ -1,8 +1,20 @@
 from django.contrib.auth.models import User
 from django import forms
 from rango.models import *
+from django.forms.extras.widgets import SelectDateWidget
+# from django.contrib.admin.widgets import AdminDateWidget
 
+class ProductForm(forms.ModelForm):
 
+  # Multiselect: http://stackoverflow.com/a/11642620/3067013
+  categories = forms.ModelMultipleChoiceField(queryset=Category.objects, widget=forms.CheckboxSelectMultiple(), required=False)
+  due_date = forms.DateField(widget=SelectDateWidget, initial=get_deadline())
+  # due_date = forms.DateField(widget=AdminDateWidget)
+
+  class Meta:
+    model = Product
+    # fields = ('seller', 'name', 'product_num', 'price', 'stock',)
+    fields = ('seller', 'name', 'product_num', 'price', 'stock', 'due_date', 'categories',)
 
 class UserForm(forms.ModelForm):
   password = forms.CharField(widget=forms.PasswordInput())

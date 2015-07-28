@@ -14,23 +14,50 @@ from datetime import datetime
 from django.contrib.auth.models import Group, Permission
 from django.contrib import messages
 
-
-def reply_form(request, comment_pk):
-
-  print ">>>> Comment pk:", comment_pk
-  return render(request, 'rango/comment_form.html', {"comment_pk":comment_pk})
-
-def test(request):
-  a = range(10)
-
-  return render(request, 'rango/test.html', {'a':a, 'product':Product.objects.all()[0], 'user':User.objects.all()[0]})
-
-
 def is_seller(user):
   return user.groups.filter(name='seller').exists()
 
 def is_buyer(user):
   return user.groups.filter(name='buyer').exists()
+
+def reply_form(request, comment_pk):
+  print ">>>> Comment pk:", comment_pk
+  return render(request, 'rango/comment_form.html', {"comment_pk":comment_pk})
+
+
+def test(request):
+  a = range(10)
+  return render(request, 'rango/test.html', {'a':a, 'product':Product.objects.all()[0], 'user':User.objects.all()[0]})
+
+
+@login_required
+@user_passes_test(is_seller)
+def register_new_product(request):
+  # A HTTP POST?
+  if request.method == 'POST':
+    print "This is Post"
+    form = ProductForm(request.POST)
+
+    # Have we been provided with a valid form?
+    if form.is_valid():
+      # Save the new category to the database.
+      form.save(commit=True)
+
+      # Now call the index() view.
+      # The user will be shown the homepage.
+      return store(request, 1)
+    else:
+      # The supplied form contained errors - just print them to the terminal.
+      print form.errors
+  else:
+    # If the request was not a POST, display the form to enter details.
+    # http://stackoverflow.com/a/19479357/3067013
+    form = ProductForm(initial={'seller':request.user})
+
+    # Bad form (or form details), no form supplied...
+    # Render the form with error messages (if any).
+  return render(request, 'rango/register_new_product.html', {'form': form})
+
 
 def add_product_to_cart(product, cart):
   if product not in cart.products.all():
@@ -188,6 +215,20 @@ def get_category_value_for_search(request):
     category = False
   return category
 
+
+def get_page_by_price(price_order_by, context):
+  if price_order_by == 'asec':
+    context['price_order_by'] = 'desc'
+    return Product.objects.order_by('price'), context
+  else:
+    context['price_order_by'] = 'asec'
+    return Product.objects.order_by('-price'), context
+
+
+def get_store_url(page, base="http://127.0.0.1:8000/rango/store/", price_order_by='', name=''):
+
+  return base + str(page) + '/?price_order_by=' + price_order_by + '/?name=' + name
+
 @login_required
 def store(request, page):
   ## Using request.GET['query'] will raise error:
@@ -197,12 +238,18 @@ def store(request, page):
   product_name = request.GET.get('product_name', False)
   category = get_category_value_for_search(request)
   print ">>>>", get_category_value_for_search(request)
-
+  price_order_by = request.GET.get('price_order_by', False)
 
   ## For multiple <select>
-  context = {'categories':Category.objects.all()}
+  context = {'categories':Category.objects.all(), 'price_order_by': 'desc'}
 
-  if product_name or category:
+  if (product_name or category) and (price_order_by != False):
+    pass
+
+  elif price_order_by != False:
+    product_list, context = get_page_by_price(price_order_by, context)
+
+  elif product_name or category:
     print "Search is happening!"
     product_list = search(product_name, category)
     context['name_queried'] = True
@@ -212,6 +259,7 @@ def store(request, page):
     product_list = Product.objects.all()
 
   paginator = Paginator(product_list, 2)
+  context['next_page'] = get_store_url(int(page) - 1, base="http://127.0.0.1:8000/rango/store/", price_order_by=context['price_order_by'], name='')
 
   try:
     products = paginator.page(page)

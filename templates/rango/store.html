@@ -2,7 +2,8 @@
 
 {% block head %}
 <script src="/static/scripts/jquery-1.11.3.min.js"></script>
-<script src="/static/scripts/pagination.js"></script>
+<!-- <script src="/static/scripts/pagination.js"></script> -->
+<link rel="stylesheet" href="/static/scripts/link_button.css">
 
 {% endblock %}
 
@@ -41,7 +42,11 @@
       <tr>
         <th>Category</th>
         <th>Name</th>
-        <th>Price</th>
+        <th>
+          <form class="" method="GET">
+          <button id="black order_by" class="submit" type="submit" name="price_order_by" value="{{ price_order_by }}">Price</button>
+          </form>
+          </th>
         <th>Stock</th>
         <th>On sale</th>
         <th>Due Date</th>
@@ -78,7 +83,7 @@
   <div class="pagination">
     <span class="step-links">
       {% if products.has_previous %}
-      <a id="previous_page" href="{% url 'rango:store' products.previous_page_number %}">previous</a>
+      <a id="previous_page" href="http://127.0.0.1:8000/rango/store/1/?" + "price_order_by=desc">previous</a>
       {% endif %}
 
       <span class="current">
@@ -92,4 +97,17 @@
   </div>
 </div>
 
+<script type="text/javascript">
+
+$(document).on('click', '.order_by' function(e){
+  var order = $(this).attr("value");
+  if(order == 'desc'){
+    order = 'asec'
+  }else{
+    order = 'desc'
+  }
+  $(this).attr("value", order);
+});
+
+</script>
 {% endblock %}
