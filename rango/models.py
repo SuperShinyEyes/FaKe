@@ -86,7 +86,7 @@ class Category(models.Model):
     self.edited_time = timezone.now()
 
   def __str__(self):
-    sentence = "CATEGORY: %s\nRegistered at: %s" % (self.category_name, str(self.registeration_time))
+    sentence = "CATEGORY: %s\nRegistered at: %s" % (self.name, str(self.registeration_time))
     if self.edited_time:
       sentence += "\nLast edit at: %s" % str(self.edited_time)
     return sentence
@@ -155,11 +155,11 @@ class Product(models.Model):
     pass
 
   def get_category_names(self):
-    names = [c.category_name for c in self.categories.all()]
+    names = [c.name for c in self.categories.all()]
     return '/'.join(names)
     # cat_names = []
     # for c in self.categories.all():
-    #   cat_names.append(c.category_name)
+    #   cat_names.append(c.name)
     # return '/'.join(cat_names)
 
   def get_fields(self):
@@ -233,3 +233,32 @@ class Sales(models.Model):
     for p in products.all():
       revenue += p.price * (p.sold_amount)
     return revenue
+
+class Comment(models.Model):
+  '''
+  User 'linebreak' for newline characters.
+  e.g., {{content|linebreaks}}
+  '''
+  product = models.ForeignKey(Product)
+  user = models.ForeignKey(User)
+  content = models.TextField()
+  created_time = models.DateTimeField(default=timezone.now, editable=False)
+  edited_time = models.DateTimeField(blank=True, null=True)
+
+  def __str__(self):
+    return self.content[:60]
+
+class Reply(models.Model):
+  '''
+  User 'linebreak' for newline characters.
+  e.g., {{content|linebreaks}}
+  '''
+  comment = models.ForeignKey(Comment)
+  product = models.ForeignKey(Product)
+  user = models.ForeignKey(User)
+  content = models.TextField()
+  created_time = models.DateTimeField(default=timezone.now, editable=False)
+  edited_time = models.DateTimeField(blank=True, null=True)
+
+  def __str__(self):
+    return self.content[:60]

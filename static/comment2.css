@@ -1,0 +1,3353 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    background-color: #eee;
+}
+body {
+    color: #464646;
+    font: 13px/1.5 Arial,Helvetica,sans-serif;
+    word-wrap: break-word;
+}
+section, header, aside, article, hgroup, nav {
+    display: block;
+}
+cite {
+    font-style: normal;
+}
+a, a:active {
+    color: #008de6;
+    outline: medium none;
+
+}
+a:hover {
+    text-decoration: none;
+}
+a:visited {
+    color: #d23f4d;
+}
+a img {
+    border: medium none;
+}
+input, textarea {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px #fafafa;
+    color: #666;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    outline: medium none;
+    padding: 6px;
+    resize: none;
+}
+textarea {
+    overflow: auto;
+}
+input[type="submit"]:not(.button) {
+    cursor: pointer;
+    padding: 6px 12px;
+}
+input::-moz-placeholder {
+    color: #888;
+}
+input:focus, textarea:focus {
+    border-color: #bbb;
+}
+.centered {
+    text-align: center;
+}
+.hidden {
+    display: none;
+}
+.leftResponsiveColumn {
+    max-width: 925px;
+}
+header {
+    background-color: #36424a;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    height: 94px;
+    padding: 10px;
+    position: relative;
+    z-index: 5;
+}
+h1 {
+    height: 40px;
+    left: 50%;
+    margin-left: -700px;
+    margin-top: -22px;
+    position: absolute;
+    top: 50%;
+    width: 250px;
+}
+h1 a#logo {
+    color: #fff !important;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1;
+    text-decoration: none !important;
+}
+h1 a#logo b {
+    color: #da431c;
+}
+header nav {
+    cursor: default;
+    left: 50%;
+    margin: -11px 0 0 -440px;
+    position: absolute;
+    top: 50%;
+}
+header nav a {
+    color: #eee !important;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0 22px 10px;
+    position: relative;
+    text-decoration: none !important;
+    text-transform: lowercase;
+}
+header nav a:hover {
+    color: #fff !important;
+}
+header a.searchIcon {
+    -moz-user-select: none;
+    background-color: #475256;
+    border-radius: 3px;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    margin-right: -700px;
+    margin-top: -20px;
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    width: 40px;
+}
+header a.searchIcon::before {
+    border: 2px solid #fff;
+    border-radius: 50%;
+    content: "";
+    height: 9px;
+    left: 12px;
+    position: absolute;
+    top: 11px;
+    width: 9px;
+}
+header a.searchIcon::after {
+    background-color: #fff;
+    content: "";
+    height: 11px;
+    left: 25px;
+    position: absolute;
+    top: 20px;
+    transform: rotate(-44deg);
+    width: 2px;
+}
+header a.searchIcon:hover {
+    background-color: #576266;
+}
+header a.searchIcon.active {
+    background-color: #576266;
+    border-radius: 0 3px 3px 0;
+}
+header a.searchIcon.active form {
+    display: block;
+}
+header a.searchIcon form {
+    display: none;
+    position: absolute;
+    right: 41px;
+    top: 0;
+}
+header a.searchIcon form input {
+    border: medium none;
+    border-radius: 2px 0 0 2px;
+    box-shadow: none;
+    height: 19px;
+    padding: 12px 12px 9px;
+    width: 210px;
+}
+.tagged {
+    background-color: #ccc;
+    border-radius: 1px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    color: #fff !important;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1;
+    margin-right: 6px;
+    padding: 7px 10px;
+    text-decoration: none !important;
+    text-transform: uppercase;
+}
+.tagged:last-child {
+    margin-right: 0;
+}
+.tagged:hover {
+    opacity: 0.9;
+}
+.tagged.tag-html5 {
+    background-color: #e76a4a;
+}
+.tagged.tag-jquery {
+    background-color: #96c96d;
+}
+.tagged.tag-css, .tagged.tag-css3 {
+    background-color: #4fa3dc;
+}
+.tagged.tag-quick-learn {
+    background-color: #4fbcdc;
+}
+.tagged.tag-freebie, .tagged.tag-challenge {
+    background-color: #dca94f;
+}
+.tagged.tag-quiz {
+    background-color: #dc4f8b;
+}
+.tagged.tag-node-js {
+    background-color: #a7c56c;
+}
+.tagged.tag-javascript {
+    background-color: #e285e5;
+}
+.tagged.tag-php {
+    background-color: #9574d1;
+}
+#content {
+    margin: 60px auto;
+    min-height: 300px;
+    position: relative;
+    width: 1400px;
+    z-index: 1;
+}
+* html #content {
+    height: 1%;
+}
+#content::after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+#content > h2, .section-heading h2, .postHolder h2 {
+    color: #686c70;
+    font-size: 18px;
+    padding-bottom: 36px;
+}
+.section-heading {
+    overflow: hidden;
+}
+.section-heading h2 {
+    float: left;
+}
+.section-heading .tags {
+    float: right;
+}
+blockquote {
+    background: #fdfdfd url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/block_quote.gif") no-repeat scroll 5px 1.3em;
+    border: 5px solid #f5f5f5;
+    box-shadow: 0 0 1px #ccc;
+    clear: left;
+    line-height: 1.4;
+    margin-bottom: 1.5em;
+    padding: 1.2em 2em 1.2em 60px;
+}
+blockquote p {
+    line-height: 1.4;
+    margin-bottom: 0 !important;
+}
+blockquote.note {
+    background: #ffffe0 url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/lightbulb.png") no-repeat scroll 14px 15px;
+    border-color: #f7f0b8;
+    box-shadow: 1px 1px 0 #ede396;
+    color: #707037;
+}
+blockquote.note em {
+    color: #707037;
+}
+blockquote.pquote {
+    color: #888;
+    font-size: 1.1em;
+}
+.button {
+    border: medium none;
+    border-radius: 2px;
+    color: #fff !important;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    padding: 1.05em 1.4em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.button:hover {
+    opacity: 0.9;
+}
+.button.blue {
+    background-color: #93d0ea;
+    box-shadow: 0 0 5px #8fcde7 inset, 0 1px 1px #eee;
+}
+.button.green {
+    background-color: #a5d16d;
+    box-shadow: 0 0 5px #a4cf6c inset, 0 1px 1px #eee;
+}
+.button.red {
+    background-color: #f4836a;
+    box-shadow: 0 0 5px #ef7f65 inset, 0 1px 1px #eee;
+}
+.button.orange {
+    background-color: #ff8b62;
+    box-shadow: 0 0 5px #f68962 inset, 0 1px 1px #eee;
+}
+.button.darkblue {
+    background-color: #5babcd;
+}
+.button.small {
+    font-size: 11px;
+}
+.button.big {
+    font-size: 18px;
+    padding: 1.2em 2.5em 1em;
+}
+.post-body > div[id^="attachment_"] {
+    clear: left;
+    margin: 2em auto;
+    text-align: center;
+    width: auto !important;
+}
+.post-body > div[id^="attachment_"] img {
+    box-shadow: 0 0 1px #888;
+    display: block;
+    height: auto !important;
+    max-width: 100% !important;
+    width: auto !important;
+}
+.post-body > div[id^="attachment_"] > img {
+    box-shadow: 0 0 1px #888;
+    display: block;
+    margin: 0 auto;
+}
+.post-body img {
+    max-width: 100%;
+}
+.post-body p > img {
+    box-shadow: 0 0 1px #aaa;
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    max-width: 100%;
+}
+div.wp-caption a, div.wp-caption a:hover {
+    display: inline-block;
+    max-width: 100%;
+}
+.wp-caption-text {
+    color: #777;
+    font-size: 13px;
+    padding-top: 5px;
+    text-align: center;
+}
+#post {
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 1px #ccc;
+    color: #505050;
+    font-size: 15px;
+    min-height: 300px;
+    width: 950px;
+}
+#post .featured {
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 1px 1px #ddd;
+    display: block;
+    width: 100%;
+}
+#post p.post-info {
+    color: #6a6a6a;
+    font-size: 12px;
+    margin-bottom: 16px;
+}
+#post p.post-info i {
+    background-image: url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/sprite.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 16px;
+    vertical-align: text-bottom;
+    width: 16px;
+}
+#post p .icon-author {
+    background-position: 0 -195px;
+}
+#post p .icon-cal {
+    background-position: -33px -195px;
+    margin: 0 6px 0 20px;
+}
+#post pre {
+    clear: left;
+    font-family: monospace;
+    font-size: 0.8em;
+    margin-bottom: 1.5em;
+    position: relative;
+    word-wrap: normal;
+}
+#post pre::before {
+    color: #d2d2d2;
+    content: attr(data-lines);
+    left: -2.5em;
+    opacity: 0;
+    position: absolute;
+    text-align: right;
+    top: 1.1em;
+    transition: opacity 0.4s ease 0s;
+    width: 2em;
+}
+#post pre:hover::before {
+    opacity: 1;
+}
+#post p > code, #post li > code {
+    background-color: #f6f6f6;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    font-family: monospace;
+    font-size: 0.8em;
+    padding: 0.1em 0.2em;
+}
+#post .post-body {
+    padding: 5em 6em 5em 5em;
+}
+#post iframe {
+    background-color: #fff;
+}
+#post p iframe {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+#post h2 {
+    font-size: 2em;
+    line-height: 1.3;
+    margin-bottom: 25px;
+}
+#post h3 {
+    clear: left;
+    font-size: 1.5em;
+    margin: 1.5em 0 0.75em;
+}
+#post h4 {
+    font-size: 1em;
+    margin-bottom: 1em;
+}
+#post p {
+    margin-bottom: 1.5em;
+}
+#post ul, #post ol {
+    margin-bottom: 1.5em;
+    margin-left: 2em;
+}
+#post li {
+    margin-bottom: 0.5em;
+}
+#post .social-icons {
+    margin: 3.5em 0;
+    padding: 0;
+}
+#post .social-icons a {
+    margin: 0 4px;
+    overflow: hidden;
+    text-indent: -999px;
+}
+#post p img {
+    max-width: 100%;
+}
+#post table th {
+    background-color: #777;
+    border: 1px solid #858585;
+    color: #fff;
+    font-size: 0.8em;
+    padding: 10px 30px;
+    text-align: center !important;
+}
+#post table tr {
+    background-color: #fff;
+    font-size: 0.9em;
+}
+#post table tr:nth-child(2n+1) td {
+    background-color: #fbfbfb;
+}
+#post table td, #postBody table th {
+    border: 1px solid #f0f0f0;
+    padding: 12px 16px;
+    text-align: left;
+}
+#post table {
+    border: 1px solid #e9e9e9;
+    border-collapse: collapse;
+    box-shadow: 0 1px 1px #fefefe;
+    margin-bottom: 2em;
+}
+#post table caption {
+    caption-side: bottom;
+    font-size: 0.8em;
+    padding: 10px;
+}
+#post .tutorialButtons {
+    margin: 3em 0 1em;
+}
+#post .tutorialButtons a {
+    margin-bottom: 20px;
+    margin-right: 16px;
+    padding: 1em 2em;
+    text-transform: none;
+}
+#post .tutorialButtons #shareBar {
+    border: 1px solid #ddd;
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 15px 20px 8px;
+    text-align: center;
+    vertical-align: top;
+}
+#post .gad {
+    background: rgba(0, 0, 0, 0) radial-gradient(ellipse closest-side at center center , rgba(255, 255, 255, 1) 70%, rgba(251, 252, 253, 1) 85%, rgba(244, 247, 250, 1) 100%) repeat scroll 0 0;
+    padding: 25px;
+    text-align: center;
+}
+#author-info {
+    background-color: #f9f9f9;
+    border-top: 2px solid #f0f0f0;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+}
+#author-info img {
+    border-radius: 8px;
+    float: left;
+    margin-left: 6px;
+}
+#author-info h5 {
+    font-size: 1em;
+    margin: 0 0 8px 90px;
+}
+#author-info h5 a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+#author-info p {
+    font-size: 13px;
+    margin: 0 50px 5px 90px;
+}
+#post .bottom-meta {
+    margin-top: 2em;
+    overflow: hidden;
+}
+#post #tags {
+    float: right;
+    position: relative;
+    z-index: 1;
+}
+p#categories {
+    float: left;
+    margin-bottom: 0;
+    margin-left: 24px;
+    position: relative;
+}
+p#categories::before {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/sprite.png") no-repeat scroll -16px -195px;
+    content: "";
+    height: 16px;
+    left: -25px;
+    position: absolute;
+    top: 0.3em;
+    width: 17px;
+}
+.leftPostCol {
+    margin-bottom: 50px;
+    max-width: 950px;
+}
+#post .jquery-trickshots-ban {
+    background: url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/jquery-trickshots-small.jpg") no-repeat scroll 100px 40px, rgba(0, 0, 0, 0) radial-gradient(ellipse closest-side at center center , #fff 70%, #fbfcfd 85%, #f4f7fa 100%) repeat scroll 0 0;
+    min-height: 140px;
+    padding: 40px 40px 40px 240px;
+}
+#post .jquery-trickshots-ban a {
+    color: #333a40 !important;
+    text-decoration: none !important;
+}
+#post .jquery-trickshots-ban h6 {
+    font-size: 18px;
+}
+#post .jquery-trickshots-ban p {
+    margin: 12px 0 20px;
+}
+#post .jquery-trickshots-ban span {
+    font-size: 12px;
+}
+#post .challenge {
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #4c5559, #454e52) repeat scroll 0 0;
+    border-radius: 1px 1px 0 0;
+    bottom: 0;
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    height: 50px;
+    left: 200px;
+    position: fixed;
+    width: 950px;
+    z-index: 25;
+}
+#post .challenge .logo {
+    font-size: 16px;
+    left: 24px;
+    position: absolute;
+    top: 15px;
+}
+#post .challenge .logo i {
+    color: #e94d25;
+    font-style: normal;
+}
+#post .challenge .score {
+    font-size: 26px;
+    font-weight: bold;
+    left: 50%;
+    margin-left: -50px;
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    width: 100px;
+}
+#post .challenge .sharing-button {
+    background-color: #2c8b9f;
+    font-size: 12px;
+    font-weight: bold;
+    height: 36px;
+    line-height: 36px;
+    position: absolute;
+    right: 12px;
+    text-indent: 16px;
+    text-transform: uppercase;
+    top: 8px;
+    width: 175px;
+}
+#post .challenge .sharing-button::after {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #fff;
+    border-image: none;
+    border-style: solid;
+    border-width: 5px 4px;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 14px;
+    top: 10px;
+    width: 0;
+}
+#post .challenge .sharing-button span {
+    background-color: #596469;
+    bottom: 0;
+    display: none;
+    height: 170px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+#post .challenge .sharing-button span a {
+    background-color: #fff;
+    color: #fff !important;
+    display: block;
+    margin: 12px 15px 0;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0;
+}
+#post .challenge .sharing-button span .twitter {
+    background-color: #5babcd;
+}
+#post .challenge .sharing-button span .facebook {
+    background-color: #408ad0;
+}
+#post .challenge .sharing-button span .gplus {
+    background-color: #df463f;
+}
+#post .challenge .sharing-button:hover span {
+    display: block;
+}
+#post .challenge .sharing-button span::after {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #fff rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    border-image: none;
+    border-style: solid;
+    border-width: 6px 5px;
+    bottom: 4px;
+    content: "";
+    height: 0;
+    left: 50%;
+    margin-left: -3px;
+    position: absolute;
+    width: 0;
+}
+#post .challenge pre {
+    display: none;
+}
+#post .inline-editor {
+    border: 1px solid #d5d5d5;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px #eee;
+    clear: left;
+    height: 400px;
+    margin-bottom: 1.5em;
+    overflow: hidden;
+    position: relative;
+}
+#post .inline-editor p {
+    display: none;
+}
+#post .inline-editor pre {
+    display: none;
+}
+#post .inline-editor .ace_editor {
+    bottom: 0;
+    font-size: 13px;
+    left: 0;
+    position: absolute;
+    top: 50px;
+    white-space: pre;
+    width: 100%;
+}
+#post .inline-editor .toolbar {
+    background-color: #e6e6e6;
+    background-image: -moz-linear-gradient(center top , #ebebeb, #e3e3e3);
+    border-bottom: 1px solid #d5d5d5;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    height: 28px;
+    left: 0;
+    line-height: 1;
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+}
+#post .inline-editor .toolbar span {
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 5px;
+    padding: 8px 16px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+}
+#post .inline-editor .toolbar span.active {
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+    cursor: default;
+}
+#post .inline-editor .toolbar span.locked {
+    text-indent: 14px;
+}
+#post .inline-editor .toolbar span.locked::before {
+    background-color: #888;
+    border-radius: 1px;
+    content: "";
+    height: 8px;
+    left: 10px;
+    position: absolute;
+    top: 12px;
+    width: 12px;
+}
+#post .inline-editor .toolbar span.locked::after {
+    border: 2px solid #888;
+    border-radius: 50%;
+    content: "";
+    height: 5px;
+    left: 12px;
+    position: absolute;
+    top: 7px;
+    width: 4px;
+}
+#post .inline-editor .toolbar .reset {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/sprite.png") repeat scroll 0 -640px;
+    cursor: pointer;
+    height: 21px;
+    opacity: 0.6;
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    width: 18px;
+}
+#post .inline-editor .toolbar .reset:hover {
+    opacity: 0.75;
+}
+#post .inline-editor .button {
+    bottom: 20px;
+    font-size: 14px;
+    position: absolute;
+    right: 20px;
+    z-index: 10;
+}
+#post .inline-editor .result {
+    background-color: #fff;
+    border-radius: 2px;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 20;
+}
+#post .inline-editor .result iframe {
+    border-bottom: 1px solid #ddd;
+    border-radius: 2px 2px 0 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+#post .inline-editor .result .inline-log {
+    bottom: 0;
+    color: #666;
+    height: 65px;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 10px 10px 10px 15px;
+    position: absolute;
+    right: 115px;
+}
+#post .inline-editor .result .error {
+    color: #c22;
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+#post .inline-editor .result .log {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+#post .inline-editor .result .success, #post .inline-editor .result .fail {
+    background-color: #fcfcfc;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+}
+#post .inline-editor .result .success span, #post .inline-editor .result .fail span {
+    display: block;
+    font-size: 22px;
+    margin-top: 35px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+}
+#post .inline-editor .result .success i, #post .inline-editor .result .fail i {
+    color: #999;
+    display: block;
+    font-size: 12px;
+    line-height: 1.4;
+}
+#post .inline-editor .result .success::before, #post .inline-editor .result .fail::before {
+    background-color: #90c27f;
+    border-radius: 50%;
+    color: #fff;
+    content: "✓";
+    font-size: 100px;
+    height: 120px;
+    left: 50%;
+    line-height: 120px;
+    margin: -100px 0 0 -60px;
+    opacity: 0.5;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 120px;
+}
+#post .inline-editor .result .fail::before {
+    background-color: #e14e36;
+    content: "×";
+    line-height: 124px;
+}
+#post .quiz {
+    background-color: #f2f8fc;
+    border-top: 4px solid #cfdbe3;
+    clear: left;
+    color: #65767c;
+    display: none;
+    margin-bottom: 1.5em;
+}
+#post .quiz h3 {
+    font-size: 28px;
+    margin: 60px 0 0;
+    text-align: center;
+}
+#post .quiz .panel {
+    display: none;
+    overflow: hidden;
+    padding: 60px 0;
+}
+#post .quiz .panel > h3 {
+    margin: 0 0 60px;
+}
+#post .quiz .panel.success .bottom .button::before, #post .quiz .panel.fail .bottom .button::before {
+    background-color: #90c27f;
+    border-radius: 50%;
+    color: #fff;
+    content: "✓";
+    font-size: 100px;
+    height: 120px;
+    left: 50%;
+    line-height: 120px;
+    margin: -100px 0 0 -60px;
+    opacity: 0.5;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 120px;
+}
+#post .quiz .question {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+}
+#post .quiz .question img {
+    border: 1px solid #d3d3d3;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+}
+#post .quiz ul {
+    list-style: outside none none;
+    margin: 60px auto 0;
+    max-width: 400px;
+    width: 80%;
+}
+#post .quiz ul li {
+    background-color: #fff;
+    border: 1px solid #c8d2d6;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+#post .quiz ul li.right {
+    background-color: #b8e7a6;
+    border-color: #89cc6e;
+    color: #516648;
+}
+#post .quiz ul li.wrong {
+    background-color: #ff8d96;
+    border-color: #e36f6f;
+    color: #96474e;
+}
+#post .quiz ul li label {
+    cursor: pointer;
+    display: block;
+    line-height: 24px;
+    padding: 11px 17px;
+}
+#post .quiz ul li input {
+    box-shadow: none;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+#post .quiz .bottom {
+    padding-bottom: 60px;
+    text-align: center;
+}
+#post .quiz .bottom .button {
+    font-size: 16px;
+    position: relative;
+}
+#post .quiz .bottom .progress {
+    font-size: 14px;
+    padding-top: 15px;
+}
+#post .quiz .bottom .button.success::before, #post .quiz .bottom .button.fail::before {
+    background-color: #90c27f;
+    border-radius: 50%;
+    color: #fff;
+    content: "✓";
+    font-size: 24px;
+    font-weight: normal;
+    height: 36px;
+    left: -60px;
+    line-height: 38px;
+    position: absolute;
+    text-align: center;
+    top: 7px;
+    width: 36px;
+}
+#post .quiz .bottom .button.fail::before {
+    background-color: #e14e36;
+    content: "×";
+}
+#post .quiz [data-type="ad"] {
+    text-align: center;
+}
+#post .quiz [data-type="ad"] h3 {
+    font-size: 36px;
+    margin-bottom: 60px;
+    margin-top: 0;
+}
+#post .quiz [data-type="finish"] {
+    padding: 60px 0;
+}
+#post .quiz [data-type="finish"] h3 {
+    font-size: 42px;
+    margin-bottom: 60px;
+    margin-top: 20px;
+    text-align: center;
+}
+#post .quiz [data-type="finish"] h4 {
+    font-size: 18px;
+    font-style: italic;
+    font-weight: normal;
+    margin-bottom: 24px;
+    margin-top: 0;
+    text-align: center;
+}
+#post .quiz [data-type="finish"] p.result {
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    color: #87989e;
+    font-size: 24px;
+    margin: 0 auto 80px;
+    padding: 24px;
+    text-align: center;
+    width: 360px;
+}
+#post .quiz [data-type="finish"] p.result b {
+    color: #65767c;
+}
+#post .quiz [data-type="finish"] .share-quiz {
+    background-color: #d9e2e9;
+    border-bottom: 3px solid #c3ced6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    height: 36px;
+    margin: 115px auto 65px;
+    position: relative;
+    text-align: center;
+    width: 380px;
+}
+#post .quiz [data-type="finish"] .share-quiz::before, #post .quiz [data-type="finish"] .share-quiz::after {
+    background-color: #f2f8fc;
+    content: "";
+    height: 56px;
+    left: -26px;
+    position: absolute;
+    top: -10px;
+    transform: rotate(24deg);
+    width: 40px;
+}
+#post .quiz [data-type="finish"] .share-quiz::after {
+    left: auto;
+    right: -26px;
+    transform: rotate(-24deg);
+}
+#post .quiz [data-type="finish"] .share-quiz a {
+    border-radius: 50%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    height: 90px;
+    margin: -68px 8px 0;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 90px;
+}
+#post .quiz [data-type="finish"] .share-quiz a.facebook {
+    background-image: url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/icons/facebook_circle.svg");
+}
+#post .quiz [data-type="finish"] .share-quiz a.twitter {
+    background-image: url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/icons/twitter_circle.svg");
+}
+#post .quiz [data-type="finish"] .share-quiz a.gplus {
+    background-image: url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/icons/google_circle.svg");
+}
+#postCategories {
+    float: right;
+    margin-top: -1px;
+}
+#postCategories li a {
+    background-color: #bbb;
+    border: medium none !important;
+    border-radius: 3px;
+    color: #fff !important;
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 5px;
+    text-decoration: none !important;
+}
+#postCategories li a:hover {
+    background-color: #aaa;
+}
+#postCategories li {
+    float: left;
+    list-style: outside none none;
+    margin-left: 6px;
+}
+#subCategories li {
+    display: inline;
+    list-style: outside none none;
+}
+#subCategories a {
+    background-color: #e0e0e0;
+    border: medium none;
+    border-radius: 5px;
+    color: white;
+    display: block;
+    float: left;
+    font-size: 11px;
+    font-weight: bold;
+    margin: -2px 0 0 6px;
+    padding: 4px 8px;
+    text-decoration: none !important;
+}
+#subCategories a:hover {
+    background-color: #8f8f8f;
+}
+#subCategories {
+    float: right;
+    margin: -20px 0 25px;
+}
+.marginBelow20px {
+    margin-bottom: 20px;
+}
+.margin15auto30 {
+    margin: 15px auto 30px;
+}
+#frontpageBookPromo {
+    background: #23282c url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/frontpage_book_promo.jpg") no-repeat scroll right top / 923px 336px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px #ccc;
+    display: block;
+    height: 336px;
+    margin-bottom: 40px;
+}
+@media all and (max-width: 1400px) {
+#frontpageBookPromo {
+    background-position: left top;
+}
+}
+@media all and (max-width: 1200px) {
+#frontpageBookPromo {
+    display: none;
+}
+}
+#fixed-sidebar {
+    background-color: #fff;
+    box-sizing: border-box;
+    color: #3a454e;
+    display: none;
+    font-size: 18px;
+    height: 720px;
+    left: 50%;
+    margin-left: 316px;
+    opacity: 0;
+    padding: 30px 35px;
+    position: fixed;
+    top: 40px;
+    transition: opacity 0.4s ease 0s;
+    width: 380px;
+}
+#fixed-sidebar .step-title span {
+    background-color: #76b2e3;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    font-size: 16px;
+    height: 28px;
+    line-height: 30px;
+    margin-right: 15px;
+    text-align: center;
+    width: 28px;
+}
+#fixed-sidebar .step-action {
+    padding: 30px 0;
+    text-align: center;
+}
+#fixed-sidebar .step-action .social-icons {
+    padding: 0;
+}
+#fixed-sidebar .step-action .social-icons a {
+    margin: 0 3px;
+}
+#fixed-sidebar .book {
+    margin-left: 28px;
+    text-align: left;
+    width: 280px;
+}
+#fixed-sidebar .book .book-cover-small {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/jquery-trickshots-small.jpg") no-repeat scroll 0 0;
+    box-shadow: 2px 2px 0 #ddd;
+    float: left;
+    height: 133px;
+    margin: 0 20px 0 0 !important;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 103px;
+}
+#fixed-sidebar .book h6 {
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+#fixed-sidebar .book p {
+    font-size: 13px;
+    margin-bottom: 15px;
+    margin-top: 6px;
+}
+#fixed-sidebar .posts {
+    font-size: 13px;
+    list-style: outside none none;
+    text-align: left;
+}
+#fixed-sidebar .posts li {
+    margin-bottom: 4px;
+    margin-left: 7px;
+    padding: 5px 8px;
+    width: 280px;
+}
+#fixed-sidebar .posts li:hover {
+    background-color: #ffffe5;
+}
+#fixed-sidebar .posts a {
+    box-sizing: border-box;
+    color: #777 !important;
+    display: table;
+    text-decoration: none !important;
+    width: 100%;
+}
+#fixed-sidebar .posts span {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+#fixed-sidebar .posts img {
+    border-radius: 50%;
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    height: 40px !important;
+    margin-right: 14px;
+    vertical-align: middle;
+    width: 40px !important;
+}
+#relatedSection {
+}
+#relatedSection ul {
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 1px #ccc;
+    list-style: outside none none;
+    overflow: hidden;
+    padding: 40px;
+}
+#relatedSection ul li {
+    background: #fff none repeat scroll 0 0;
+    float: left;
+    margin-right: 25px;
+    width: 150px;
+}
+#relatedSection ul li a {
+    color: #555 !important;
+    display: block;
+    text-decoration: none !important;
+}
+#relatedSection ul li a img {
+    border-radius: 2px;
+    box-shadow: 0 1px 1px #eee;
+    display: block;
+}
+#relatedSection ul li span {
+    display: block;
+    font-size: 12px;
+    line-height: 1.45;
+    max-height: 55px;
+    overflow: hidden;
+    padding: 10px 5px 0;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+#relatedSection ul li:last-child {
+    margin-right: 0;
+}
+#relatedSection ul::before {
+    content: "Related tutorials and articles:";
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1;
+    padding: 5px 0 25px;
+    text-transform: uppercase;
+}
+#comments {
+}
+#comments h4 {
+    border-bottom: 2px solid #ddd;
+    color: #585858;
+    font-size: 24px;
+    line-height: 1;
+    margin: 75px 0 40px;
+    padding-bottom: 20px;
+}
+#comments li {
+    list-style: outside none none;
+    margin-bottom: 25px;
+}
+.comment-body {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 1px #ddd;
+    color: #666;
+    font-size: 14px;
+    margin-left: 120px;
+    padding: 40px;
+    position: relative;
+}
+.comment-body .avatar {
+    border-radius: 8px;
+    box-shadow: 0 0 1px #ccc;
+    height: 80px;
+    left: -106px;
+    position: absolute;
+    top: 10px;
+    width: 80px;
+}
+.comment-body p {
+    line-height: 1.5;
+    padding-bottom: 15px;
+}
+.comment-body br {
+    display: none;
+}
+.comment-body .reply a {
+    background-color: #93d0ea;
+    border-radius: 2px;
+    box-shadow: 0 0 5px #8fcde7 inset, 0 1px 1px #eee;
+    color: #fff !important;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: -5px;
+    margin-top: 5px;
+    opacity: 0.8;
+    padding: 1em 1.5em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+.reply a:hover {
+    opacity: 1;
+}
+.comment-body pre {
+    background-color: #f5f5f5;
+    border-left: 2px solid #e0e0e0;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+}
+.comment-body > em {
+    bottom: 35px;
+    color: red;
+    opacity: 0.4;
+    position: absolute;
+    right: 40px;
+}
+.comment-body blockquote pre {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    margin: 0;
+    padding: 0;
+}
+.comment-meta {
+    font-size: 14px;
+    position: absolute;
+    right: 40px;
+    top: 40px;
+}
+.comment-meta a {
+    color: #b7b7b7 !important;
+    font-size: 13px;
+    text-decoration: none !important;
+}
+.comment-author {
+    height: 28px;
+    margin-bottom: 12px;
+    text-decoration: none;
+}
+.comment-author cite.fn {
+    color: #484848;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+}
+.comment-author cite.fn a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+.comment-author .says {
+    display: none;
+}
+.comment.bypostauthor > .comment-body {
+    background-color: #f4fbff;
+}
+.comment.bypostauthor > .comment-body pre {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-left: 2px solid #dfdfce;
+}
+.comment ol {
+    padding: 25px 0 0 50px;
+}
+.comment ol cite.fn::before {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/sprite.png") repeat scroll -34px -211px;
+    content: "";
+    height: 16px;
+    left: 18px;
+    opacity: 0.15;
+    position: absolute;
+    top: 40px;
+    width: 16px;
+}
+#respond {
+    background-color: #fff;
+    border-radius: 4px;
+    border-top: 1px solid transparent;
+    box-shadow: 0 0 1px #ddd;
+    margin-top: 90px;
+    padding: 50px;
+}
+#respond h4 {
+    border-bottom: medium none;
+    margin-top: 0;
+    padding-bottom: 0;
+}
+h4 + #respond {
+    margin-top: 40px;
+}
+.comment #respond {
+    margin-left: 120px;
+    margin-top: 30px;
+    padding: 40px 50px;
+}
+.comment #respond h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+#respond textarea {
+    height: 150px;
+    max-width: 90%;
+    resize: both;
+    width: 600px;
+}
+#submit {
+    cursor: pointer;
+    margin-top: 10px;
+}
+#submit:hover {
+}
+#respond label {
+    position: relative;
+    right: -6px;
+}
+#respondtitle {
+    display: none;
+}
+#respond h4 span a {
+    border: medium none;
+    display: block;
+    height: 16px;
+    margin-top: 6px;
+    text-decoration: none;
+    text-indent: -9999px;
+    width: 16px;
+}
+#respond h4 span {
+    float: right;
+}
+.comment #respond textarea {
+    width: 500px;
+}
+.cancel-comment-reply {
+    bottom: 13px;
+    left: 190px;
+    position: absolute;
+}
+.cancel-comment-reply a {
+    color: #d23f4d;
+}
+#addCommentSection {
+    position: relative;
+}
+#addCommentSection form p {
+    padding: 5px 0;
+}
+#addCommentSection .notes {
+    background-color: #efefef;
+    color: rgb(136, 136, 136);
+    display: inline;
+    font-size: 11px;
+    line-height: 1.2;
+    padding: 1px;
+}
+.comment #addCommentSection {
+    border: medium none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 10px 0 0;
+}
+.comment #respondtitle {
+    display: block;
+}
+.comment #leavereply {
+    display: none;
+}
+.nocomments {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 1px #ddd;
+    color: #888;
+    padding: 20px;
+    text-align: center;
+}
+ol + .nocomments {
+    margin-left: 120px;
+}
+.comment-body li {
+    list-style: initial !important;
+    margin: 0 0 15px 25px !important;
+}
+#sidebar {
+    background-color: #f7f7f7;
+    float: right;
+    margin-top: -60px;
+    min-height: 400px;
+    position: relative;
+    width: 380px;
+}
+#sidebar .sidebar-group {
+    border-bottom: 8px solid #eee;
+    padding: 50px;
+}
+#sidebar .sidebar-group.about {
+    color: #5a5a5a;
+    line-height: 1.8;
+    padding-top: 55px;
+}
+#sidebar .sidebar-group.as {
+    overflow: hidden;
+    padding: 22px;
+}
+#sidebar .sidebar-group.as ins {
+    display: block !important;
+}
+#sidebar .sidebar-group h5 {
+    color: #666;
+    font-size: 11px;
+}
+#sidebar .sidebar-group h5 a {
+    opacity: 0.8;
+    text-decoration: none !important;
+}
+.social-icons {
+    line-height: 1;
+    padding: 18px 0 0;
+    text-align: center;
+}
+.social-icons a {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/sprite.png") repeat scroll 0 0 / 208px auto;
+    border-radius: 50%;
+    display: inline-block;
+    height: 46px;
+    margin-right: 1px;
+    opacity: 0.8;
+    width: 47px;
+}
+.social-icons a:hover {
+    opacity: 1;
+}
+.social-icons a.facebook {
+    background-position: -147px 0;
+}
+.social-icons a.googleplus {
+    background-position: -49px 0;
+}
+.social-icons a.rss {
+    background-position: -98px 0;
+}
+.social-icons a::before {
+    margin-left: -6px;
+}
+#sidebar .rek .bsap {
+    overflow: hidden;
+}
+#sidebar .rek .bsap a {
+    background-color: #fff;
+    border: 1px solid #e4e4e4;
+    box-shadow: 0 1px 2px #eee;
+    line-height: 1;
+    margin: 3px;
+    padding: 3px;
+}
+#sidebar .rek p {
+    background-color: #fff;
+    color: #777;
+    display: block;
+    font-size: 11px;
+    margin: 5px;
+    padding: 8px 14px;
+}
+#sidebar .rek p a {
+    color: #555 !important;
+}
+#sidebar .rek .bsap .adhere {
+    background-color: #efefef;
+    font-size: 10px;
+    line-height: 120px;
+    text-transform: uppercase;
+}
+#sidebar .rek .maxcdn {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/maxcdn_logo.png") no-repeat scroll left top;
+    display: block;
+    height: 25px;
+    margin: 24px auto -10px;
+    opacity: 0.75;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 150px;
+}
+#sidebar .rek .maxcdn:hover {
+    background-position: left bottom;
+}
+#sidebar .sidebar-group.posts {
+    padding: 25px;
+}
+#sidebar .sidebar-group.posts h5 {
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px 15px 8px;
+}
+#sidebar .sidebar-group h5.single, #sidebar .sidebar-group.posts h5.active {
+    background-color: #fff;
+    color: #555;
+    cursor: default;
+    display: inline-block;
+    padding: 10px 15px 8px;
+}
+#sidebar .sidebar-group.posts ul {
+    background-color: #fff;
+    display: none;
+    padding: 15px 20px;
+}
+#sidebar .sidebar-group.posts ul.active {
+    display: block;
+}
+#sidebar .sidebar-group.posts li {
+    border-bottom: 1px dotted #eee;
+    list-style: outside none none;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+}
+#sidebar .sidebar-group.posts li:hover a {
+    background-color: #f4f4f4;
+    color: #777 !important;
+}
+#sidebar .sidebar-group.posts li:last-child {
+    border-bottom: medium none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+#sidebar .sidebar-group.posts a {
+    box-sizing: border-box;
+    color: #777 !important;
+    display: table;
+    padding: 10px;
+    text-decoration: none !important;
+    width: 100%;
+}
+#sidebar .sidebar-group.posts span {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+}
+#sidebar .sidebar-group.posts img {
+    border: 2px solid #fff;
+    height: 40px !important;
+    margin-right: 14px;
+    outline: 1px solid #e4e4e4;
+    vertical-align: middle;
+    width: 40px !important;
+}
+#sidebar .sidebar-group.fb {
+    padding: 40px;
+}
+#sidebar .sidebar-group.twitter {
+    padding: 25px;
+}
+#sidebar .sidebar-group.twitter ul {
+    list-style: outside none none;
+}
+#sidebar .sidebar-group.twitter li {
+    background-color: #fff;
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 1px;
+    padding: 16px;
+}
+#sidebar .sidebar-group.twitter li > span {
+    display: block;
+    font-size: 12px;
+    margin-top: 10px;
+}
+#sidebar .sidebar-group.twitter li > span a {
+    color: #aaa !important;
+    text-decoration: none !important;
+}
+#sidebar .sidebar-group.twitter li .date {
+    float: right;
+}
+#sidebar .sidebar-group.twitter li a {
+    color: #aaa !important;
+}
+#sidebar .sidebar-group.twitter li > span {
+    display: none;
+}
+#followTwitterButton {
+    padding: 15px 0 0 52px;
+}
+footer {
+    background-color: #fafafa;
+    border-top: 1px solid #d6d6d6;
+    padding: 50px 50px 40px;
+    position: relative;
+    z-index: 10;
+}
+footer .footer-limiter {
+    margin: 0 auto;
+    max-width: 1400px;
+    overflow: hidden;
+    position: relative;
+}
+footer h6 {
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+footer .footer-group {
+    color: #6d6d6d;
+    float: left;
+    font-size: 12px;
+    margin-right: 5%;
+    width: 23%;
+}
+footer .footer-group a {
+    margin: 10px 0;
+}
+footer .footer-group p {
+    padding: 6px 0;
+}
+footer .bottom-nav {
+    overflow: hidden;
+    width: 14%;
+}
+footer .bottom-nav a {
+    color: #777 !important;
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 100px 5px 0 !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+}
+footer .bottom-nav p {
+    color: #999;
+    font-size: 11px;
+    margin-top: 5px;
+    width: 160px;
+}
+footer .members, footer .book {
+    margin-right: 0;
+}
+footer .book-cover-small {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/jquery-trickshots-small.jpg") no-repeat scroll 0 0;
+    box-shadow: 2px 2px 0 #ddd;
+    float: left;
+    height: 133px;
+    margin: 0 20px 0 0 !important;
+    overflow: hidden;
+    text-indent: -999px;
+    width: 103px;
+}
+footer .book h6 {
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+pre code {
+    background: #fbfbfb none repeat scroll 0 0 !important;
+    border: 1px solid #f9f9f9;
+    overflow-y: auto;
+    padding: 1em !important;
+}
+.prePosts #searchform {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 1px #ccc;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-bottom: 60px;
+    max-width: 550px;
+    padding: 20px 35px;
+    width: 100%;
+}
+.prePosts #searchform #s {
+    margin: 10px;
+    max-width: 290px;
+    width: 80%;
+}
+.wpcf7-form {
+}
+.wpcf7-form p {
+    font-size: 12px;
+}
+.wpcf7-form input[type="text"] {
+    margin-top: 2px;
+}
+.wpcf7-form textarea {
+    margin-top: 2px;
+    width: 360px;
+}
+.wpcf7-form input[type="submit"] {
+    margin-top: 20px;
+}
+.wpcf7-form input.wpcf7-quiz {
+    width: 100px;
+}
+.wpcf7-form small {
+    display: inline-block;
+    font-size: 13px;
+    padding-top: 20px;
+}
+article.post-item {
+    background-color: #fff;
+    box-shadow: 0 0 1px #ccc;
+    display: inline-block;
+    margin: 0 30px 30px 0;
+    overflow: hidden;
+    vertical-align: top;
+    width: 445px;
+}
+article.post-item h3 {
+    font-size: 20px;
+    font-weight: bold;
+    height: 200px;
+    line-height: 1.35;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+}
+article.post-item h3 img {
+    height: auto;
+    left: -4px;
+    margin-top: -125px;
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    width: auto;
+    z-index: 1;
+}
+article.post-item h3 a {
+    display: table;
+    height: 158px;
+    overflow: hidden;
+    padding: 20px 0 25px 30px;
+    position: relative;
+    vertical-align: bottom;
+    width: 100%;
+    z-index: 2;
+}
+article.post-item h3 a span {
+    display: table-cell;
+    vertical-align: bottom;
+}
+article.post-item h3 a b {
+    background-color: #383e42;
+    color: #fff;
+    display: inline-block;
+    line-height: 1;
+    margin-bottom: 5px;
+    margin-right: 100px;
+    padding: 6px 10px;
+    vertical-align: bottom;
+    white-space: nowrap;
+}
+article.post-item div {
+    color: #737373;
+    font-size: 11px;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 25px 30px 20px;
+}
+article.post-item div span {
+    float: right;
+}
+article.post-item div span a {
+    box-shadow: none;
+    font-size: 10px;
+    margin-right: 3px;
+    opacity: 0.7;
+    padding: 6px 7px 5px;
+}
+article.post-item div span a:hover {
+    opacity: 0.8;
+}
+article.post-item p {
+    color: #4b4b4b;
+    font-size: 14px;
+    padding: 0 30px 20px;
+}
+article.post-item .button {
+    margin: 0 0 25px 30px;
+}
+.postHolder {
+    max-width: 960px;
+}
+.seeAll {
+    border-top: 1px solid #ddd;
+    margin-bottom: 40px;
+    margin-right: 38px;
+    padding-top: 15px;
+    text-align: right;
+}
+.seeAll a {
+    font-size: 12px;
+}
+.wp-pagenavi {
+    border-top: 1px solid #d3d3d3;
+    color: #888;
+    font-size: 15px;
+    margin: 10px 38px 10px 0;
+    padding-top: 15px;
+    text-align: right;
+}
+.wp-pagenavi .pages {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    color: #666 !important;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 4px;
+    outline: medium none;
+    text-transform: uppercase;
+}
+div.wp-pagenavi span.current {
+    padding: 0 6px;
+}
+div.wp-pagenavi a {
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 1px #ccc;
+    color: #666 !important;
+    display: inline-block;
+    line-height: 1;
+    margin: 0 2px;
+    padding: 6px 7px;
+    text-decoration: none !important;
+}
+.wp-pagenavi .extend {
+}
+.wp-pagenavi .last, .wp-pagenavi .first {
+    display: none;
+}
+div.wp-pagenavi span {
+    cursor: default;
+    display: inline-block;
+    margin: 0 2px;
+    padding: 0 2px;
+}
+div.wp-pagenavi .previouspostslink, div.wp-pagenavi .nextpostslink {
+    text-decoration: none !important;
+}
+.fullWidth {
+    margin: 0 auto;
+    max-width: 950px;
+}
+.fullWidth h2, .fullWidth h3 {
+    text-align: center;
+}
+.fullWidth h2 {
+    font-size: 80px;
+    padding: 20px 0;
+}
+.fullWidth h3 {
+    color: #999;
+    font-weight: normal;
+    margin: 0 0 50px;
+    text-align: center;
+}
+.fullWidth.page404 {
+    padding-bottom: 150px;
+}
+.fullWidth.page404 div {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.fullWidth.page404 div a {
+    display: inline-block;
+    margin: 5px;
+    text-decoration: none !important;
+}
+.fullWidth.page404 div a img {
+    border: 5px solid #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 1px #c4c4c4;
+    display: block;
+}
+.fullWidth.page404 form div {
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 1px #ccc;
+    margin: 40px auto 50px;
+    max-width: 660px;
+    padding: 30px 0;
+}
+.fullWidth.page404 #s {
+    margin: 10px;
+    max-width: 380px;
+    width: 80%;
+}
+.mContainer {
+    background-color: #fff;
+    border-radius: 0 2px 2px 0;
+    box-shadow: 0 0 1px #ccc;
+    margin-bottom: 100px;
+    margin-top: -60px;
+    padding-bottom: 100px;
+}
+.mContainer .hero1 {
+    background: #c2e3f6 url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/member_area/header_1.jpg") no-repeat scroll center bottom;
+    height: 630px;
+    position: relative;
+}
+.mContainer .hero2 {
+    background: #c2e3f6 url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/member_area/header_2.jpg") no-repeat scroll 123px bottom;
+    height: 316px;
+}
+.mContainer .signin *, .mContainer .signin.expand .login {
+    display: none;
+}
+.mContainer .signin .login, .mContainer .signin.expand .go, .mContainer .signin.expand input {
+    display: block;
+}
+.mContainer .signin .login {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/member_area/login_button.jpg") no-repeat scroll center center;
+    height: 49px;
+    opacity: 0.9;
+    position: absolute;
+    right: 40px;
+    top: 36px;
+    width: 118px;
+}
+.mContainer .signin .login:hover {
+    opacity: 1;
+}
+.mContainer .signin .go {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/member_area/login_go_button.jpg") no-repeat scroll center center;
+    height: 48px;
+    opacity: 0.9;
+    position: absolute;
+    right: 41px;
+    top: 36px;
+    width: 75px;
+}
+.mContainer .signin input {
+    border: medium none;
+    border-radius: 2px 0 0 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    font-size: 16px;
+    line-height: 1;
+    padding: 14px 15px 13px;
+    position: absolute;
+    right: 114px;
+    top: 36px;
+    width: 210px;
+}
+.mContainer .benefits {
+    color: #707070;
+    font-size: 15px;
+    margin: 0 auto 60px;
+    max-width: 560px;
+    padding-left: 290px;
+    position: relative;
+    width: 450px;
+}
+.mContainer .benefits p, .mContainer .benefits ul {
+    margin: 16px 0;
+}
+.mContainer .benefits li {
+    margin: 16px 0 16px 24px;
+}
+.mContainer .benefits::before {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/member_area/psds.jpg") no-repeat scroll 0 0;
+    content: "";
+    height: 115px;
+    left: 0;
+    position: absolute;
+    top: 50px;
+    width: 230px;
+}
+.mContainer .note {
+    color: #808080;
+    font-size: 14px;
+    font-style: italic;
+    padding-top: 30px;
+    text-align: center;
+}
+.mContainer h2 {
+    color: #5a6e7a;
+    font-size: 36px;
+    padding: 100px 1em 50px;
+    text-align: center;
+}
+.mContainer h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    padding: 40px 15px 15px;
+}
+div.flashMessage {
+    background-color: #ccc;
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    color: #888;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    left: 50%;
+    margin-left: -270px;
+    opacity: 0.95;
+    padding: 20px;
+    position: fixed;
+    text-align: center;
+    top: 50px;
+    width: 500px;
+    z-index: 100;
+}
+div.flashMessage.red {
+    background-color: #e82c0c;
+    color: #fff;
+}
+div.flashMessage.green {
+    background-color: #41b03e;
+    color: #fff;
+}
+.mContainer > form {
+    background-color: #f7f7f7;
+    border-radius: 3px;
+    margin: 0 auto;
+    max-width: 560px;
+    padding: 50px 60px 46px;
+}
+.mContainer > form input[type="text"] {
+    border-color: #ccc;
+    box-shadow: 1px 1px 1px #eee;
+    color: #828282;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 5px 8px 0;
+    max-width: 320px;
+    padding: 11px 16px;
+    width: 80%;
+}
+.mContainer > form .button {
+    background-color: #69b8e5;
+    background-image: linear-gradient(to bottom, #69b8e5, #64afda);
+    box-shadow: 0 1px 1px #ccc;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 16px 20px;
+}
+.mContainer .mSection {
+    margin: 80px auto 40px;
+    max-width: 1120px;
+    overflow: hidden;
+}
+.mContainer .psd-post {
+    background-color: #fbfbfb;
+    border-radius: 8px;
+    float: left;
+    height: 280px;
+    margin: 10px;
+    padding: 40px;
+    text-align: center;
+    width: 180px;
+}
+.mContainer .psd-post a.img {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    display: inline-block;
+    height: 150px;
+    width: 150px;
+}
+.mContainer .psd-post p {
+    font-weight: bold;
+    padding: 20px 0;
+}
+.mMessageError, .mMessageSuccess {
+    display: none;
+}
+.mContainer .newsletter {
+    background: rgba(0, 0, 0, 0) url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/member_area/envelope_small.jpg") no-repeat scroll 0 0;
+    color: #888 !important;
+    display: block;
+    float: left;
+    font-size: 12px;
+    font-weight: bold;
+    height: 75px;
+    line-height: 80px;
+    margin: 28px 13px 0;
+    text-align: center;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    width: 221px;
+}
+.mContainer .front-psd-list {
+    overflow: hidden;
+    padding-top: 50px;
+    text-align: center;
+}
+.mContainer .front-psd-list h3 {
+    padding-bottom: 30px;
+}
+.mContainer .front-psd-list .psd-post {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+.mContainer .jquery-trickshots-ban {
+    background: url("http://cdn.tutorialzine.com/wp-content/themes/tzine/img/jquery-trickshots-small.jpg") no-repeat scroll 100px 40px, rgba(0, 0, 0, 0) radial-gradient(ellipse closest-side at center center , #fff 70%, #fbfcfd 85%, #f4f7fa 100%) repeat scroll 0 0;
+    margin: 0 auto;
+    max-width: 600px;
+    min-height: 140px;
+    opacity: 1;
+    padding: 40px 40px 40px 240px;
+    text-align: left;
+    transition: all 0.3s ease 0s;
+}
+.mContainer .jquery-trickshots-ban a {
+    color: #333a40 !important;
+    text-decoration: none !important;
+}
+.mContainer .jquery-trickshots-ban h6 {
+    font-size: 18px;
+}
+.mContainer .jquery-trickshots-ban p {
+    font-size: 15px;
+    margin: 12px 0 20px;
+}
+.mContainer .jquery-trickshots-ban button {
+    font-size: 13px;
+}
+[data-hint] {
+    display: inline-block;
+    position: relative;
+}
+[data-hint]::before, [data-hint]::after {
+    bottom: 100%;
+    left: 50%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: all 0.3s ease 0s;
+    visibility: hidden;
+    z-index: 1000000;
+}
+[data-hint]:hover::before, [data-hint]:hover::after {
+    opacity: 1;
+    transform: translateY(-8px);
+    visibility: visible;
+}
+[data-hint]::before {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: transparent none repeat scroll 0 0;
+    border-color: #383838 transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 6px;
+    content: "";
+    margin-bottom: -12px;
+    position: absolute;
+    z-index: 1000001;
+}
+[data-hint]::after {
+    background: #383838 none repeat scroll 0 0;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    color: white;
+    content: attr(data-hint);
+    font-size: 12px;
+    line-height: 12px;
+    margin-left: -18px;
+    padding: 8px 10px;
+    text-shadow: 0 -1px 0 black;
+    white-space: nowrap;
+}
+#book-view {
+    font: 16px/1.5 "PT Serif",Corbel,sans-serif;
+}
+#book-view .leftcol {
+    float: left;
+    margin: 100px 0 0 240px;
+    width: 322px;
+}
+#book-view .leftcol img {
+    box-shadow: 1px 1px 1px #ccc;
+    max-width: 100%;
+}
+#book-view .leftcol .links {
+    font-size: 18px;
+    padding: 15px 0 10px;
+    text-align: center;
+}
+#book-view .rightcol {
+    float: left;
+    margin: 30px 30px 80px 110px;
+    width: 470px;
+}
+#book-view .rightcol .instructions {
+    font: 12px/1.5 sans-serif;
+    padding: 15px;
+    text-align: center;
+}
+#book-view h2 {
+    color: #3981a0;
+    font-size: 32px;
+    font-weight: normal;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-top: 70px;
+    text-align: left;
+}
+#book-view h3 {
+    color: #999;
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-kerning: inherit;
+    font-language-override: inherit;
+    font-size: 18px;
+    font-size-adjust: inherit;
+    font-stretch: inherit;
+    font-style: italic;
+    font-synthesis: inherit;
+    font-variant: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    margin-bottom: 24px;
+    padding: 0;
+}
+#book-view .content {
+}
+#book-view .content p {
+    margin-bottom: 1.5em;
+}
+#book-view .packages {
+    margin-top: 60px;
+}
+#book-view .packages .package {
+    background-color: #fefce8;
+    border-radius: 4px;
+    color: #6d7176;
+    font-size: 16px;
+    line-height: 52px;
+    margin-bottom: 12px;
+    min-height: 50px;
+    padding: 20px 120px 20px 30px;
+    position: relative;
+}
+#book-view .packages .button {
+    box-shadow: 0 0 5px #f68962 inset, 0 1px 1px #ddd;
+    font-size: 20px;
+    margin-top: -26px;
+    padding: 0.8em 1.5em;
+    position: absolute;
+    right: 25px;
+    top: 50%;
+}
+#book-view .packages .label {
+    display: inline-block;
+    font-size: 15px;
+    line-height: 1.5;
+    vertical-align: middle;
+    width: 200px;
+}
+#book-view .packages .price {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: middle;
+    width: 115px;
+}
+#book-view .packages .price i {
+    color: #e87373;
+    display: block;
+    font-size: 0.65em;
+    font-style: normal;
+    margin-bottom: -4px;
+    text-decoration: line-through;
+}
+#book-view h3 b {
+    color: #666;
+    font-weight: normal;
+}
+#book-view .blue_content {
+    background-color: #e9f5fc;
+    clear: both;
+    color: #54575b;
+    font-size: 16px;
+    margin: 0 auto 80px;
+    max-width: 1000px;
+    overflow: hidden;
+    padding: 50px 60px;
+    text-align: left;
+}
+#book-view .blue_content h3 {
+    color: inherit;
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-kerning: inherit;
+    font-language-override: inherit;
+    font-size: 24px;
+    font-size-adjust: inherit;
+    font-stretch: inherit;
+    font-style: italic;
+    font-synthesis: inherit;
+    font-variant: inherit;
+    font-weight: bold;
+    line-height: inherit;
+    margin-bottom: 0;
+    padding: 0 0 25px 20px;
+}
+#book-view .blue_content ul {
+    list-style: outside none none;
+}
+#book-view .blue_content li {
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0 20px 25px;
+    vertical-align: top;
+    width: 48%;
+}
+#book-view .testimonials {
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+#book-view .testimonials h3 {
+    color: #54575b;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: bold;
+    margin-top: 100px;
+    text-align: center;
+}
+#book-view .testimonials blockquote {
+    background: #f6f6f6 none repeat scroll 0 0;
+    border-radius: 3px;
+    display: block;
+    line-height: 1.5;
+    margin: 60px auto 20px;
+    max-width: 640px;
+    padding: 25px 35px;
+    text-align: left;
+}
+#book-view .testimonials p {
+    margin: 0 auto;
+    max-width: 640px;
+}
+#book-view #shareBar {
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    line-height: 2;
+    margin: 40px auto 0;
+    max-width: 400px;
+    padding: 13px 0;
+    text-align: center;
+}
+section.book-shelf {
+    margin: 0 auto;
+    max-width: 600px;
+    text-align: center;
+}
+section.book-shelf h2 {
+    font-size: 50px;
+    margin: 100px 0 30px;
+    text-transform: uppercase;
+}
+section.book-shelf .book {
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    position: relative;
+    z-index: 10;
+}
+section.book-shelf .book img {
+    display: block;
+}
+section.book-shelf .shelf {
+    background-color: #444;
+    border-bottom: 20px solid #333;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    height: 50px;
+    margin-bottom: 50px;
+    position: relative;
+    top: -30px;
+    z-index: 0;
+}
+section.book-shelf .shelf::after, section.book-shelf .shelf::before {
+    background-color: #eee;
+    bottom: 0;
+    content: "";
+    height: 100px;
+    left: -40px;
+    position: absolute;
+    transform: rotate(20deg);
+    transform-origin: 100% 100% 0;
+    width: 40px;
+}
+section.book-shelf .shelf::after {
+    left: auto;
+    right: -40px;
+    transform: rotate(-20deg);
+    transform-origin: 0 100% 0;
+}
+#downloadBookForm {
+    background-color: #f9f9f9;
+    border-top: 2px solid #f0f0f0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding: 20px 30px 18px;
+    position: relative;
+}
+#downloadBookForm h4 {
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+#downloadBookForm p {
+    margin-bottom: 20px;
+}
+#downloadBookForm p i {
+    color: #888;
+}
+#downloadBookForm input[type="text"] {
+    border-color: #bbb;
+    font-size: 14px;
+    line-height: 1;
+    margin-bottom: 10px;
+    margin-right: 6px;
+    max-width: 90%;
+    padding: 12px;
+    width: 270px;
+}
+@media all and (max-width: 1500px) {
+h1 {
+    left: 50px;
+    margin-left: 0;
+}
+header nav {
+    left: 280px;
+    margin-left: 0;
+    padding-right: 80px;
+}
+header a.searchIcon {
+    margin-right: 0;
+    right: 50px;
+}
+#content {
+    margin-left: 50px;
+    margin-right: 50px;
+    width: auto;
+}
+#post {
+    font-size: 15px;
+}
+}
+@media all and (max-width: 1470px) {
+#post, .leftPostCol {
+    margin-right: 380px;
+    width: auto;
+}
+#relatedSection li:last-child {
+    display: none;
+}
+#relatedSection ul li {
+    margin-right: 36px;
+}
+#sidebar {
+    width: 340px;
+}
+header {
+    height: 85px;
+}
+#sidebar .rek {
+    padding: 25px;
+}
+#sidebar .sidebar-group.fb {
+    padding: 20px;
+}
+#sidebar .sidebar-group.as {
+    padding: 2px;
+}
+section.postHolder {
+    margin-right: 320px;
+}
+section.postHolder .post-item {
+    display: inline-block;
+    margin: 0 3% 3% 0;
+    width: 45%;
+}
+section.postHolder .post-item h3 {
+    font-size: 20px;
+}
+section.postHolder .seeAll {
+    margin-right: 6%;
+}
+.wp-pagenavi {
+    margin-right: 60px;
+}
+#book-view .leftcol {
+    margin: 100px 60px 0 160px;
+    text-align: center;
+    width: 25%;
+}
+#book-view .rightcol {
+    float: left;
+    margin: 30px 0 50px;
+    max-width: 480px;
+    width: 50%;
+}
+#book-view .blue_content {
+    margin-bottom: 0;
+}
+#fixed-sidebar {
+    left: auto;
+    margin-left: 0;
+    right: 25px;
+    top: 25px;
+}
+.leftResponsiveColumn {
+    margin-right: 382px !important;
+    max-width: 900px;
+    width: auto;
+}
+}
+@media all and (max-width: 1340px) {
+.hide1340 {
+    display: none !important;
+}
+.mContainer .mSection {
+    text-align: center;
+}
+.mContainer .mSection .psd-post {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+.mContainer .newsletter {
+    display: inline-block;
+    float: none;
+}
+.leftResponsiveColumn {
+    margin-right: 380px !important;
+    width: auto;
+}
+}
+@media all and (max-width: 1320px) {
+.hide1320 {
+    display: none;
+}
+}
+@media all and (max-width: 1200px) {
+#post, .leftPostCol {
+    margin: 0 auto 50px;
+}
+#sidebar {
+    display: none;
+}
+#fixed-sidebar {
+    display: none !important;
+}
+footer .footer-limiter {
+    max-width: 950px;
+}
+#relatedSection ul {
+    padding-bottom: 30px;
+}
+#relatedSection ul li span {
+    height: 60px;
+}
+section.postHolder {
+    margin: 0 auto;
+}
+section.postHolder .seeAll {
+    margin-right: 0;
+}
+#book-view .blue_content {
+    margin-bottom: -50px;
+}
+#book-view .rightcol {
+    display: inline-block;
+    float: none;
+    margin: 50px;
+    max-width: 480px;
+    text-align: left;
+    width: auto;
+}
+#book-view .leftcol {
+    display: inline-block;
+    float: none;
+    margin: 50px;
+    width: auto;
+}
+#book-view h2 {
+    padding-top: 0;
+}
+#book-view {
+    text-align: center;
+}
+.leftResponsiveColumn {
+    margin-left: auto;
+    margin-right: auto !important;
+    max-width: 960px;
+}
+section.postHolder .itemRow {
+    overflow: hidden;
+}
+section.postHolder .post-item {
+    margin: 0 0 3em;
+    max-width: 450px;
+    width: 48%;
+}
+section.postHolder .post-item:first-child {
+    float: left;
+}
+section.postHolder .post-item:last-child {
+    float: right;
+}
+}
+@media all and (max-width: 1000px) {
+.mContainer .hero1 {
+    background-size: contain;
+    height: 400px;
+}
+.mContainer .benefits {
+    padding: 0 40px;
+    width: auto;
+}
+.mContainer .benefits::before {
+    display: none;
+}
+}
+@media all and (max-width: 840px) {
+header {
+    height: auto;
+}
+h1 {
+    margin: 0 !important;
+    padding: 10px 0 20px;
+    position: static;
+    text-align: center;
+    width: auto;
+}
+h1 a {
+    font-size: 32px !important;
+}
+header nav {
+    margin: 0 !important;
+    padding-right: 0;
+    position: static;
+    text-align: center;
+    width: auto;
+}
+header nav a {
+    font-size: 18px;
+    margin: 0 10px;
+    padding: 0 5px 10px;
+}
+header select {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-kerning: inherit;
+    font-language-override: inherit;
+    font-size: 14px;
+    font-size-adjust: inherit;
+    font-stretch: inherit;
+    font-style: inherit;
+    font-synthesis: inherit;
+    font-variant: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    margin: 0 2% 2%;
+    padding: 4px;
+    width: 96%;
+}
+#post {
+    font-size: 13px;
+}
+#post .post-body {
+    padding: 3em;
+}
+#post h2 {
+    font-size: 28px;
+}
+footer {
+    padding: 30px 0 10px;
+}
+footer .footer-group {
+    display: none;
+}
+footer .bottom-nav {
+    display: block;
+    float: none;
+    margin: 0;
+    text-align: center;
+    width: auto;
+}
+footer .bottom-nav a {
+    margin: 0 10px 10px 0 !important;
+    padding: 0 10px;
+}
+footer .bottom-nav p {
+    width: auto;
+}
+.hide840 {
+    display: none;
+}
+#respond textarea {
+    width: 100% !important;
+}
+section.postHolder {
+    text-align: center;
+}
+section.postHolder .post-item {
+    float: none !important;
+    max-width: 450px;
+    text-align: left;
+    width: 100%;
+}
+section.postHolder .seeAll {
+    margin-right: 6%;
+    text-align: center;
+}
+#content .prePosts {
+    text-align: center;
+}
+.mContainer h2 {
+    font-size: 36px;
+    padding-bottom: 40px;
+}
+.mContainer > form {
+    text-align: center;
+}
+.mContainer .hero2 {
+    display: none;
+}
+.mContainer .jquery-trickshots-ban {
+    background-position: center 40px;
+    max-width: none;
+    padding: 200px 20px 60px;
+    text-align: center;
+}
+#book-view .leftcol img {
+    margin-top: 40px;
+    width: 420px;
+}
+.section-heading {
+    text-align: center;
+}
+.section-heading h2, .section-heading .tags {
+    float: none;
+    margin-bottom: 20px;
+    padding-bottom: 0;
+}
+.section-heading .tags {
+    margin-bottom: 40px;
+}
+.fullWidth h2 {
+    font-size: 36px;
+    padding: 20px 0 10px;
+}
+.fullWidth.page404 div a:last-child {
+    display: none;
+}
+}
+@media all and (max-width: 600px) {
+#content {
+    margin: 40px 20px 20px;
+}
+#post .post-body {
+    padding: 2em;
+}
+.hide600 {
+    display: none;
+}
+header a.searchIcon {
+    margin-top: -45px;
+}
+h1 {
+    padding: 10px 0;
+}
+.mContainer .hero1 {
+    display: none;
+}
+.postHolder h2 {
+    padding-top: 20px;
+}
+section.book-shelf .book img {
+    height: auto;
+    width: 300px;
+}
+#book-view .blue_content {
+    padding: 40px 20px 0;
+}
+#book-view .blue_content li {
+    display: block;
+    padding: 0 15px 30px;
+    width: 100%;
+}
+#book-view .blue_content h3 {
+    padding: 0 0 25px;
+    text-align: center;
+}
+#book-view .leftcol {
+    margin: 40px 0;
+    width: 100%;
+}
+#book-view .testimonials h3 {
+    font-size: 18px;
+}
+#book-view .testimonials {
+    margin-bottom: 0;
+}
+#book-view .leftcol img {
+    height: auto !important;
+    width: 80%;
+}
+#book-view #shareBar {
+    display: none !important;
+}
+#book-view .rightcol {
+    box-sizing: border-box;
+    font-size: 16px;
+    margin: 0;
+    padding: 0 20px;
+    width: 100%;
+}
+#book-view h2 {
+    font-size: 30px;
+    padding: 0;
+    text-align: center;
+    width: auto;
+}
+#book-view .rightcol h3 {
+    font-size: 16px;
+    text-align: center;
+}
+.wp-pagenavi {
+    margin-right: 0;
+}
+section.postHolder .seeAll {
+    margin-right: 0;
+}
+.section-heading {
+    padding-top: 15px;
+}
+section.postHolder .post-item h3 {
+    font-size: 16px;
+}
+#post .bottom-meta {
+    text-align: center;
+}
+#post .bottom-meta #tags {
+    display: inline-block;
+    float: none;
+    margin-bottom: 20px;
+}
+#post .bottom-meta #categories {
+    display: none;
+}
+}
+@media all and (max-width: 400px) {
+header a.searchIcon {
+    display: none;
+}
+#post h2 {
+    font-size: 24px;
+}
+#content {
+    margin: 10px;
+}
+#post .post-body {
+    padding: 1.5em;
+}
+#book-view .packages .button {
+    margin: 0 auto;
+    position: static;
+}
+#book-view .packages .package {
+    padding: 15px 20px;
+    text-align: center;
+}
+article.post-item div span {
+    display: block;
+    float: none;
+    margin-top: 15px;
+}
+article.post-item div {
+    font-size: 11px;
+    padding: 25px 20px 20px;
+}
+article.post-item p {
+    padding: 0 20px 20px;
+}
+article.post-item .button {
+    margin: 0 0 20px 20px;
+}
+.section-heading .tags {
+    margin-bottom: 20px;
+}
+.section-heading .tags .tagged {
+    margin-bottom: 15px;
+}
+}
+@media all and (max-height: 760px) {
+#fixed-sidebar {
+    top: 0;
+}
+#fixed-sidebar .step-action {
+    padding: 20px 0;
+}
+}
+.webappstudio-animation {
+    background: rgba(0, 0, 0, 0) radial-gradient(ellipse closest-side at center center , rgba(255, 255, 255, 1) 70%, rgba(251, 252, 253, 1) 85%, rgba(244, 247, 250, 1) 100%) repeat scroll 0 0;
+    font-family: Arial,Helvetica,sans-serif;
+    height: 550px;
+    margin: 40px auto;
+    max-width: 778px;
+    overflow: hidden;
+    padding: 56px 0 30px;
+    position: relative;
+}
+.webappstudio-animation .limiter {
+    margin: 0 auto;
+    max-width: 570px;
+    position: relative;
+    text-align: center;
+}
+.webappstudio-animation > a {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    text-decoration: none;
+    top: 0;
+    width: 100%;
+    z-index: 30;
+}
+.webappstudio-animation .limiter a {
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid #a0d7f8;
+    border-radius: 5px;
+    color: #60b4e6;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    height: 49px;
+    line-height: 20px;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    width: 130px;
+}
+.webappstudio-animation .limiter h6 {
+    color: #333a40;
+    font-size: 32px;
+    font-weight: normal;
+    margin: 0;
+    text-align: center;
+}
+.webappstudio-animation .limiter h6 strong span {
+    color: #5fb4e6;
+}
+.webappstudio-animation .limiter p {
+    color: #333a40;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 30px;
+    margin: 25px auto 40px !important;
+    text-align: center;
+}
+.animation {
+    height: 400px;
+    margin: 70px auto 0;
+    position: relative;
+    width: 800px;
+}
+.animation .browser {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 #fff;
+    height: 240px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 302px;
+}
+.animation .box {
+    bottom: 180px;
+    height: 120px;
+    position: absolute;
+    right: 223px;
+    width: 145px;
+}
+.animation .box-top {
+    background-color: #eff1f5;
+    bottom: 180px;
+    color: #8c97a5;
+    font-family: Arial,sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    height: 101px;
+    line-height: 101px;
+    position: absolute;
+    right: 235px;
+    text-align: center;
+    width: 131px;
+}
+.animation .box-top span {
+    color: #5fb4e6;
+}
+.animation .cursor {
+    height: 20px;
+    left: -190px;
+    opacity: 0;
+    position: absolute;
+    top: -120px;
+    width: 40px;
+}
+.animation.active .cursor {
+    animation: 12s ease 0s normal none infinite running workflow-cursor;
+    opacity: 1;
+}
+.animation > span {
+    border-radius: 4px;
+    height: 43px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 55px;
+}
+.animation .header-drop {
+    background-color: #a5e8f0;
+    opacity: 0;
+}
+.animation.active .header-drop {
+    animation: 12s ease 0s normal none infinite running workflow-header-drop;
+    opacity: 1;
+}
+.animation .body-drop {
+    background-color: #bce4af;
+    opacity: 0;
+}
+.animation.active .body-drop {
+    animation: 12s ease 0s normal none infinite running workflow-body-drop;
+    opacity: 1;
+}
+.animation .column-drop {
+    background-color: #f4acf0;
+    opacity: 0;
+}
+.animation.active .column-drop {
+    animation: 12s ease 0s normal none infinite running workflow-column-drop;
+    opacity: 1;
+}
+.animation .column-drop::before, .animation .column-drop::after {
+    background-color: inherit;
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.animation.active .column-drop::before {
+    animation: 12s ease 0s normal none infinite running workflow-column-drop-before;
+}
+.animation.active .column-drop::after {
+    animation: 12s ease 0s normal none infinite running workflow-column-drop-after;
+}
+@keyframes workflow-cursor {
+0%, 24%, 48%, 80%, 100% {
+    transform: translate(695px, 275px);
+}
+6%, 18%, 30%, 42%, 54%, 66% {
+    transform: translate(675px, 140px);
+}
+12%, 13% {
+    transform: translate(330px, 180px);
+}
+36%, 37% {
+    transform: translate(330px, 250px);
+}
+60%, 61% {
+    transform: translate(330px, 320px);
+}
+}
+@keyframes workflow-header-drop {
+0% {
+    transform: translate(485px, 135px);
+}
+6% {
+    transform: translate(465px, 0px);
+}
+12% {
+    height: 43px;
+    transform: translate(120px, 40px);
+    width: 55px;
+}
+14%, 96% {
+    border-radius: 0;
+    height: 24px;
+    opacity: 1;
+    transform: translate(20px, 52px);
+    width: 263px;
+}
+100% {
+    border-radius: 0;
+    height: 24px;
+    opacity: 0;
+    transform: translate(20px, 52px);
+    width: 263px;
+}
+}
+@keyframes workflow-body-drop {
+0%, 24% {
+    transform: translate(485px, 135px);
+}
+30% {
+    transform: translate(465px, 0px);
+}
+36% {
+    height: 43px;
+    transform: translate(120px, 110px);
+    width: 55px;
+}
+38%, 96% {
+    border-radius: 0;
+    height: 79px;
+    opacity: 1;
+    transform: translate(19px, 90px);
+    width: 264px;
+}
+100% {
+    border-radius: 0;
+    height: 79px;
+    opacity: 0;
+    transform: translate(19px, 90px);
+    width: 264px;
+}
+}
+@keyframes workflow-column-drop {
+0%, 48% {
+    transform: translate(485px, 135px);
+}
+54% {
+    transform: translate(465px, 0px);
+}
+60% {
+    height: 43px;
+    transform: translate(120px, 180px);
+    width: 55px;
+}
+62%, 96% {
+    border-radius: 0;
+    height: 38px;
+    opacity: 1;
+    transform: translate(110px, 184px);
+    width: 80px;
+}
+100% {
+    border-radius: 0;
+    height: 38px;
+    opacity: 0;
+    transform: translate(110px, 184px);
+    width: 80px;
+}
+}
+@keyframes workflow-column-drop-before {
+60% {
+    opacity: 0;
+    transform: translate(0px, 0px);
+}
+62%, 96% {
+    opacity: 1;
+    transform: translate(-92px, 0px);
+}
+100% {
+    opacity: 0;
+    transform: translate(-92px, 0px);
+}
+}
+@keyframes workflow-column-drop-after {
+60% {
+    opacity: 0;
+    transform: translate(0px, 0px);
+}
+62%, 96% {
+    opacity: 1;
+    transform: translate(92px, 0px);
+}
+100% {
+    opacity: 0;
+    transform: translate(92px, 0px);
+}
+}
+@media (max-width: 900px) {
+.webappstudio-animation {
+    height: inherit;
+    padding: 50px 0 60px;
+}
+.animation {
+    display: none;
+}
+}
+@media (max-width: 800px) {
+.webappstudio-animation {
+    display: none;
+}
+}

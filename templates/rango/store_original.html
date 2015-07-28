@@ -1,0 +1,171 @@
+{% extends 'rango/base_post_login.html' %}
+
+{% block head %}
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+
+  function ajax_get_update()
+    {
+      $.ajax({
+        cache: false,
+        type: "GET",
+      });
+       $.get(url, function(results){
+          //get the parts of the result you want to update. Just select the needed parts of the response
+          var table = $("table", results);
+          var page = $(".pagination", results);
+          // console.log(results);
+          //update the ajax_table_result with the return value
+          $('table').html(table);
+          // console.log("========================");
+          // console.log(table);
+          // console.log("========================");
+          $('.pagination').html(page);
+          // console.log(page);
+        }, "html");
+    }
+
+// $(document).ready(function() {
+//    $('#page_turner').click( function() {
+//          $.get( $(this).attr('href'), function(msg) {
+//               // alert( "Data Saved: " + msg );
+//                var table = $("table", msg);
+//                var page = $(".pagination", msg);
+//                console.log(table);
+//               $('table').html(table);
+//               $('.pagination').html(page);
+//               // $("#store_category").load("")
+//          });
+//          return false; // don't follow the link!
+//    });
+// });
+
+//bind the corresponding links in your document to the ajax get function
+$( document ).ready( function() {
+
+    // $( '#previous_page' ).click( function(e) {
+    $( '#previous_page' ).on('click', '#previous_page', function(e) {
+      console.log("Debuggin...");
+        e.preventDefault();
+        url = ($( '#previous_page' )[0].href);
+        ajax_get_update();
+    });
+    $( '#next_page' ).click( function(e) {
+      console.log("Debuggin...");
+        e.preventDefault();
+        url = ($( '#next_page' )[0].href);
+        ajax_get_update();
+    });
+});
+
+//since the links are reloaded we have to bind the links again
+//to the actions
+$( document ).ajaxStop( function() {
+  console.log("Stop...");
+  // $( '#previous_page' ).click( function(e) {
+  $( '#previous_page' ).on('click', '#previous_page', function(e) {
+        e.preventDefault();
+        url = ($( '#previous_page' )[0].href);
+        ajax_get_update();
+    });
+    $( '#next_page' ).click( function(e) {
+        e.preventDefault();
+        url = ($( '#next_page'   )[0].href);
+        ajax_get_update();
+    });
+});
+// $.ajaxStart(function() {
+//   // console.log("Start...");
+//   alert("Start");
+// });
+</script>
+
+{% endblock %}
+
+{% block navbar_store_active %}
+<ul class="nav navbar-nav">
+  <li class="active"><a href="{% url 'rango:store' 1 %}">Store</a></li>
+  <li><a href="{% url 'rango:add_category' %}">Add a New Category</a></li>
+  <li><a href="{% url 'rango:about' %}">About</a></li>
+</ul>
+{% endblock %}
+
+{% block body_block %}
+
+
+<form method="get">
+  <span>Category:</span>
+
+  <select name="category">
+    <option value='all'>All</option>
+    {% for cat in categories %}
+    <option value='{{cat.name}}'>{{cat.name}}</option>
+    {% endfor %}
+  </select>
+
+  <span>| Product:</span>
+  <input type="text" name="product_name">
+  <button type="submit">Search!</button>
+  <!-- <input type="submit" name="search" value="Search!"> -->
+</form>
+
+<div id="store_category">
+<table class="table table-hover">
+  <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
+   <caption>Product list</caption>
+   <thead>
+      <tr>
+        <th>Category</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>On sale</th>
+        <th>Due Date</th>
+      </tr>
+   </thead>
+   <tbody>
+    {% for p in products %}
+    {% if p.status == False %}
+     <tr class="danger">
+    {% else %}
+    <tr>
+    {% endif%}
+       <td>
+         {% for c in p.categories.all %}
+         <a href="{% url 'rango:product' p.id %}">{{ c.name }}</a> /
+         {% endfor %}
+       </td>
+
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.name }}</a></td>
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.price }}</a></td>
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.stock }}</a></td>
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.status }}</a></td>
+        <td><a href="{% url 'rango:product' p.id %}">{{ p.due_date }}</a></td>
+
+     </tr>
+
+     {% endfor %}
+
+   </tbody>
+</table>
+
+
+
+  <div class="pagination">
+    <span class="step-links">
+      {% if products.has_previous %}
+      <a id="previous_page" href="{% url 'rango:store' products.previous_page_number %}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ products.number }} of {{ products.paginator.num_pages }}.
+      </span>
+
+      {% if products.has_next %}
+      <a id="next_page" href="{% url 'rango:store' products.next_page_number %}">next</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+
+{% endblock %}

@@ -41,3 +41,5 @@ for u in buyers:
 
 c = Category.objects.get(name='Music')
  [p for p in women if c in p.categories.all()]
+
+Comment.objects.all()[0].product

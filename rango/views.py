@@ -55,9 +55,16 @@ def product(request, product_id):
   user = request.user
   print 'user found'
 
+
+  if request.POST.get('post_comment', False) == 'True':
+    print "Post comment!"
+    content = request.POST.get('comment', False)
+    product.comment_set.create(user=user, content=content)
+    # comment = Comment(product=product, user=user, content=content)
+
   ## Only buyers can make an order for the product.
   # if request.method == 'POST' and user.user_permissions.filter(codename='can_order').exists():
-  if request.method == 'POST' and is_buyer(user):
+  elif request.POST.get('add_to_cart', False) == 'True' and is_buyer(user):
     ## get_or_create() returns a length-2 tuple: (object, created)
     ## "created" is a boolean whether it is created or not.
     ## https://docs.djangoproject.com/en/1.8/ref/models/querysets/#get-or-create
@@ -66,7 +73,7 @@ def product(request, product_id):
     add_product_to_cart(product, cart)
     return HttpResponseRedirect(reverse('rango:my_cart'))
 
-  context = {'product':product}
+  context = {'product':product, 'comments': product.comment_set.all()}
   ## If user has already the product, he cannot make another order
   ## product.html will show "Already bought!" sign
   if already_bought(user, product):
@@ -147,7 +154,7 @@ def store(request, page):
   else:
     product_list = Product.objects.all()
 
-  paginator = Paginator(product_list, 3)
+  paginator = Paginator(product_list, 2)
 
   try:
     products = paginator.page(page)

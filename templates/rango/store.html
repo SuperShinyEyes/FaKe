@@ -1,5 +1,11 @@
 {% extends 'rango/base_post_login.html' %}
 
+{% block head %}
+<script src="/static/scripts/jquery-1.11.3.min.js"></script>
+<script src="/static/scripts/pagination.js"></script>
+
+{% endblock %}
+
 {% block navbar_store_active %}
 <ul class="nav navbar-nav">
   <li class="active"><a href="{% url 'rango:store' 1 %}">Store</a></li>
@@ -9,6 +15,7 @@
 {% endblock %}
 
 {% block body_block %}
+
 
 <form method="get">
   <span>Category:</span>
@@ -26,7 +33,7 @@
   <!-- <input type="submit" name="search" value="Search!"> -->
 </form>
 
-
+<div id="store_category">
 <table class="table table-hover">
   <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
    <caption>Product list</caption>
@@ -71,7 +78,7 @@
   <div class="pagination">
     <span class="step-links">
       {% if products.has_previous %}
-      <a href="{% url 'rango:store' products.previous_page_number %}">previous</a>
+      <a id="previous_page" href="{% url 'rango:store' products.previous_page_number %}">previous</a>
       {% endif %}
 
       <span class="current">
@@ -79,8 +86,10 @@
       </span>
 
       {% if products.has_next %}
-      <a href="{% url 'rango:store' products.next_page_number %}">next</a>
+      <a id="next_page" href="{% url 'rango:store' products.next_page_number %}">next</a>
       {% endif %}
     </span>
   </div>
+</div>
+
 {% endblock %}
