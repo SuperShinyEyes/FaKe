@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
   url(r'^$', views.index, name='index'),
+  url(r'^test/$', views.test, name='test'),
   url(r'^about/$', views.about, name='about'),
+  url(r'^reply_form/(?P<comment_pk>[0-9]+)/$', views.reply_form, name='reply_form'),
   #url(r'^page/(?P<page_id>[0-9]+)/$', views.page_detail, name='page_detail'),
   #url(r'^category/(?P<category_name_slug>[\w\-]+)/add_page/$', views.add_page, name='add_page'),
   url(r'^category/(?P<category_name_slug>[\w\-]+)/$', views.category, name='category'),
@@ -16,7 +18,7 @@ urlpatterns = [
   url(r'^welcome/$', views.welcome, name='welcome'),
   url(r'^my_settings/$', views.my_settings, name='my_settings'),
 
-  
+
   url(r'^store/(?P<page>[0-9]+)/$', views.store, name='store'),
 
   url(r'^my_orders/$', views.my_orders, name='my_orders'),

@@ -1,0 +1,12 @@
+{% extends 'rango/base_post_login.html' %}
+
+{% block body_block %}
+    <form class="post-comment" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+       <label for="comment">Reply:</label>
+       <textarea class="form-control" id="comment" rows="5" maxlength="300" minlength="1" name="content" placeholder="Tell us how you loved this product :D"></textarea>
+      </div>
+      <button type="submit" name="post_reply" value="{{comment_pk}}">Reply</button>
+    </form>
+{% endblock %}

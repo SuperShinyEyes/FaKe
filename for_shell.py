@@ -42,4 +42,14 @@ for u in buyers:
 c = Category.objects.get(name='Music')
  [p for p in women if c in p.categories.all()]
 
-Comment.objects.all()[0].product
+comment = Comment.objects.all()[0]
+
+reply = Reply(comment=comment, product=comment.product, content="Can't agree more!", user=ted)
+reply.save()
+
+jenny = User.objects.get(username='jenny')
+reply = Reply(comment=comment, product=comment.product, content="Absolutely!", user=jenny)
+reply.save()
+
+for c in Comment.objects.all():
+  print c.pk

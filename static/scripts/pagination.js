@@ -7,6 +7,7 @@ function ajax_get_update()
 
     //update the ajax_table_result with the return value
     $('table').html(table);
+    console.log("table:", table);
     $('.pagination').html(page);
   }, "html");
 }

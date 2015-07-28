@@ -1,3 +1,5 @@
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.template.context_processors import csrf
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
@@ -12,6 +14,16 @@ from datetime import datetime
 from django.contrib.auth.models import Group, Permission
 from django.contrib import messages
 
+
+def reply_form(request, comment_pk):
+
+  print ">>>> Comment pk:", comment_pk
+  return render(request, 'rango/comment_form.html', {"comment_pk":comment_pk})
+
+def test(request):
+  a = range(10)
+
+  return render(request, 'rango/test.html', {'a':a, 'product':Product.objects.all()[0], 'user':User.objects.all()[0]})
 
 
 def is_seller(user):
@@ -49,18 +61,36 @@ def already_bought(user, product):
 def is_product_seller(user, product):
   return user == product.seller
 
+
+def post_reply(user, comment_pk, content):
+  print "Get comment object pk:", comment_pk
+  comment = Comment.objects.get(pk=comment_pk)
+  print "Got!!!"
+  print comment
+  product = comment.product
+  reply = Reply(comment=comment, product=product, user=user, content=content)
+  reply.save()
+
 @login_required
 def product(request, product_id):
   product = get_object_or_404(Product, pk=product_id)
   user = request.user
-  print 'user found'
-
+  context = {}
+  # context.update(csrf(request))
 
   if request.POST.get('post_comment', False) == 'True':
     print "Post comment!"
     content = request.POST.get('comment', False)
     product.comment_set.create(user=user, content=content)
+    return HttpResponseRedirect('/rango/product/' + str(product.pk))
     # comment = Comment(product=product, user=user, content=content)
+
+  elif request.POST.get('post_reply', False) != False:
+    print "Post reply!"
+    comment_pk = request.POST.get('post_reply', False)
+    content = request.POST.get('content', "No data")
+    post_reply(user, comment_pk, content)
+    return HttpResponseRedirect('/rango/product/' + str(product.pk))
 
   ## Only buyers can make an order for the product.
   # if request.method == 'POST' and user.user_permissions.filter(codename='can_order').exists():
@@ -73,7 +103,12 @@ def product(request, product_id):
     add_product_to_cart(product, cart)
     return HttpResponseRedirect(reverse('rango:my_cart'))
 
-  context = {'product':product, 'comments': product.comment_set.all()}
+  context['product'] = product
+  context['num_comment'] = product.comment_set.count()
+  # comments = product.comment_set.all()
+  # comment_id = [c.pk for c in comments]
+  context['comments'] = product.comment_set.all()
+  # context = {'product':product, 'comments': product.comment_set.all()}
   ## If user has already the product, he cannot make another order
   ## product.html will show "Already bought!" sign
   if already_bought(user, product):
