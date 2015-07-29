@@ -19,7 +19,7 @@
    <tbody>
     {% for product in products %}
 
-    {% if not product.status %}<tr class='danger'>
+    {% if not product.is_active %}<tr class='danger'>
     {% else %}<tr>{% endif %}
 
         <td><a href="{% url 'rango:product' product.pk %}">{{ product.product_num }}</a></td>

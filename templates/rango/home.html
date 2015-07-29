@@ -1,7 +1,12 @@
 {% extends 'rango/base_post_login.html' %}
 
 {% block body_block %}
-  <body>
+<div class="jumbotron">
+  <h1>Welcome to FaKe!!!</h1>
+  <p>...</p>
+  <p><a class="btn btn-primary btn-lg" href="{% url 'rango:about' %}" role="button">Learn more</a></p>
+</div>
+  <!-- <body>
     <h2>Home!</h2>
 
     <table class="table table-condensed">
@@ -34,7 +39,7 @@
 
 <table class="table table-hover">
   <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
-   <caption>Hover Table Layout</caption>
+   <!-- <caption>Hover Table Layout</caption>
    <thead>
       <tr>
          <th>Name</th>
@@ -129,5 +134,5 @@
       </tbody>
    </table>
 </div>
-  </body>
+  </body> -->
 {% endblock %}

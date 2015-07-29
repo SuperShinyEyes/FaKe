@@ -114,12 +114,13 @@ class Product(models.Model):
   views = models.IntegerField(default=0)
   expiration_date = models.DateTimeField(null=True)
   #delivery_fee = models.DecimalField(decimal_places=2,blank=False, null=False, max_digits=6)
-  #image = models.ImageField(verbose_name=None, name=None, width_field=None, height_field=None)
+  #picture = models.ImageField(verbose_name=None, name=None, width_field=None, height_field=None)
   product_info = models.CharField(max_length=4000, blank=False, null=False)
-  status = models.BooleanField(default=True)
+  is_active = models.BooleanField(default=True)
   due_date = models.DateTimeField(default=get_deadline)
   registeration_time = models.DateTimeField(default=timezone.now, editable=False)
   edited_time = models.DateTimeField(blank=True, null=True)
+  picture = models.ImageField(upload_to='product_images', blank=True)
   #cart = models.ForeignKey(Cart, null=True)
 
   def get_original_stock(self):
@@ -129,7 +130,7 @@ class Product(models.Model):
     self.edited_time = timezone.now()
 
   def sold_out_process(self):
-    self.status = False
+    self.is_active = False
     self.expiration_date = timezone.now()
 
   def sold(self, amount=1):
@@ -174,7 +175,7 @@ class Product(models.Model):
     permissions = (
       ('can_sell', 'Can sell products. Thus he is a seller'),
     )
-    ordering = ('price',)
+    ordering = ('-sold_amount', '-registeration_time',)
 
 class Donkey(models.Model):
   pass

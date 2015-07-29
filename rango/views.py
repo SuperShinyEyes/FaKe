@@ -41,7 +41,12 @@ def register_new_product(request):
     # Have we been provided with a valid form?
     if form.is_valid():
       # Save the new category to the database.
-      form.save(commit=True)
+      product = form.save(commit=True)
+      print ">>>>>>Validated!!!"
+      if 'picture' in request.FILES:
+        print ">>>>>>Save picture!!!"
+        product.picture = request.FILES['picture']
+        product.save()
 
       # Now call the index() view.
       # The user will be shown the homepage.
@@ -153,6 +158,10 @@ def product(request, product_id):
     print 'cart found'
     add_product_to_cart(product, cart)
     return HttpResponseRedirect(reverse('rango:my_cart'))
+  elif request.POST.get('delete_product', False) != False:
+    product.is_active = False
+    product.save()
+    return HttpResponseRedirect(redirect_url)
 
   context['product'] = product
   context['num_comment'] = product.comment_set.filter(is_active=True).count()
@@ -230,7 +239,7 @@ def get_store_url(page, base="http://127.0.0.1:8000/rango/store/", price_order_b
   return base + str(page) + '/?price_order_by=' + price_order_by + '/?name=' + name
 
 @login_required
-def store(request, page):
+def store(request, page=1):
   ## Using request.GET['query'] will raise error:
   ## MultiValueDictKeyError at /rango/store/1/
   ## Read:
@@ -246,8 +255,8 @@ def store(request, page):
   if (product_name or category) and (price_order_by != False):
     pass
 
-  elif price_order_by != False:
-    product_list, context = get_page_by_price(price_order_by, context)
+  # elif price_order_by != False:
+  #   product_list, context = get_page_by_price(price_order_by, context)
 
   elif product_name or category:
     print "Search is happening!"
@@ -258,7 +267,7 @@ def store(request, page):
   else:
     product_list = Product.objects.all()
 
-  paginator = Paginator(product_list, 2)
+  paginator = Paginator(product_list, 3)
   context['next_page'] = get_store_url(int(page) - 1, base="http://127.0.0.1:8000/rango/store/", price_order_by=context['price_order_by'], name='')
 
   try:
@@ -533,7 +542,8 @@ def register(request):
 
       # Update our variable to tell the template registration was successful.
       registered = True
-
+      print ">>>>>>Registered!"
+      return HttpResponseRedirect('/rango/')
     # Invalid form or forms - mistakes or something else?
     # Print problems to the terminal.
     # They'll also be shown to the user.

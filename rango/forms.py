@@ -14,7 +14,7 @@ class ProductForm(forms.ModelForm):
   class Meta:
     model = Product
     # fields = ('seller', 'name', 'product_num', 'price', 'stock',)
-    fields = ('seller', 'name', 'product_num', 'price', 'stock', 'due_date', 'categories',)
+    fields = ('seller', 'name', 'product_num', 'price', 'stock', 'due_date', 'categories', 'picture',)
 
 class UserForm(forms.ModelForm):
   password = forms.CharField(widget=forms.PasswordInput())
@@ -24,6 +24,13 @@ class UserForm(forms.ModelForm):
     fields = ('username', 'email', 'password')
 
 class UserProfileForm(forms.ModelForm):
+  SELLER = '1'
+  BUYER = '2'
+  USER_CHOICES = (
+    (SELLER, 'Seller'),
+    (BUYER, 'Buyer'),
+  )
+  user_cls = forms.ChoiceField(widget=forms.RadioSelect, choices=USER_CHOICES)
 
   class Meta:
     model = UserProfile

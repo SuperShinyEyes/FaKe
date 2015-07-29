@@ -19,8 +19,12 @@
        (<p>) element. This ensures each element appears on a new line,
                  making everything look neater. -->
         {{ user_form.as_p }}
-        {{ profile_form.as_p }}
-
+        {% if userprofile_form %}
+        {{ userprofile_form.as_p }}
+        {% else %}
+        <h1>No!</h1>
+        {% endif%}
+        <h1>No!</h1>
         <input type="submit" name="submit" value="Register">
       </form>
     {% endif %}

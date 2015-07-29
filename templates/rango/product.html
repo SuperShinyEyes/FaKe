@@ -12,11 +12,15 @@
 <table class="table">
   <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
   <caption>Product Detail</caption>
+  <tr>
+    <th>seller name</th>
+    <td>{{ product.seller.username }}</td>
+  </tr>
   {% for name, value in product.get_fields %}
     {% if value %}
-    {% if name == "status" and value %}
+    {% if name == "is_active" and value == "True" %}
     <tr class='success'>
-    {% elif name == "status" and not value %}
+    {% elif name == "is_active" and value == "False" %}
     <tr class='danger'>
     {% else %}
     <tr>
@@ -38,7 +42,12 @@
 <button class="btn btn-lg btn-primary btn-block" type="reset">Already bought!</button>
 {% elif is_product_seller %}
 <button class="btn btn-lg btn-primary btn-block" type="reset">Edit</button>
-
+{% if product.is_active %}
+<form method="post">
+  {% csrf_token %}
+  <button class="confirm-delete btn btn-lg btn-primary btn-block" type="submit" name="delete_product" value="{{product.pk}}">Stop sales</button>
+</form>
+{% endif %}
 <table class="table">
   <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
   <caption>Buyers</caption>
@@ -147,8 +156,5 @@
   </script>
   </body>
 </html>
-
-
-
 
 {% endblock %}

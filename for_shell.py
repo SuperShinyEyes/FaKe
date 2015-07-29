@@ -55,14 +55,21 @@ for c in Comment.objects.all():
   print c.pk
 
 from django.db.models import Count
+
 sam = User.objects.get(username='sam')
-p3 = Product.objects.get(pk=3)
-p3.comment_set.filter(is_active=True).count()
+product_3 = Product.objects.get(pk=3)
+product_3.comment_set.filter(is_active=True).count()
+test_categories = Product.objects.get(name='test').categoreis.all()
+
 Comment.objects.filter(is_active=True).count()
 pubs = Publisher.objects.annotate(num_books=Count('book'))
 
-Product.objects.get(name='test').categoreis.all()
+
 
 desc = Product.objects.order_by('-price')
 for p in desc:
   print p.price
+
+from django.core.files import File
+for p in Product.objects.all():
+  p.image.save('/Users/young/projects/tango_extended/media/mark_thumbnail.png', File().read(), save=True)
