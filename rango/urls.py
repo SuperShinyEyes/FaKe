@@ -20,7 +20,8 @@ urlpatterns = [
   url(r'^register_new_product/$', views.register_new_product, name='register_new_product'),
 
   url(r'^store/$', views.store, name='store_main'),
-  url(r'^store/(?P<page>[0-9]+)/$', views.store, name='store'),
+  url(r'^store/search?category=(?P<category>[\w\-]+)?page=(?P<page>[0-9]+)/$', views.store_search, name='store_search'),
+  url(r'^store/page=(?P<page>[0-9]+)/$', views.store, name='store'),
 
   url(r'^my_orders/$', views.my_orders, name='my_orders'),
   url(r'^my_orders/(?P<order_id>[\w\-]+)/$', views.order_detail, name='order_detail'),

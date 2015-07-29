@@ -239,6 +239,10 @@ def get_store_url(page, base="http://127.0.0.1:8000/rango/store/", price_order_b
   return base + str(page) + '/?price_order_by=' + price_order_by + '/?name=' + name
 
 @login_required
+def store_search(request, page=1):
+  pass
+
+@login_required
 def store(request, page=1):
   ## Using request.GET['query'] will raise error:
   ## MultiValueDictKeyError at /rango/store/1/
@@ -703,9 +707,13 @@ def index(request):
   #return HttpResponse("Rango says hey!<br/><a href='/rango/about'>About</a>")
 '''
 def about(request):
+
   sentence = "Rango says here is the about page. Go to <a href='/rango/'>home</a>"
   context = {'msg': sentence}
-  return render(request, 'rango/about.html', context)
+  if request.user in User.objects.all():
+    return render(request, 'rango/about_login.html', context)
+  else:
+    return render(request, 'rango/about_logout.html', context)
   #return HttpResponse(sentence)
 
 '''

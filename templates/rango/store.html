@@ -35,9 +35,9 @@
         <th>Name</th>
         <th>Image</th>
         <th>
-          <form class="" method="GET">
+          <!-- <form class="" method="GET"> -->
           <button id="black order_by" class="submit" type="submit" name="price_order_by" value="{{ price_order_by }}">Price</button>
-          </form>
+          <!-- </form> -->
           </th>
         <th>Stock</th>
         <th>On sale</th>
@@ -58,7 +58,7 @@
        </td>
         <td><a href="{% url 'rango:product' p.id %}">{{ p.name }}</td>
         <td>
-          {% if p.picture %}<img src="{{ p.picture.url }}" alt="" />{% endif %}</a>
+          {% if p.picture %}<img src="{{ p.picture.url }}" alt="{{p.name}}" />{% endif %}</a>
         </td>
         <td><a href="{% url 'rango:product' p.id %}">{{ p.price }}</a></td>
         <td><a href="{% url 'rango:product' p.id %}">{{ p.stock }}/{{p.get_original_stock}}</a></td>
@@ -93,14 +93,19 @@
 
 <script type="text/javascript">
 
-$(document).on('click', '.order_by' function(e){
+$(document).on('click', '.submit', function(e){
   var order = $(this).attr("value");
   if(order == 'desc'){
     order = 'asec'
   }else{
     order = 'desc'
   }
+  if({{price_order_by}}){
+    console.log("Exists");
+  }
   $(this).attr("value", order);
+  console.log("clicked!");
+  console.log("{{price_order_by}}");
 });
 
 </script>

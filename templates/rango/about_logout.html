@@ -1,0 +1,18 @@
+{% extends 'rango/base_pre_login.html' %}
+
+{% load staticfiles%}
+
+{% block body %}
+<h1>About FaKe</h1>
+<p>
+  It's all fake.
+</p>
+
+<div class="row">
+  <div class="col-xs-6 col-md-3">
+    <a href="https://facebook.com" class="thumbnail">
+      <img src="{% static '/media/mark.png'%}" alt="...">
+    </a>
+  </div>
+</div>
+{% endblock %}
