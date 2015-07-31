@@ -8,7 +8,7 @@ The application is about a web store. My web store is called FaKe. FaKe stands f
 
 
 ## Is it real?
-Read the name of the application, it's indeed FAKE!!!
+The application is called FaKe. Indeed it is. This is just for fun :)
 
 
 ## Environment
