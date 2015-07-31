@@ -23,10 +23,11 @@ The app misses vast amount of features to be called as a web store. The store pa
 
 
 ## Environment
-Mac OS X 10.10.4 (Actually this shouldn't matter in anycase.)
-Python 2.7.9
-Django 1.8.2
-
+* Mac OS X 10.10.4 (Actually this shouldn't matter in anycase.)
+* Python 2.7.9
+* Django 1.8.2
+* Bootstrap 3.3.5
+* jQuery 1.11.3
 
 ## Tests
 1. To start a server
