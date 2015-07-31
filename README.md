@@ -1,5 +1,5 @@
 # FaKe - Facebook data marKet
-### Created by Seyoung Park(seyoung.park@aalto.fi) @ 2015.June.29th.
+Created by Seyoung Park(seyoung.park@aalto.fi) @ 2015.June.29th.
 
 
 ## What is FaKe?
