@@ -24,11 +24,9 @@ def reply_form(request, comment_pk):
   print ">>>> Comment pk:", comment_pk
   return render(request, 'rango/comment_form.html', {"comment_pk":comment_pk})
 
-
 def test(request):
   a = range(10)
   return render(request, 'rango/test.html', {'a':a, 'product':Product.objects.all()[0], 'user':User.objects.all()[0]})
-
 
 @login_required
 @user_passes_test(is_seller)
@@ -565,6 +563,7 @@ def register(request):
   return render(request, 'rango/join.html', context)
 
 '''
+Left it for slug example
 def add_page(request, category_name_slug):
 
   try:
@@ -660,7 +659,6 @@ def home(request):
   return render(request, 'rango/home.html', {})
 
 
-
 def index(request):
   '''
   The index page is different for logged in users and anonymouse ones.
@@ -671,57 +669,16 @@ def index(request):
     #return HttpResponseRedirect('/rango/login/')
     return render(request, 'rango/login.html', {})
 
-'''
-def index(request):
-  popular_categories = Category.objects.order_by('-likes')[:5]
-  context = {'categories':popular_categories}
 
-  # Get the number of visits to the site.
-  visits = request.session.get('visits')
-  if not visits:
-    visits = 1
-  reset_last_visit_time = False
-
-  last_visit = request.session.get('last_visit')
-  # Does the cookie last_visit exist?
-  if last_visit:
-    # Cast the value to a Python date/time object.
-    last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
-
-    # If it's been more than a day since the last visit...
-    if (datetime.now() - last_visit_time).seconds > 1:
-      visits = visits + 1
-      # flat that the cookie last visit needs to be updated
-      reset_last_visit_time = True
-
-  else:
-    # Cookie last_visit doesn't exist, so flat that it should be set
-    reset_last_visit_time = True
-
-  if reset_last_visit_time:
-    request.session['last_visit'] = str(datetime.now())
-    request.session['visits'] = visits
-  context['visits'] = visits
-
-  return render(request, 'rango/index.html', context)
-  #return HttpResponse("Rango says hey!<br/><a href='/rango/about'>About</a>")
-'''
 def about(request):
 
   sentence = "Rango says here is the about page. Go to <a href='/rango/'>home</a>"
   context = {'msg': sentence}
   if request.user in User.objects.all():
-    return render(request, 'rango/about_login.html', context)
+    return render(request, 'rango/about_after_login.html', context)
   else:
-    return render(request, 'rango/about_logout.html', context)
+    return render(request, 'rango/about_before_login.html', context)
   #return HttpResponse(sentence)
-
-'''
-def page_detail(request, page_id):
-  page = get_object_or_404(Page, pk=page_id)
-  context = {'page':page, 'page_id':page_id}
-  return render(request, 'rango/page_detail.html', context)
-'''
 
 def category(request, category_name_slug):
   context = {}
@@ -735,11 +692,3 @@ def category(request, category_name_slug):
   except Category.DoesNotExist:
     pass
   return render(request, 'rango/category.html', context)
-
-'''
-def category(request, category_id):
-  category = get_object_or_404(Category, pk=category_id)
-  pages = category.page_set.all()
-  context = {'category':category, 'pages':pages}
-  return render(request, 'rango/category.html', context)
-'''
