@@ -18,6 +18,4 @@ Django 1.8.2
 
 
 ## Tips
-When you edit views.py or some Python scripts and the local server wouldn't
-show the updated version, restart the server. Sometimes the server is slow
-in updating.
+When you edit views.py or some Python scripts, the local server might not be able to update it quick enough. In such case, restart the server.
