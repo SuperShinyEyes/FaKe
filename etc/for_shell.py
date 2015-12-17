@@ -1,6 +1,6 @@
 from rango.models import *
 from rango.views import *
-
+print 123
 users = User.objects.all()
 profile = UserProfile.objects.all()
 for profile in profile:

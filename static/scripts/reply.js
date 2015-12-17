@@ -19,3 +19,10 @@ $(document).on('click', '.reply', function(e) {
     console.log(url);
     ajax_get_update(this);
 });
+
+// {% verbatim  %}
+//   $(document).on('click', '.comment-reply-link', function(e) {
+//     e.preventDefault();
+//     $(this).replaceWith("<h1>yes!</h1>");
+//   };
+// {% endverbatim %}
