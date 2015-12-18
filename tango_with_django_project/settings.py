@@ -115,14 +115,16 @@ LOGIN_URL = '/rango/login/'
 #SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
+if "DYNO" in os.environ:
+    DEBUG = False
+    STATIC_ROOT = 'staticfiles'
+    # https://devcenter.heroku.com/articles/getting-started-with-django
+    # Parse database configuration from $DATABASE_URL
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
 
-# https://devcenter.heroku.com/articles/getting-started-with-django
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# Allow all host headers
-ALLOWED_HOSTS = ['*']
+    # Allow all host headers
+    ALLOWED_HOSTS = ['*']
