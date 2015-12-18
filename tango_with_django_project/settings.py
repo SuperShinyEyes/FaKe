@@ -99,7 +99,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-STATIC_PATH = os.path.join(BASE_DIR, 'static')
+STATIC_PATH = os.path.join(BASE_DIR, 'static/')
 
 STATIC_URL = '/static/'
 
@@ -117,7 +117,7 @@ LOGIN_URL = '/rango/login/'
 
 if "DYNO" in os.environ:
     DEBUG = False
-    STATIC_ROOT = 'staticfiles'
+    STATIC_ROOT = os.path.join(BASE_DIR, "static/")
     # https://devcenter.heroku.com/articles/getting-started-with-django
     # Parse database configuration from $DATABASE_URL
     import dj_database_url
