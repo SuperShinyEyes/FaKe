@@ -1,4 +1,4 @@
-{% extends 'rango/base_post_login.html' %}
+{% extends 'base_post_login.html' %}
 {% load staticfiles %}
 
 {% block head %}
@@ -148,7 +148,7 @@
                  Default behaviour is disabled and Jquery function
                  will be called.-->
           <div class="reply">
-            <a class='comment-reply-link' href='{% url "rango:reply_form" comment.pk %}' aria-label='Reply to Araujo'>Reply {{comment.pk}}</a>
+            <a class='comment-reply-link' href='{% url "reply_form" comment.pk %}' aria-label='Reply to Araujo'>Reply {{comment.pk}}</a>
           </div>
           </div>
         </div>

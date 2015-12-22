@@ -1,11 +1,20 @@
-{% extends 'rango/base_post_login.html' %}
+{% extends 'base_post_login.html' %}
 
 {% load staticfiles %}
 {% block head %}
 <script src="/static/scripts/jquery-1.11.3.min.js"></script>
 <!-- <script src="/static/scripts/pagination.js"></script> -->
 <link rel="stylesheet" href="/static/scripts/link_button.css">
-
+<style>
+    .product-thumbnail {
+        max-height: 100%;
+        max-width: 100%;
+    }
+    .product-thumbnail-container {
+        height: 120px;
+        width: 120px;
+    }
+</style>
 {% endblock %}
 
 {% block body_block %}
@@ -53,17 +62,25 @@
     {% endif%}
        <td>
          {% for c in p.categories.all %}
-         <a href="{% url 'rango:product' p.id %}">{{ c.name }}</a> /
+         <a href="{% url 'product' p.id %}">{{ c.name }}</a>
          {% endfor %}
        </td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.name }}</td>
+        <td><a href="{% url 'product' p.id %}">{{ p.name }}</a></td>
         <td>
-          {% if p.picture %}<img src="{{ p.picture.url }}" alt="{{p.name}}" />{% endif %}</a>
+          <div class="product-thumbnail-container">
+            <a href="{% url 'product' p.id %}">
+            {% if p.picture %}
+            <img class="product-thumbnail" src="{{ p.picture.url }}" alt="{{p.name}}" />
+            {% else %}
+            <img class="product-thumbnail" src="{% static 'images/product.png' %}" alt="{{p.name}}" />
+            {% endif %}
+            </a>
+          </div>
         </td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.price }}</a></td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.stock }}/{{p.get_original_stock}}</a></td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.status }}</a></td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.due_date }}</a></td>
+        <td><a href="{% url 'product' p.id %}">{{ p.price }}</a></td>
+        <td><a href="{% url 'product' p.id %}">{{ p.stock }}/{{p.get_original_stock}}</a></td>
+        <td><a href="{% url 'product' p.id %}">{{ p.status }}</a></td>
+        <td><a href="{% url 'product' p.id %}">{{ p.due_date }}</a></td>
 
      </tr>
 
@@ -77,7 +94,7 @@
   <div class="pagination">
     <span class="step-links">
       {% if products.has_previous %}
-      <a id="previous_page" href="{% url 'rango:store' products.previous_page_number%}">previous</a>
+      <a id="previous_page" href="{% url 'store' products.previous_page_number%}">previous</a>
       {% endif %}
 
       <span class="current">
@@ -85,7 +102,7 @@
       </span>
 
       {% if products.has_next %}
-      <a id="next_page" href="{% url 'rango:store' products.next_page_number %}">next</a>
+      <a id="next_page" href="{% url 'store' products.next_page_number %}">next</a>
       {% endif %}
     </span>
   </div>

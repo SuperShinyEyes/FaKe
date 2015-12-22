@@ -1,4 +1,4 @@
-{% extends 'rango/base_post_login.html' %}
+{% extends 'base_post_login.html' %}
 
 {% block body_block %}
 
@@ -15,9 +15,9 @@
    <tbody>
     {% for p in products %}
     <tr>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.name }}</a></td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.price }}</a></td>
-        <td><a href="{% url 'rango:product' p.id %}">{{ p.due_date }}</a></td>
+        <td><a href="{% url 'product' p.id %}">{{ p.name }}</a></td>
+        <td><a href="{% url 'product' p.id %}">{{ p.price }}</a></td>
+        <td><a href="{% url 'product' p.id %}">{{ p.due_date }}</a></td>
 
     </tr>
      {% endfor %}

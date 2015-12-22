@@ -1,4 +1,4 @@
-{% extends 'rango/base_post_login.html' %}
+{% extends 'base_post_login.html' %}
 
 {% load staticfiles %}
 
@@ -10,10 +10,10 @@
       {% if pages%}
       <ul>
         {% for page in pages %}
-        <li><a href="{% url 'rango:page_detail' page.id %}">{{ page.title }}</a></li>
+        <li><a href="{% url 'page_detail' page.id %}">{{ page.title }}</a></li>
         {% endfor %}
       </ul>
-      <a href="{% url 'rango:add_page' category_slug %}">Add a Page</a>
+      <a href="{% url 'add_page' category_slug %}">Add a Page</a>
       {% else %}
       <strong>No pages currently in category</strong>
       {% endif %}

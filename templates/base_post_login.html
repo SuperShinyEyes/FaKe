@@ -44,17 +44,17 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'rango:index'%}">FaKe - FAcebook data marKEt</a>
+            <a class="navbar-brand" href="{% url 'index'%}">FaKe - FAcebook data marKEt</a>
           </div>
 
           <div id="navbar" class="navbar-collapse collapse">
             {% block navbar_store_active %}
             <ul class="nav navbar-nav">
-              <li><a href="{% url 'rango:store' 1 %}">Store</a></li>
+              <li><a href="{% url 'store' 1 %}">Store</a></li>
               {% if perms.rango.can_sell %}
-              <li><a href="{% url 'rango:register_new_product' %}">Register new product</a></li>
+              <li><a href="{% url 'register_new_product' %}">Register new product</a></li>
               {% endif %}
-              <li><a href="{% url 'rango:about' %}">About</a></li>
+              <li><a href="{% url 'about' %}">About</a></li>
             </ul>
             {% endblock %}
             <ul class="nav navbar-nav navbar-right">
@@ -64,18 +64,18 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username}} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <!-- <li><a href="#">Action</a></li> -->
-                  <li><a href="{% url 'rango:my_settings'%}">My settings</a></li>
+                  <li><a href="{% url 'my_settings'%}">My settings</a></li>
 
                   {% if perms.rango.can_order %}
-                  <li><a href="{% url 'rango:my_cart' %}">My Cart</a></li>
-                  <li><a href="{% url 'rango:my_orders' %}">My Order</a></li>
+                  <li><a href="{% url 'my_cart' %}">My Cart</a></li>
+                  <li><a href="{% url 'my_orders' %}">My Order</a></li>
                   {% elif perms.rango.can_sell %}
-                  <li><a href="{% url 'rango:my_products' %}">My products</a></li>
+                  <li><a href="{% url 'my_products' %}">My products</a></li>
                   {% endif %}
 
                   <li role="separator" class="divider"></li>
                   <li class="dropdown-header">See you soon! ヽ(･∀･)ﾉ</li>
-                  <li><a href="{% url 'rango:user_logout' %}">Logout</a></li>
+                  <li><a href="{% url 'user_logout' %}">Logout</a></li>
                 </ul>
               </li>
             </ul>

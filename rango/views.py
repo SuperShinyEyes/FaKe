@@ -22,11 +22,11 @@ def is_buyer(user):
 
 def reply_form(request, comment_pk):
   print ">>>> Comment pk:", comment_pk
-  return render(request, 'rango/comment_form.html', {"comment_pk":comment_pk})
+  return render(request, 'comment_form.html', {"comment_pk":comment_pk})
 
 def test(request):
   a = range(10)
-  return render(request, 'rango/test.html', {'a':a, 'product':Product.objects.all()[0], 'user':User.objects.all()[0]})
+  return render(request, 'test.html', {'a':a, 'product':Product.objects.all()[0], 'user':User.objects.all()[0]})
 
 @login_required
 @user_passes_test(is_seller)
@@ -59,7 +59,7 @@ def register_new_product(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-  return render(request, 'rango/register_new_product.html', {'form': form})
+  return render(request, 'register_new_product.html', {'form': form})
 
 
 def add_product_to_cart(product, cart):
@@ -106,7 +106,7 @@ def post_reply(user, comment_pk, content):
 def product(request, product_id):
   product = get_object_or_404(Product, pk=product_id)
   user = request.user
-  redirect_url = '/rango/product/' + str(product_id)
+  redirect_url = '/product/' + str(product_id)
   context = {}
   # context.update(csrf(request))
 
@@ -181,7 +181,7 @@ def product(request, product_id):
     product.views += 1
     product.save()
 
-  return render(request, 'rango/product.html', context)
+  return render(request, 'product.html', context)
 
 @login_required
 def listing_ajax(request):
@@ -198,7 +198,7 @@ def listing_ajax(request):
     products = paginator.page(page)
   except (EmptyPage, InvalidPage):
     products = paginator.page(paginator.num_pages)
-  return render(request, 'rango/list_ajax.html', {'products':products})
+  return render(request, 'list_ajax.html', {'products':products})
 
 
 def search(product_name, category_name):
@@ -232,7 +232,7 @@ def get_page_by_price(price_order_by, context):
     return Product.objects.order_by('-price'), context
 
 
-def get_store_url(page, base="http://127.0.0.1:8000/rango/store/", price_order_by='', name=''):
+def get_store_url(page, base="http://127.0.0.1:8000/store/", price_order_by='', name=''):
 
   return base + str(page) + '/?price_order_by=' + price_order_by + '/?name=' + name
 
@@ -243,7 +243,7 @@ def store_search(request, page=1):
 @login_required
 def store(request, page=1):
   ## Using request.GET['query'] will raise error:
-  ## MultiValueDictKeyError at /rango/store/1/
+  ## MultiValueDictKeyError at /store/1/
   ## Read:
   ## http://stackoverflow.com/a/5895670/3067013
   product_name = request.GET.get('product_name', False)
@@ -270,7 +270,7 @@ def store(request, page=1):
     product_list = Product.objects.all()
 
   paginator = Paginator(product_list, 3)
-  context['next_page'] = get_store_url(int(page) - 1, base="http://127.0.0.1:8000/rango/store/", price_order_by=context['price_order_by'], name='')
+  context['next_page'] = get_store_url(int(page) - 1, base="http://127.0.0.1:8000/store/", price_order_by=context['price_order_by'], name='')
 
   try:
     products = paginator.page(page)
@@ -280,7 +280,7 @@ def store(request, page=1):
     products = paginator.page(paginator.num_pages)
 
   context['products'] = products
-  return render(request, 'rango/store.html', context)
+  return render(request, 'store.html', context)
 
 
 @login_required
@@ -291,7 +291,7 @@ def my_settings(request):
   if request.method == 'GET':
     form = PasswordChangeForm(user=user)
     context = {"form": form}
-    return render_to_response("rango/my_settings.html", context, context_instance=RequestContext(request))
+    return render_to_response("my_settings.html", context, context_instance=RequestContext(request))
 
     # if request is POST, change the password
   elif request.method == 'POST':
@@ -311,7 +311,7 @@ def my_settings(request):
         "url": request.build_absolute_uri(reverse('rango:home')),
         "urltext": "Back to home page"
         }
-        return render_to_response("rango/message.html", context, context_instance=RequestContext(request))
+        return render_to_response("message.html", context, context_instance=RequestContext(request))
 
         # deliver an error message if something went wrong
       except:
@@ -321,17 +321,17 @@ def my_settings(request):
         "url": request.build_absolute_uri(reverse('rango:home')),
         "urltext": "Back to home page"
         }
-        return render_to_response("rango/message.html", context, context_instance=RequestContext(request))
+        return render_to_response("message.html", context, context_instance=RequestContext(request))
 
     else:
       context = {"form": form}
-      return render_to_response("rango/my_settings.html", context, context_instance=RequestContext(request))
+      return render_to_response("my_settings.html", context, context_instance=RequestContext(request))
 
 
 @login_required
 def user_logout(request):
   logout(request)
-  return HttpResponseRedirect('/rango/')
+  return HttpResponseRedirect('/')
 
 def user_login(request):
   # If the request is a HTTP POST, try to pull out the relevant information.
@@ -358,7 +358,7 @@ def user_login(request):
         # If the account is valid and active, we can log the user in.
         # We'll send the user back to the homepage.
         login(request, user)
-        return HttpResponseRedirect('/rango/')
+        return HttpResponseRedirect('/')
       else:
         # An inactive account was used - no logging in!
         return HttpResponse("Your Rango account is disabled.")
@@ -372,7 +372,7 @@ def user_login(request):
   else:
     # No context variables to pass to the template system, hence the
     # blank dictionary object...
-    return render(request, 'rango/login.html', {})
+    return render(request, 'login.html', {})
 
 def get_group_name(user_cls):
   groups = {'1':'seller', '2':'buyer'}
@@ -447,7 +447,7 @@ def my_products(request):
   user = request.user
   products = user.product_set.all()
   context = {'products':products}
-  return render(request, 'rango/my_products.html', context)
+  return render(request, 'my_products.html', context)
 
 
 @login_required
@@ -467,13 +467,13 @@ def my_cart(request):
     id = make_order(user, product_ids)
     print id
     messages.add_message(request, messages.INFO, id)
-    return HttpResponseRedirect('/rango/my_orders/' + id)
+    return HttpResponseRedirect('/my_orders/' + id)
 
   else:
     products = cart.products.all()
     sum = get_total_price(products)
     context = {'products':products, 'sum':sum}
-    return render(request, 'rango/my_cart.html', context)
+    return render(request, 'my_cart.html', context)
 
 
 
@@ -485,11 +485,11 @@ def order_detail(request, order_id):
   if request.method == 'POST':
     order.pay()
     order.save()
-    return HttpResponseRedirect('/rango/my_orders')
+    return HttpResponseRedirect('/my_orders')
 
   total_price = order.get_total_price()
   context = {'products':order.products.all(), 'sum':total_price, 'is_paid':order.is_paid}
-  return render(request, 'rango/order_detail.html', context)
+  return render(request, 'order_detail.html', context)
 
 
 @login_required
@@ -499,7 +499,7 @@ def my_orders(request):
   orders = user.order_set.all()
   print ">>>>> DEBUGGING:", user.username, orders
   context = {'orders':orders}
-  return render(request, 'rango/my_orders.html', context)
+  return render(request, 'my_orders.html', context)
 
 def register(request):
 
@@ -545,7 +545,7 @@ def register(request):
       # Update our variable to tell the template registration was successful.
       registered = True
       print ">>>>>>Registered!"
-      return HttpResponseRedirect('/rango/')
+      return HttpResponseRedirect('/')
     # Invalid form or forms - mistakes or something else?
     # Print problems to the terminal.
     # They'll also be shown to the user.
@@ -560,7 +560,7 @@ def register(request):
 
   # Render the template depending on the context.
   context = {'user_form':user_form, 'userprofile_form': userprofile_form, 'registered':registered}
-  return render(request, 'rango/join.html', context)
+  return render(request, 'join.html', context)
 
 '''
 Left it for slug example
@@ -589,7 +589,7 @@ def add_page(request, category_name_slug):
         # made the change here
   context_dict = {'form':form, 'category': cat, 'category_name_slug': category_name_slug}
 
-  return render(request, 'rango/add_page.html', context_dict)
+  return render(request, 'add_page.html', context_dict)
 '''
 
 def add_category(request):
@@ -615,7 +615,7 @@ def add_category(request):
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
-  return render(request, 'rango/add_category.html', {'form': form})
+  return render(request, 'add_category.html', {'form': form})
 '''
 Each view must return a HttpResponse object.
 '''
@@ -638,7 +638,7 @@ def welcome(reqeust):
         # If the account is valid and active, we can log the user in.
         # We'll send the user back to the homepage.
         login(request, user)
-        return HttpResponseRedirect('/rango/home')
+        return HttpResponseRedirect('/home')
       else:
         # An inactive account was used - no logging in!
         return HttpResponse("Your Rango account is disabled.")
@@ -652,11 +652,11 @@ def welcome(reqeust):
   else:
     # No context variables to pass to the template system, hence the
     # blank dictionary object...
-    return render(request, 'rango/welcome.html', {})
+    return render(request, 'welcome.html', {})
 
 @login_required
 def home(request):
-  return render(request, 'rango/home.html', {})
+  return render(request, 'home.html', {})
 
 
 def index(request):
@@ -664,20 +664,20 @@ def index(request):
   The index page is different for logged in users and anonymouse ones.
   '''
   if request.user.is_authenticated():
-    return render(request, 'rango/home.html', {})
+    return render(request, 'home.html', {})
   else:
-    #return HttpResponseRedirect('/rango/login/')
-    return render(request, 'rango/login.html', {})
+    #return HttpResponseRedirect('/login/')
+    return render(request, 'login.html', {})
 
 
 def about(request):
 
-  sentence = "Rango says here is the about page. Go to <a href='/rango/'>home</a>"
+  sentence = "Rango says here is the about page. Go to <a href='/'>home</a>"
   context = {'msg': sentence}
   if request.user in User.objects.all():
-    return render(request, 'rango/about_after_login.html', context)
+    return render(request, 'about_after_login.html', context)
   else:
-    return render(request, 'rango/about_before_login.html', context)
+    return render(request, 'about_before_login.html', context)
   #return HttpResponse(sentence)
 
 def category(request, category_name_slug):
@@ -691,4 +691,4 @@ def category(request, category_name_slug):
     context['category'] = category
   except Category.DoesNotExist:
     pass
-  return render(request, 'rango/category.html', context)
+  return render(request, 'category.html', context)
