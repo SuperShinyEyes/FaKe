@@ -3,7 +3,6 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User, Group
 from django.utils import timezone
 from datetime import datetime, timedelta
-print timezone.now()
 
 '''
 Some methods may seem to repeat the same task.
