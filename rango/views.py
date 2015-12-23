@@ -155,7 +155,7 @@ def product(request, product_id):
     cart = Cart.objects.get_or_create(user=user)[0]
     print 'cart found'
     add_product_to_cart(product, cart)
-    return HttpResponseRedirect(reverse('rango:my_cart'))
+    return HttpResponseRedirect(reverse('my_cart'))
   elif request.POST.get('delete_product', False) != False:
     product.is_active = False
     product.save()
@@ -308,7 +308,7 @@ def my_settings(request):
         context = {
         "header": "Password changed successfully",
         "maintext": "Next time login with your new password.",
-        "url": request.build_absolute_uri(reverse('rango:home')),
+        "url": request.build_absolute_uri(reverse('home')),
         "urltext": "Back to home page"
         }
         return render_to_response("message.html", context, context_instance=RequestContext(request))
@@ -318,7 +318,7 @@ def my_settings(request):
         context = {
         "header": "Password change failed",
         "maintext": "Please contact us at mpgamestore@gmail.com.",
-        "url": request.build_absolute_uri(reverse('rango:home')),
+        "url": request.build_absolute_uri(reverse('home')),
         "urltext": "Back to home page"
         }
         return render_to_response("message.html", context, context_instance=RequestContext(request))
