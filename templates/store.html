@@ -44,12 +44,13 @@
         <th>Name</th>
         <th>Image</th>
         <th>Price
+            {% comment %}
           <!-- <form class="" method="GET"> -->
           <!-- <button id="order_by" class="submit" type="submit" name="price_order_by" value="{{ price_order_by }}">Price</button> -->
-          <!-- </form> -->
+          <!-- </form> -->{% endcomment %}
           </th>
         <th>Stock</th>
-        <th>On sale</th>
+        {% comment %}<!-- <th>On sale</th> -->{% endcomment %}
         <th>Due Date</th>
       </tr>
    </thead>
@@ -63,7 +64,7 @@
        <td>
          {% for c in p.categories.all %}
          {% comment %}<a href="{% url 'product' p.id %}">{{ c.name }}</a>{% endcomment %}
-         {{ c.name }}
+         {{ c.name }} /
          {% endfor %}
        </td>
         <td><a href="{% url 'product' p.id %}">{{ p.name }}</a></td>
@@ -80,7 +81,7 @@
         </td>
         <td><a href="{% url 'product' p.id %}">{{ p.price }}</a></td>
         <td><a href="{% url 'product' p.id %}">{{ p.stock }}/{{p.get_original_stock}}</a></td>
-        <td><a href="{% url 'product' p.id %}">{{ p.status }}</a></td>
+        {% comment %}<td><a href="{% url 'product' p.id %}">{{ p.status }}</a></td>{% endcomment %}
         <td><a href="{% url 'product' p.id %}">{{ p.due_date }}</a></td>
 
      </tr>

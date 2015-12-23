@@ -5,7 +5,7 @@
 <h1>Register with Rango</h1>
 {% if registered %}
   Rango says: <strong>thank you for registering!</strong>
-  <a href="/rango/">Return to the homepage.</a><br />
+  <a href="{% url index %}">Return to the homepage.</a>
 {% else %}
   Rango says: <strong>register here!</strong>
 

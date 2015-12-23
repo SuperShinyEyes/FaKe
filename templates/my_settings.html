@@ -1,7 +1,6 @@
 {% extends 'base_post_login.html' %}
 
 {% block body_block %}
-  <body>
     <h1>My Settings - {{ user.first_name }}</h1>
 
     <ul>
@@ -11,7 +10,7 @@
       <li>Email address: {{ user.email }}</li>
     </ul>
 
-    <form role="form" method="post">
+    <form method="post">
       {% csrf_token %}
       <h3 id="changepw">Change password</h3>
       {% for field in form %}
@@ -22,8 +21,4 @@
       {% endfor %}
       <button type="submit" class="btn btn-primary" id="changepw2">Change password</button>
     </form>
-
-
-    <li><a href="#">Edit</a></li>
-  </body>
 {% endblock %}
