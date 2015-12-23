@@ -1,0 +1,27 @@
+.product-thumbnail {
+    max-height: 100%;
+    max-width: 100%;
+}
+.product-thumbnail-container {
+    height: 120px;
+    width: 120px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+.pull-right {
+  /*margin-right: -15px;*/
+  /*padding-right: 15px;*/
+  float: right !important;
+}
+.pull-left {
+  float: left !important;
+}
