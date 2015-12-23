@@ -422,6 +422,7 @@ def make_order(user, product_ids):
   '''
   example id: u'2015July24-004731-sam'
   '''
+  from django.utils import timezone
   now = timezone.now()
   id = now.strftime("%Y%B%d") + '-' + now.strftime("%H%M%S") + '-' + user.username
   order = Order(id=id, user=user)
