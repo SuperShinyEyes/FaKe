@@ -37,9 +37,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango',
-    # https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/
     'storages',
 )
+# https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -97,17 +97,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-STATIC_PATH = os.path.join(BASE_DIR, 'static/')
-
-STATIC_URL = '/static/'
-
-# STATICFILES_DIRS = (
-#   STATIC_PATH,
-# )
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
@@ -148,3 +137,14 @@ if "DYNO" in os.environ:
     # http://stackoverflow.com/questions/11596488/signature-expires-access-key-id-appearing-in-url-params-django-boto-s3
     # http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#RESTAuthenticationQueryStringAuth
     AWS_QUERYSTRING_AUTH = False
+
+else:
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/1.8/howto/static-files/
+    STATIC_PATH = os.path.join(BASE_DIR, 'static/')
+
+    STATIC_URL = '/static/'
+
+    STATICFILES_DIRS = (
+      STATIC_PATH,
+    )
