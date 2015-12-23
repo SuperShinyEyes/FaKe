@@ -72,7 +72,7 @@
             {% if p.picture %}
             <img class="product-thumbnail" src="{{ p.picture.url }}" alt="{{p.name}}" />
             {% else %}
-            <img class="product-thumbnail" src="{% static 'images/product.png' %}" alt="{{p.name}}" />
+            <img class="product-thumbnail" src="{% static 'images/noimage.jpg' %}" alt="{{p.name}}" />
             {% endif %}
             </a>
           </div>

@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango',
+    # https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/
+    'storages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -128,3 +130,21 @@ if "DYNO" in os.environ:
 
     # Allow all host headers
     ALLOWED_HOSTS = ['*']
+
+    # Amazon s3 for static files
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME_FAKE')
+
+    # http://stackoverflow.com/a/10825691/3067013
+    DEFAULT_FILE_STORAGE = 'myproject.s3utils.MediaRootS3BotoStorage'
+    STATICFILES_STORAGE = 'myproject.s3utils.StaticRootS3BotoStorage'
+
+    STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+
+    # Remove media file parameters(id, expire, etc.)
+    # http://stackoverflow.com/questions/16777900/why-does-s3-using-with-boto-and-django-storages-give-signed-url-even-for-publi
+    # http://stackoverflow.com/questions/11596488/signature-expires-access-key-id-appearing-in-url-params-django-boto-s3
+    # http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#RESTAuthenticationQueryStringAuth
+    AWS_QUERYSTRING_AUTH = False

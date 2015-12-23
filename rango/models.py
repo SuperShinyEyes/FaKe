@@ -13,13 +13,13 @@ as: some_object.some_method    ===> Without any parenthesis
 '''
 
 class OldProfile(models.Model):
-  user = models.OneToOneField(User)
+    user = models.OneToOneField(User)
 
-  website=models.URLField(blank=True)
-  picture=models.ImageField(upload_to='profile_images', blank=True)
+    website=models.URLField(blank=True)
+    picture=models.ImageField(upload_to='profile_images', blank=True)
 
-  def __unicode__(self):
-    return self.user.username
+    def __unicode__(self):
+        return self.user.username
 
 
     # Create your models here.
@@ -101,6 +101,18 @@ def get_date(datetime):
   return datetime.strftime('%Y.%B.%d')
 
 
+def get_filename(full_file_path):
+    return full_file_path.split('/')[-1]
+
+def generate_new_filename(instance, full_file_path):
+    import uuid, os
+    # http://stackoverflow.com/questions/2680391/in-django-changing-the-file-name-of-uploading-file
+    filename = get_filename(full_file_path)
+    filename = "%s-%s" % (uuid.uuid4(), filename)
+    path = "images/"
+    return os.path.join(path, filename)
+
+
 class Product(models.Model):
   categories = models.ManyToManyField(Category)
   seller = models.ForeignKey(User)
@@ -119,7 +131,7 @@ class Product(models.Model):
   due_date = models.DateTimeField(default=get_deadline)
   registeration_time = models.DateTimeField(default=timezone.now, editable=False)
   edited_time = models.DateTimeField(blank=True, null=True)
-  picture = models.ImageField(upload_to='product_images', blank=True)
+  picture = models.ImageField(upload_to=generate_new_filename, blank=True)
   #cart = models.ForeignKey(Cart, null=True)
 
   def get_original_stock(self):

@@ -3,6 +3,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="/static/comment2.css">
+<link rel="stylesheet" href="/static/custom.css">
 <script src="/static/scripts/jquery-1.11.3.min.js"></script>
 <script src="/static/scripts/jquery.confirm-master/jquery.confirm.js"></script>
 <script src="/static/scripts/reply.js"></script>
@@ -28,10 +29,13 @@
     {% endif%}
       <th>{{ name }}</th>
       {% if name == "picture" %}
-      <td><img src="/media/{{ value }}" alt="/media/{{value}}" /></td>
-      <!-- <td>
-        <img src="{% static '/media/mark.png'%}" alt="Mark Zuckerberg">
-      </td> -->
+      <td>
+        <div class="product-thumbnail-container">
+            <a href="{{ product.picture.url }}">
+            <img class="product-thumbnail" src="{{ product.picture.url }}" alt="{{ product.name }}">
+            </a>
+        </div>
+      </td>
       {% else %}
       <td>{{ value }}</td>
       {% endif %}
