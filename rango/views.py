@@ -430,7 +430,7 @@ def make_order(user, product_ids):
   print product_ids
   for p_id in product_ids:
     product = Product.objects.get(pk=p_id)
-  #   order.products.add(product)
+    order.products.add(product)
   # order.save()
   return id
 
