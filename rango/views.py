@@ -424,7 +424,8 @@ def make_order(user, product_ids):
   '''
   from django.utils import timezone
   now = timezone.now()
-  id = now.strftime("%Y%B%d") + '-' + now.strftime("%H%M%S") + '-' + user.username
+  # id = now.strftime("%Y%B%d") + '-' + now.strftime("%H%M%S") + '-' + user.username
+  id = len(Order.objects.all())
   order = Order(id=id, user=user)
   order.save()
   print product_ids
