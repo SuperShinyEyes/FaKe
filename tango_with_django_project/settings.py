@@ -137,8 +137,8 @@ if "DYNO" in os.environ:
     AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME_FAKE')
 
     # http://stackoverflow.com/a/10825691/3067013
-    DEFAULT_FILE_STORAGE = 'myproject.s3utils.MediaRootS3BotoStorage'
-    STATICFILES_STORAGE = 'myproject.s3utils.StaticRootS3BotoStorage'
+    DEFAULT_FILE_STORAGE = 'tango_with_django_project.s3utils.MediaRootS3BotoStorage'
+    STATICFILES_STORAGE = 'tango_with_django_project.s3utils.StaticRootS3BotoStorage'
 
     STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
