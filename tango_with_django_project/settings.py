@@ -101,6 +101,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 STATIC_URL = '/static/'
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.8/howto/static-files/
+STATIC_PATH = os.path.join(BASE_DIR, 'assets/')
+
+STATICFILES_DIRS = (
+  STATIC_PATH,
+)
 
 LOGIN_URL = '/login/'
 #SESSION_COOKIE_AGE = 5
@@ -139,12 +146,3 @@ if "DYNO" in os.environ:
     # http://stackoverflow.com/questions/11596488/signature-expires-access-key-id-appearing-in-url-params-django-boto-s3
     # http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#RESTAuthenticationQueryStringAuth
     AWS_QUERYSTRING_AUTH = False
-
-else:
-    # Static files (CSS, JavaScript, Images)
-    # https://docs.djangoproject.com/en/1.8/howto/static-files/
-    STATIC_PATH = os.path.join(BASE_DIR, 'assets/')
-
-    STATICFILES_DIRS = (
-      STATIC_PATH,
-    )
