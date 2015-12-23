@@ -116,7 +116,7 @@ def generate_new_filename(instance, full_file_path):
 class Product(models.Model):
   categories = models.ManyToManyField(Category)
   seller = models.ForeignKey(User)
-  name = models.CharField(max_length=30, blank=False, null=False)
+  name = models.CharField(max_length=100, blank=False, null=False)
   product_num = models.CharField(max_length=200)
 
   price = models.DecimalField(max_digits=7,decimal_places=2, blank=False, null=False)
