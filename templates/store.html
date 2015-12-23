@@ -62,7 +62,8 @@
     {% endif%}
        <td>
          {% for c in p.categories.all %}
-         <a href="{% url 'product' p.id %}">{{ c.name }}</a>
+         {% comment %}<a href="{% url 'product' p.id %}">{{ c.name }}</a>{% endcomment %}
+         {{ c.name }}
          {% endfor %}
        </td>
         <td><a href="{% url 'product' p.id %}">{{ p.name }}</a></td>
