@@ -199,7 +199,7 @@ class Order(models.Model):
   '''
   custome id: timezone.now().strftime("%Y%B%d") + username
   '''
-  id = models.CharField(max_length=20, primary_key=True)
+  id = models.CharField(max_length=40, primary_key=True)
   user = models.ForeignKey(User)
 
   products = models.ManyToManyField(Product)
