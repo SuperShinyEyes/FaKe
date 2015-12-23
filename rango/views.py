@@ -311,7 +311,7 @@ def my_settings(request):
         "url": request.build_absolute_uri(reverse('home')),
         "urltext": "Back to home page"
         }
-        return render_to_response("etc/message.html", context, context_instance=RequestContext(request))
+        return render_to_response("message.html", context, context_instance=RequestContext(request))
 
         # deliver an error message if something went wrong
       except:
@@ -321,7 +321,7 @@ def my_settings(request):
         "url": request.build_absolute_uri(reverse('home')),
         "urltext": "Back to home page"
         }
-        return render_to_response("etc/message.html", context, context_instance=RequestContext(request))
+        return render_to_response("message.html", context, context_instance=RequestContext(request))
 
     else:
       context = {"form": form}
@@ -425,6 +425,7 @@ def make_order(user, product_ids):
   from django.utils import timezone
   now = timezone.now()
   # id = now.strftime("%Y%B%d") + '-' + now.strftime("%H%M%S") + '-' + user.username
+  # DataError: value too long for type character varying(20)
   id = len(Order.objects.all())
   order = Order(id=id, user=user)
   order.save()
@@ -432,7 +433,7 @@ def make_order(user, product_ids):
   for p_id in product_ids:
     product = Product.objects.get(pk=p_id)
     order.products.add(product)
-  # order.save()
+  order.save()
   return id
 
 def get_total_price(products):
