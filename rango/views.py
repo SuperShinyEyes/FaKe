@@ -311,7 +311,7 @@ def my_settings(request):
         "url": request.build_absolute_uri(reverse('home')),
         "urltext": "Back to home page"
         }
-        return render_to_response("message.html", context, context_instance=RequestContext(request))
+        return render_to_response("etc/message.html", context, context_instance=RequestContext(request))
 
         # deliver an error message if something went wrong
       except:
@@ -321,7 +321,7 @@ def my_settings(request):
         "url": request.build_absolute_uri(reverse('home')),
         "urltext": "Back to home page"
         }
-        return render_to_response("message.html", context, context_instance=RequestContext(request))
+        return render_to_response("etc/message.html", context, context_instance=RequestContext(request))
 
     else:
       context = {"form": form}
@@ -458,15 +458,9 @@ def my_cart(request):
   if request.method == 'POST':
     product_ids = request.POST.getlist('product_id')
     empty_cart(product_ids, cart)
-    # print ">>>> key: ", request.POST
-    # print ">>>> simple get: ", request.POST.get('product')
-    # print ">>>> getlist([]): ", request.POST.getlist('product[]')
-    # print ">>>> getlist(): ", request.POST.getlist('product')
-    # for p in products:
-    #   print p
     id = make_order(user, product_ids)
-    print id
-    messages.add_message(request, messages.INFO, id)
+    print ">>>Order id:", id
+    # messages.add_message(request, messages.INFO, id)
     return HttpResponseRedirect('/my_orders/' + id)
 
   else:
