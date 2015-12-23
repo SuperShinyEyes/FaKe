@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 't&+a)%)eh=6*n*7yzx5aj@!0sa+mb6j5pcw)qszbo!h_=3^ilf'
+# SECRET_KEY = 't&+a)%)eh=6*n*7yzx5aj@!0sa+mb6j5pcw)qszbo!h_=3^ilf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -125,7 +125,7 @@ if "DYNO" in os.environ:
 
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     # Allow all host headers
     ALLOWED_HOSTS = ['*']
 

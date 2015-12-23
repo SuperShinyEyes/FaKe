@@ -307,13 +307,13 @@ def my_settings(request):
         update_session_auth_hash(request, form.user)
         return HttpResponseRedirect('/')
         # render a message to the user that password is changed
-        context = {
-        "header": "Password changed successfully",
-        "maintext": "Next time login with your new password.",
-        "url": request.build_absolute_uri(reverse('home')),
-        "urltext": "Back to home page"
-        }
-        return render_to_response("message.html", context, context_instance=RequestContext(request))
+        # context = {
+        # "header": "Password changed successfully",
+        # "maintext": "Next time login with your new password.",
+        # "url": request.build_absolute_uri(reverse('home')),
+        # "urltext": "Back to home page"
+        # }
+        # return render_to_response("message.html", context, context_instance=RequestContext(request))
 
 
         # deliver an error message if something went wrong
