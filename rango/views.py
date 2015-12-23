@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -300,10 +300,12 @@ def my_settings(request):
       # if form is valid, it means old password was correct and new passwords are same
       try:
         # save the new password
-        new_password = form.clean_new_password2()
-        user.set_password(new_password)
-        user.save()
-
+        # new_password = form.clean_new_password2()
+        # user.set_password(new_password)
+        # user.save()
+        form.save()
+        update_session_auth_hash(request, form.user)
+        return HttpResponseRedirect('/')
         # render a message to the user that password is changed
         context = {
         "header": "Password changed successfully",
@@ -312,6 +314,7 @@ def my_settings(request):
         "urltext": "Back to home page"
         }
         return render_to_response("message.html", context, context_instance=RequestContext(request))
+
 
         # deliver an error message if something went wrong
       except:
