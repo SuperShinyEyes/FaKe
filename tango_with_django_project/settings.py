@@ -123,7 +123,7 @@ if "DYNO" in os.environ:
     # Amazon s3 for static files
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME_FAKE')
+    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 
     # http://stackoverflow.com/a/10825691/3067013
     DEFAULT_FILE_STORAGE = 'tango_with_django_project.s3utils.MediaRootS3BotoStorage'
