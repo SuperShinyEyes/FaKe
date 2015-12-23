@@ -3,6 +3,13 @@
 {% block body_block %}
 <div class="jumbotron">
   <h1>Welcome to FaKe!!!</h1>
+  <div class="fake-introduction">
+      <h2>What is FaKe?</h2>
+      <p>
+          FaKe stands for “Facebook big data marKet” and it's a web store for nominal Facebook user data. Facebook has billions of users and many people can’t survive a day without using it. That enables Facebook to collect and parse tremendously huge amount of private data about their customers' every-second life. Facebook is “free” but we all know where they get the cash from: their user data. For example they sell the data they collected to relevant advertisers. We all know that these things happen but still we don’t really know how this kind of business works and what kind of data is available and sold. It’s very sensitive but undeniably interesting as well. On FaKe, you can register either as a seller who can register user data products or a buyer who can buy those.
+      </p>
+  </div>
+
    <div class="container">
 <div class="row">
   <div class="col-sm-6">
@@ -12,23 +19,47 @@
           <li>Two types of users</li>
           <li>Authentication</li>
           <li>Authorization</li>
-          <li>Upload files/images</li>
-          <li>Unique url for every file/image using Amazon S3</li>
+          <li><strong>Upload</strong> files/images</li>
+          <li><strong>Unique url</strong> for every file/image using Amazon S3</li>
+          <li><strong>Share</strong> images</li>
           <li>Pagination</li>
+          <li>Ajax</li>
           <li>Basic Search</li>
           <li>Change password</li>
+          <li>Add to Cart</li>
+          <li>Order</li>
       </ul>
   </div>
   <div class="col-sm-6">
     <h2>How to</h2>
     <p>Join either as a buyer or seller;</p>
     <ul>
-        <li>Buyer: Can only buy</li>
-        <li>Seller: Can only sell</li>
+        <li>Buyer: Can Buy nominal analysis of Facebook user data products</li>
+        <li>Seller: Can register & sell nominal analysis of Facebook user data products</li>
     </ul>
-    <p>Then explore!</p>
   </div>
 </div>
+<div class="row">
+  <div class="col-sm-6">
+      <h2>Technologies</h2>
+      <ul>
+          <li>Python 2.7</li>
+          <li>Django 1.8</li>
+          <li>Bootstrap 3.3.5</li>
+          <li>JQuery 1.11.3</li>
+          <li>Heroku</li>
+          <li>Amazon S3</li>
+          <li>Postgres</li>
+      </ul>
+  </div>
+  <div class="col-sm-6">
+    <h2>Test environment</h2>
+    <ul>
+        <li>Google Chrome 47 64-bit</li>
+    </ul>
+  </div>
+</div>
+
 </div>
 </div>
 {% endblock %}

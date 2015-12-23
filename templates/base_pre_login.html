@@ -20,6 +20,8 @@
 
     <link rel="stylesheet" href="{% static 'lib/bootstrap-3.3.5-dist/css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'custom.css' %}">
+    <link rel="stylesheet" href="{% static 'homestyle.css' %}">
+    <script src="{% static 'scripts/jquery-1.11.3.min.js' %}"></script>
   </head>
 
   <body>
@@ -32,7 +34,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{% url 'index'%}">FaKe - FAcebook data marKEt</a>
+          <a class="navbar-brand" href="{% url 'index'%}">FaKe - FAcebook big data marKEt</a>
         </div>
 
         <div id="navbar" class="navbar-collapse collapse">
@@ -52,8 +54,29 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'lib/bootstrap-3.3.5-dist/js/ie10-viewport-bug-workaround.js' %}"></script>
-    <script src="{% static 'scripts/jquery-1.11.3.min.js' %}"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
     <script src="{% static 'lib/bootstrap-3.3.5-dist/js/bootstrap.min.js' %}"></script>
+
+    <!-- <footer class="footer"> -->
+    <footer id="footer">
+        <div class="row footer-color">
+          <div class="col-sm-3">
+              <p class="text-muted text-center">© Seyoung Park</p>
+          </div>
+          <div class="col-sm-3">
+              <p class="text-muted text-center"><a href="mailto:king@seyoung.xyz">Contact ME!</a></p>
+          </div>
+          <div class="col-sm-3">
+              <p class="text-muted text-center">
+                  <a href="https://www.linkedin.com/in/seyoung-park-20408823">LinkedIn</a>
+              </p>
+          </div>
+          <div class="col-sm-3">
+              <p class="text-muted text-center">
+                  <a href="https://github.com/YoungxHelsinki">Github</a>
+              </p>
+          </div>
+        </div>
+        </footer>
   </body>
 </html>
