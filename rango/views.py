@@ -428,10 +428,10 @@ def make_order(user, product_ids):
   order = Order(id=id, user=user)
   order.save()
   print product_ids
-  for p_id in product_ids:
-    product = Product.objects.get(pk=p_id)
-    order.products.add(product)
-  order.save()
+  # for p_id in product_ids:
+  #   product = Product.objects.get(pk=p_id)
+  #   order.products.add(product)
+  # order.save()
   return id
 
 def get_total_price(products):
