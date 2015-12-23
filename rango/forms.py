@@ -14,7 +14,8 @@ class ProductForm(forms.ModelForm):
   class Meta:
     model = Product
     # fields = ('seller', 'name', 'product_num', 'price', 'stock',)
-    fields = ('seller', 'name', 'product_num', 'price', 'stock', 'due_date', 'categories', 'picture',)
+    fields = ('name', 'product_num', 'price', 'stock', 'due_date', 'categories', 'picture',)
+    exclude = ('seller',)
 
 class UserForm(forms.ModelForm):
   password = forms.CharField(widget=forms.PasswordInput())

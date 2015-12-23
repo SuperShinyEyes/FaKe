@@ -39,13 +39,18 @@ def register_new_product(request):
     # Have we been provided with a valid form?
     if form.is_valid():
       # Save the new category to the database.
-      product = form.save(commit=True)
+      product = form.save(commit=False)
       print ">>>>>>Validated!!!"
       if 'picture' in request.FILES:
         print ">>>>>>Save picture!!!"
         product.picture = request.FILES['picture']
-        product.save()
 
+      # Save ManyToManyField form.
+      # https://docs.djangoproject.com/en/dev/topics/forms/modelforms/#the-save-method
+      product.seller = request.user
+      print ">>>>> request.user: ", request.user
+      product.save()
+      form.save_m2m()
       # Now call the index() view.
       # The user will be shown the homepage.
       return store(request, 1)
@@ -55,7 +60,8 @@ def register_new_product(request):
   else:
     # If the request was not a POST, display the form to enter details.
     # http://stackoverflow.com/a/19479357/3067013
-    form = ProductForm(initial={'seller':request.user})
+    # form = ProductForm(initial={'seller':request.user})
+    form = ProductForm()
 
     # Bad form (or form details), no form supplied...
     # Render the form with error messages (if any).
