@@ -462,7 +462,8 @@ def my_cart(request):
     id = make_order(user, product_ids)
     print ">>>Order id:", id
     # messages.add_message(request, messages.INFO, id)
-    return HttpResponseRedirect('/my_orders/' + id)
+    return HttpResponseRedirect('/store/')
+    # return HttpResponseRedirect('/my_orders/' + id)
 
   else:
     products = cart.products.all()
