@@ -85,7 +85,8 @@ class Category(models.Model):
     self.edited_time = timezone.now()
 
   def __str__(self):
-    sentence = "CATEGORY: %s\nRegistered at: %s" % (self.name, str(self.registeration_time))
+    # sentence = "CATEGORY: %s\nRegistered at: %s" % (self.name, str(self.registeration_time))
+    sentence = "%s" % (self.name,)
     if self.edited_time:
       sentence += "\nLast edit at: %s" % str(self.edited_time)
     return sentence
