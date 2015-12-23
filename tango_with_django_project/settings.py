@@ -104,9 +104,9 @@ STATIC_PATH = os.path.join(BASE_DIR, 'static/')
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-  STATIC_PATH,
-)
+# STATICFILES_DIRS = (
+#   STATIC_PATH,
+# )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -148,3 +148,5 @@ if "DYNO" in os.environ:
     # http://stackoverflow.com/questions/11596488/signature-expires-access-key-id-appearing-in-url-params-django-boto-s3
     # http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#RESTAuthenticationQueryStringAuth
     AWS_QUERYSTRING_AUTH = False
+
+else:
