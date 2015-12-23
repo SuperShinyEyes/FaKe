@@ -2,17 +2,15 @@
 {% load staticfiles %}
 
 {% block head %}
-<link rel="stylesheet" href="/static/comment2.css">
-<link rel="stylesheet" href="/static/custom.css">
-<script src="/static/scripts/jquery-1.11.3.min.js"></script>
-<script src="/static/scripts/jquery.confirm-master/jquery.confirm.js"></script>
-<script src="/static/scripts/reply.js"></script>
+<link rel="stylesheet" href="{% static 'comment2.css' %}">
+<link rel="stylesheet" href="{% static 'custom.css' %}">
+<script src="{% static 'scripts/jquery.confirm-master/jquery.confirm.js' %}"></script>
+<script src="{% static 'scripts/reply.js' %}"></script>
 {% endblock %}
 
 
 {% block body_block %}
 <table class="table">
-  <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
   <caption>Product Detail</caption>
   <tr>
     <th>seller name</th>
@@ -61,7 +59,7 @@
 </form>
 {% endif %}
 <table class="table">
-  <!-- http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm -->
+    {% comment %}http://www.tutorialspoint.com/bootstrap/bootstrap_tables.htm{% endcomment %}
   <caption>Buyers</caption>
   <thead>
      <tr>
@@ -95,8 +93,10 @@
   <button type="submit" name="post_comment" value="True">Comment</button>
 </form>
 
-<!-- The comment system is borrowed from
-"http://tutorialzine.com/2015/06/12-time-saving-bootstrap-examples/#comment-483020"  -->
+{% comment %}
+ The comment system is borrowed from
+"http://tutorialzine.com/2015/06/12-time-saving-bootstrap-examples/#comment-483020"
+{% endcomment %}
 <div id="comments" class="leftPostCol hide600">
 
   <h4><b>{{ num_comment }}</b> Comments</h4>
@@ -114,7 +114,6 @@
             <form method="post">
               {% csrf_token %}
               <button class="submit confirm-delete" type="submit" name="delete_comment" value="{{ comment.pk }}">delete</button>
-              <!-- <a class="confirm-delete" href="#">delete</a> -->
             </form>
           {% endif %}
           </div>
@@ -135,7 +134,7 @@
                 <form method="post">
                   {% csrf_token %}
                   <button class="submit confirm-delete" type="submit" name="delete_reply" value="{{ reply.pk }}">delete</button>
-                  <!-- <a class="confirm-delete" href="#">delete</a> -->
+
                 </form>
               {% endif %}
             </div>
@@ -148,9 +147,11 @@
           {% endfor%}
 
           <div class="reply-area">
-            <!-- Javascript code "/static/scripts/reply.js" is wired.
+              {% comment %}
+             Javascript code "/static/scripts/reply.js" is wired.
                  Default behaviour is disabled and Jquery function
-                 will be called.-->
+                 will be called.
+                 {% endcomment %}
           <div class="reply">
             <a class='comment-reply-link' href='{% url "reply_form" comment.pk %}' aria-label='Reply to Araujo'>Reply {{comment.pk}}</a>
           </div>

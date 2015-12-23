@@ -18,15 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 't&+a)%)eh=6*n*7yzx5aj@!0sa+mb6j5pcw)qszbo!h_=3^ilf'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -146,3 +137,11 @@ if "DYNO" in os.environ:
     # http://stackoverflow.com/questions/11596488/signature-expires-access-key-id-appearing-in-url-params-django-boto-s3
     # http://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html#RESTAuthenticationQueryStringAuth
     AWS_QUERYSTRING_AUTH = False
+
+else:
+    SECRET_KEY_PATH = os.path.join(BASE_DIR,'SECRET_KEY.txt')
+    DEBUG = True
+    ALLOWED_HOSTS = []
+
+    with open(SECRET_KEY_PATH) as f:
+        SECRET_KEY = f.read()

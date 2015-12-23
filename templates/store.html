@@ -2,9 +2,9 @@
 
 {% load staticfiles %}
 {% block head %}
-<script src="/static/scripts/jquery-1.11.3.min.js"></script>
+<script src="{% static 'scripts/jquery-1.11.3.min.js' %}"></script>
 <!-- <script src="/static/scripts/pagination.js"></script> -->
-<link rel="stylesheet" href="/static/scripts/link_button.css">
+<link rel="stylesheet" href="{% static 'scripts/link_button.css' %}">
 <style>
     .product-thumbnail {
         max-height: 100%;

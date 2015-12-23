@@ -60,4 +60,5 @@ target/
 media/
 db.sqlite3
 rango/migrations
+SECRET_KEY.txt
 ex.py

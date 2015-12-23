@@ -2,10 +2,6 @@
 
 {% block body%}
 <div class="container">
-
-
-
-
   <form class="form-signin" id="login_form" action="/login/" method="post">
     {% csrf_token %}
     <h2 class="form-signin-heading">Please sign in</h2>
@@ -20,13 +16,41 @@
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
   </form>
-  <!-- <form class="form-signin" action="index.html" method="GET">
-    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Register">
-  </form> -->
   <div class="form-signin">
     Are you new? <a href="{% url 'register' %}">Join</a> today!
   </div>
-</div>
 
+  <div class="jumbotron">
+    <h1>Welcome to FaKe!!!</h1>
+     <div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+        <h2>Functions</h2>
+        <ul>
+            <li>Register objects</li>
+            <li>Two types of users</li>
+            <li>Authentication</li>
+            <li>Authorization</li>
+            <li>Upload files/images</li>
+            <li>Unique url for every file/image using Amazon S3</li>
+            <li>Pagination</li>
+            <li>Basic Search</li>
+            <li>Change password</li>
+        </ul>
+    </div>
+    <div class="col-sm-6">
+      <h2>How to</h2>
+      <p>Join either as a buyer or seller;</p>
+      <ul>
+          <li>Buyer: Can only buy</li>
+          <li>Seller: Can only sell</li>
+      </ul>
+      <p>Then explore!</p>
+    </div>
+  </div>
+</div>
+  </div>
+
+</div>
 
 {% endblock %}

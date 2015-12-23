@@ -257,8 +257,8 @@ def store(request, page=1):
   if (product_name or category) and (price_order_by != False):
     pass
 
-  # elif price_order_by != False:
-  #   product_list, context = get_page_by_price(price_order_by, context)
+  elif price_order_by != False:
+    product_list, context = get_page_by_price(price_order_by, context)
 
   elif product_name or category:
     print "Search is happening!"
