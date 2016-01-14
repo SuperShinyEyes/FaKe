@@ -1,26 +1,27 @@
-# FAKE - Facebook data marKet
-Created by Seyoung Park(seyoung.park@aalto.fi) @ 2015.June.29th.:tada:
-
-
-
-## Motivation
-I interned at [e4net](http://www.e4net.net/) for one month in 2015 July. There I was assigned to build a Django app and present them. It was to teach myself about web framework and show them about Django.
-
-
+# FAKE - FAcebook big data marKEt
+Created by Seyoung Park(seyoung.park@aalto.fi) @ 2015.Dec.24.:tada:
 
 ## What is FAKE?
-The application is about a web store. My web store is called FAKE. FAKE stands for “Facebook big data marKet”. Facebook has billions of users and many people can’t survive a day without using it. That enables Facebook to collect and parse tremendously huge amount of private data about their customers every-second life. Facebook is “free” but we all know where they get the cash from: the data. They sell the data they collect to relevant advertisers. We all know that these things happen but still we don’t really know how this kind of business works and what kind of data is available and sold. It’s very sensitive but also undeniably interesting. FAKE demonstrates an open market for Facebook user data. Facebook administrators can register data products and advertisers can shop them.
-
+FAKE stands for “Facebook big data marKet” and it's a web store for nominal Facebook user data. Facebook has billions of users and many people can’t survive a day without using it. That enables Facebook to collect and parse tremendously huge amount of private data about their customers' every-second life. Facebook is “free” but we all know where they get the cash from: their user data. For example they sell the data they collected to relevant advertisers. We all know that these things happen but still we don’t really know how this kind of business works and what kind of data is available and sold. It’s very sensitive but undeniably interesting as well. On FAKE, you can register either as a seller who can register user data products or a buyer who can buy those.
 
 
 ## Is it real?
 The application is called **FAKE**. Indeed it is. This is just for fun :)
 
-
-
-## State
-The app misses vast amount of features to be called as a web store. The store page lacks proper searching, you cannot pay and you cannot retrieve your forgotten account. I've spent only 12 days for this project so please don't expect too much. However, I've put quite much effort on authentication and authorization part and anyone can get even tiny benefit from it.
-
+## Functions
+* Register objects
+* Two types of users
+* Authentication
+* Authorization
+* Upload files/images
+* Unique url for every file/image using Amazon S3
+* Share images
+* Pagination
+* Ajax
+* Basic Search
+* Change password
+* Add to Cart
+* Order
 
 ## Environment
 * Mac OS X 10.10.4 (Actually this shouldn't matter in anycase.)
@@ -28,6 +29,14 @@ The app misses vast amount of features to be called as a web store. The store pa
 * Django 1.8.2
 * Bootstrap 3.3.5
 * jQuery 1.11.3
+
+## Technologies
+* Heroku
+* Amazon S3
+* Postgres
+
+## Test environment
+Google Chrome 47 64-bit
 
 ## Tests
 1. To start a server
@@ -54,8 +63,6 @@ The app misses vast amount of features to be called as a web store. The store pa
 4. To view Django admin page
    Go to http://127.0.0.1:8000/admin/
 
-## Presentation
-Check out my [slide presentation](https://drive.google.com/open?id=13GfhisjNddkNsGmjFB-jID53FthjIqkK-8-RFHDJVf4)
 
 ## Tips
 When you edit views.py or some Python scripts, the local server might not be able to update it quick enough. In such case, restart the server.
