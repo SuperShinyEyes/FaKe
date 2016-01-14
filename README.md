@@ -1,7 +1,7 @@
 # FAKE - FAcebook big data marKEt
 Created by Seyoung Park(seyoung.park@aalto.fi) @ 2015.Dec.24.:tada:
-
-Deployed at http://fake-seyoung.herokuapp.com/
+<br>Deployed at http://fake-seyoung.herokuapp.com/
+[![Fake thumbnail](/readme_images/fake_thumbnail.png)](http://fake-seyoung.herokuapp.com/)
 
 ## What is FAKE?
 FAKE stands for “Facebook big data marKet” and it's a web store for nominal Facebook user data. Facebook has billions of users and many people can’t survive a day without using it. That enables Facebook to collect and parse tremendously huge amount of private data about their customers' every-second life. Facebook is “free” but we all know where they get the cash from: their user data. For example they sell the data they collected to relevant advertisers. We all know that these things happen but still we don’t really know how this kind of business works and what kind of data is available and sold. It’s very sensitive but undeniably interesting as well. On FAKE, you can register either as a seller who can register user data products or a buyer who can buy those.
