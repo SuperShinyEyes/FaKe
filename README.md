@@ -1,6 +1,8 @@
 # FAKE - FAcebook big data marKEt
 Created by Seyoung Park(seyoung.park@aalto.fi) @ 2015.Dec.24.:tada:
 
+Deployed at http://fake-seyoung.herokuapp.com/
+
 ## What is FAKE?
 FAKE stands for “Facebook big data marKet” and it's a web store for nominal Facebook user data. Facebook has billions of users and many people can’t survive a day without using it. That enables Facebook to collect and parse tremendously huge amount of private data about their customers' every-second life. Facebook is “free” but we all know where they get the cash from: their user data. For example they sell the data they collected to relevant advertisers. We all know that these things happen but still we don’t really know how this kind of business works and what kind of data is available and sold. It’s very sensitive but undeniably interesting as well. On FAKE, you can register either as a seller who can register user data products or a buyer who can buy those.
 
@@ -37,32 +39,6 @@ The application is called **FAKE**. Indeed it is. This is just for fun :)
 
 ## Test environment
 Google Chrome 47 64-bit
-
-## Tests
-1. To start a server
-   ```
-   # /tango_extended/
-   python manage.py runserver
-   ```
-   Then open your browser and go to http://127.0.0.1:8000/rango/ .
-   Yes, I haven't worked out with the url and this
-   project is extended from [Tango with Django](http://www.tangowithdjango.com/)"
-
-2. To work in the shell to play with DB.
-   ```
-   # /tango_extended/
-   python manage.py shell
-   ```
-
-3. To create a superuser
-   ```
-   # /tango_extended/
-   python manage.py createsuperuser
-   ```
-
-4. To view Django admin page
-   Go to http://127.0.0.1:8000/admin/
-
 
 ## Tips
 When you edit views.py or some Python scripts, the local server might not be able to update it quick enough. In such case, restart the server.
